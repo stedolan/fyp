@@ -43,6 +43,8 @@ data GroundSig = GroundSig [Constructor]
 data Constructor = Constructor String [Label] deriving (Show)
 instance Eq Constructor where
     Constructor s1 _ == Constructor s2 _ = s1 == s2
+instance Ord Constructor where
+    compare (Constructor s1 _) (Constructor s2 _) = compare s1 s2
 
 
 getGroundSig :: GroundSig
@@ -90,7 +92,7 @@ commonLabels (Constructor _ l1) (Constructor _ l2) =
 data TypeTerm v = Const Constructor [TypeTerm v]
                 | TVar v
                 | Merge [TypeTerm v] -- in a Pos type, Merge is least-upper-bound
-                  deriving Eq
+                  deriving (Eq,Ord)
 
 -- for debugging
 instance Show a => Show (TypeTerm a) where
@@ -119,12 +121,15 @@ mergeConstructed v (Const c1@(Constructor _ lbls1) t1) (Const c2@(Constructor _ 
         
         
 
+sortednub :: Ord a => [a] -> [a]
+sortednub = map head . group . sort
+
 
 merge v xs =
     let flat = xs >>= flatten
         (varslong, consts) = partition sepVarConst flat
         const = if null consts then identity else foldl1 mergeConst consts 
-        vars = nub varslong
+        vars = sortednub varslong
         identity = mergeIdentity v
         zero = mergeZero v
     in case (const, vars) of
@@ -150,7 +155,7 @@ merge v xs =
                    mergeSubterm (v', Just x, Just y) = merge (v `mappend` v') [x,y]
 
 -- Type containment: a partial order on positive or negative type bounds
-typeContained :: Eq v => Variance -> TypeTerm v -> TypeTerm v -> Bool
+typeContained :: Ord v => Variance -> TypeTerm v -> TypeTerm v -> Bool
 typeContained Pos a b = merge Pos [a,b] == b
 typeContained Neg a b = merge Neg [a,b] == a
 
