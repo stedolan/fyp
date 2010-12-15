@@ -8,6 +8,7 @@ import Data.List
 import Data.Char
 import qualified Data.Set as S
 import qualified Data.IntMap as IM
+import qualified Data.Map as M
 import Control.Monad
 import Control.Arrow
 import Control.Monad.ST
@@ -115,7 +116,7 @@ mergeConstructed v (c1@(Constructor _ lbls1), t1) (c2@(Constructor _ lbls2), t2)
 
 getC n ts = 
     let (GroundSig cs) = getGroundSig 
-    in (fromJust $ find (==Constructor n undefined) cs, ts)
+    in (maybe (error "Constructor not found") id $ find (==Constructor n undefined) cs, ts)
 
 mkC n ts = Const $ getC n ts
         
@@ -288,6 +289,18 @@ groundInstMerge mergedir (GroundInstance tx1') (GroundInstance tx2') =
  
         finalans = GroundInstance $ map (\(a,b,c,x,y) -> x) newstatelist
         in finalans
+
+
+
+--generateGroundInstance :: Ord v => M.Map v (SmallTerm v) -> v -> GroundInstance
+generateGroundInstance vars root =
+    let varlist = [root] ++ (filter (/= root) $ M.keys vars)
+        varid = M.fromList $ zip varlist [1..]
+        convert (c,vs) = (c, map (\[v] -> fromJust $ M.lookup v varid) vs)
+    in GroundInstance $ [convert (fromJust (M.lookup v vars)) | v <- varlist]
+--    in (vars,varlist,varid,[M.lookup v vars | v <- varlist])
+
+
               
 -- A type bound
 -- A note on "deriving Eq":
@@ -405,23 +418,27 @@ splitConstraint constraint@(Constraint a b) =
 
 -- Small terms are all of the form
 -- Const c [Merge [TVar a,Tvar b,...], Merge [...], ...]
-data SmallTerm v = SmallTerm Constructor [[v]] deriving Show
+type SmallTerm v = Constructed [v]
 
 data SmallConstraint v = SConstraintVarVar v v 
                        | SConstraintVarBound Variance v (SmallTerm v) deriving Show
 
 
+isCanonical :: SmallTerm v -> Bool
+isCanonical (c, args) = all singleton args
+    where singleton = (==1) . length
+
 
 checkSmallConstraint :: ElementaryConstraint v -> SmallConstraint v
 checkSmallConstraint (ConstraintVarVar v1 v2) = SConstraintVarVar v1 v2
 checkSmallConstraint (ConstraintVarBound v var (Const (c,ts))) = 
-    SConstraintVarBound v var (SmallTerm c (map fromMergeVar ts))
+    SConstraintVarBound v var (c, (map fromMergeVar ts))
         where
           fromMergeVar (Merge vs) = map fromVar vs
           fromMergeVar (TVar v) = [v]
           fromVar (TVar v) = v
 
-fromSmallTerm v (SmallTerm c ms) = Const (c, map (merge v . map TVar) ms)
+fromSmallTerm v (c, ms) = Const (c, map (merge v . map TVar) ms)
 fromSmallConstraint (SConstraintVarVar v1 v2) = ConstraintVarVar v1 v2
 fromSmallConstraint (SConstraintVarBound v var t) = 
     ConstraintVarBound v var (fromSmallTerm v t)
