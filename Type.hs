@@ -17,7 +17,7 @@ import Data.Function
 
 data Variance = Pos -- Covariant, or a lower bound type
               | Neg -- Contravariant, or an upper bound type
-                deriving (Eq, Ord, Show)
+                deriving (Eq, Ord, Show, Enum)
 
 data Label = Label String Variance deriving (Eq,Ord,Show)
 labelVariance (Label n v) = v
@@ -48,11 +48,13 @@ latticeRel f Pos a b = latticeSub f a b
 latticeRel f Neg a b = latticeSub f b a
 
 data GroundSig = GroundSig [Constructor]
-data Constructor = Constructor String [Label] deriving (Show)
+data Constructor = Constructor String [Label]
 instance Eq Constructor where
     Constructor s1 _ == Constructor s2 _ = s1 == s2
 instance Ord Constructor where
     compare (Constructor s1 _) (Constructor s2 _) = compare s1 s2
+instance Show Constructor where
+    show (Constructor s _) = s
 
 
 getGroundSig :: GroundSig
@@ -97,9 +99,9 @@ type Constructed a = (Constructor, [a])
 
 
 
-mergeIdentity :: Variance -> TypeTerm v
-mergeIdentity Neg = Const (groundTop, [])
-mergeIdentity Pos = Const (groundBot, [])
+mergeIdentity :: Variance -> Constructed v
+mergeIdentity Neg = (groundTop, [])
+mergeIdentity Pos = (groundBot, [])
 mergeZero v = mergeIdentity (Neg `mappend` v)
 
 
@@ -122,10 +124,14 @@ mkC n ts = Const $ getC n ts
 
 data GroundInstance = GroundInstance [Constructed Int] deriving (Show,Eq)
 
---mergeGroundInstance v (GroundInstance tx1) (GroundInstance tx2) =
 
 --sample =GroundInstance$ let c a x = (Constructor a [], x) in [c "c" [1], c"a" [1,3], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
 sample =GroundInstance$ let c a x = (Constructor a [], x) in [c"a" [2,3], c"c"[2], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
+
+fntoptop = GroundInstance $ [getC "->" [2,3], getC "Top" [], getC "Top" []]
+fnbotbot = GroundInstance $ [getC "->" [2,3], getC "Bot" [], getC "Bot" []]
+fn1 = GroundInstance $ [getC "->" [2,3], getC "Bot" [], getC "->" [4,5], getC "Top" [], getC "Top" []]
+fn2 = GroundInstance $ [getC "->" [3,2], getC "Top" [], getC "->" [4,5], getC "Bot" [], getC "Bot" []]
 
 f1 = GroundInstance$ [getC "->" [1,2], getC "Bot" [], getC "Top" []]
 f2 = GroundInstance$ [getC "->" [2,3], getC "->" [1,4], getC "Bot" [], getC "Top" []]
@@ -138,7 +144,8 @@ toDot (GroundInstance g) =
         nodetxt = unlines$ [n x ++ "[label = \""++s++":"++show x++"\"]" | (s,x) <- nodes]
     in "digraph{\n"++nodetxt++edgetxt++"}\n"
 
-minimiseGroundInstance (GroundInstance txtable) = toGroundInstance (recSplit initPartition)
+minimiseGroundInstance (GroundInstance txtable) = 
+    toGroundInstance (recSplit initPartition)
     where
       nstates = length txtable
 
@@ -161,7 +168,6 @@ minimiseGroundInstance (GroundInstance txtable) = toGroundInstance (recSplit ini
           in if newp == p then p else recSplit newp
 
       -- Convert final partition into a minimal state-machine (term automaton)
-      toGroundInstance :: [[Int]] -> GroundInstance
       toGroundInstance parts = 
           let stateP p = (states ! (head (parts !! (p-1))))
               con = fst . stateP
@@ -186,13 +192,16 @@ minimiseGroundInstance (GroundInstance txtable) = toGroundInstance (recSplit ini
                             newmap = IM.insert node (IM.size mapped + 1) mapped
                         in visitall newmap
 
-              relabelmap = relabel 1 IM.empty
+              -- We have to ensure that we start from the node in partMachine containing
+              -- the original state 1
+              relabelmap = relabel (partlist!1) IM.empty
               
               lookuplabel node = fromJust $ IM.lookup node relabelmap
                     
               relabeledMachine = array (1,IM.size relabelmap) [(lookuplabel i, (con i, map lookuplabel $ succP i)) | i <- [1..nparts], i `IM.member` relabelmap]
 
           in GroundInstance $ elems relabeledMachine
+--            (parts, partMachine, relabelmap)
               
 
       splitPartition :: [[Int]] -> [[Int]]
@@ -228,6 +237,58 @@ groundInstSub (GroundInstance tx1') (GroundInstance tx2') =
             in already || (validHead && all validSub ts)
         in recsub Pos 1 1 S.empty
 
+groundInstMerge mergedir (GroundInstance tx1') (GroundInstance tx2') = 
+    let 
+
+        -- Our newly constructed ground instance will have O(ntx1 * ntx2) states
+        -- (most of which are unneeded, this number will be reduced by normalising)
+        -- There are more efficient algorithms, but this is the simplest correct
+        -- one and normalising will produce the right type anyway (albeit more slowly)
+
+        -- We require that the two input types contain a top/bottom state. This need
+        -- not be the case for arbitrary input types, so we always add such states.
+        -- The redundant states will be removed by normalisation later.
+            
+
+        addedstates = map mergeIdentity [Pos `mappend` mergedir, Neg `mappend` mergedir]
+        tx1l = tx1' ++ addedstates
+        tx2l = tx2' ++ addedstates
+
+        dirToIdx v = fromEnum (v `mappend` mergedir)
+
+        identState stateArr v = 
+            let (1,len) = bounds stateArr
+            in (len - 1) + dirToIdx v
+
+        ntx1 = length tx1l
+        ntx2 = length tx2l
+
+        tx1 = array (1,ntx1) (zip [1..] tx1l)
+        tx2 = array (1,ntx2) (zip [1..] tx2l)
+
+        nnew = ntx1 * ntx2 * 2
+
+        oldStateToNew v a b = 1 + (((a-1) * ntx2 + (b-1)) * 2 + dirToIdx v)
+
+        mergeState :: Variance -> Int -> Int -> Constructed Int
+        mergeState v a b =
+            let (ctor,ts) = mergeConstructed v (tx1!a) (tx2!b)
+                mergeSubterm (subv, ta, tb) = 
+                    let v' = v `mappend` subv 
+                    in oldStateToNew v' 
+                           (maybe (identState tx1 v') id ta) 
+                           (maybe (identState tx2 v') id tb)
+            in (ctor, map mergeSubterm ts)
+
+        newstatelist = do
+          a <- [1..ntx1]
+          b <- [1..ntx2]
+          v <- [Pos `mappend` mergedir, Neg `mappend` mergedir]
+          return (v, a, b, mergeState v a b, mergeConstructed v (tx1!a) (tx2!b))
+ 
+        finalans = GroundInstance $ map (\(a,b,c,x,y) -> x) newstatelist
+        in finalans
+              
 -- A type bound
 -- A note on "deriving Eq":
 --  Structural equality does not hold for general TypeTerms, for instance
@@ -259,8 +320,8 @@ merge v xs =
         (varslong, consts) = partition sepVarConst flat
         const = if null consts then identity else foldl1 mergeConst consts 
         vars = sortednub varslong
-        identity = mergeIdentity v
-        zero = mergeZero v
+        identity = Const $ mergeIdentity v
+        zero = Const $ mergeZero v
     in case (const, vars) of
          (_, []) -> const
          (c, _) | c == identity -> case vars of
@@ -280,7 +341,7 @@ merge v xs =
                  where
                    mergeSubterm (v', Nothing, Just y) = y
                    mergeSubterm (v', Just x, Nothing) = x
-                   mergeSubterm (v', Nothing, Nothing) = mergeIdentity (v `mappend` v')
+                   mergeSubterm (v', Nothing, Nothing) = Const $ mergeIdentity (v `mappend` v')
                    mergeSubterm (v', Just x, Just y) = merge (v `mappend` v') [x,y]
 
 -- Type containment: a partial order on positive or negative type bounds
