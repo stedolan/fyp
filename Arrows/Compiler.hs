@@ -16,6 +16,11 @@ import Language
 import Data.Maybe
 import ArrowState
 
+import ListT
+import MonadCoalesce
+import MonadIterate
+import qualified Control.Monad.State.Lazy as STM
+
 type Label = String
 runCompiler :: Compiler () () -> [String] -> (String, [String])
 runCompiler p lbls = let (out, _, code) = runRWS (runKleisli (runCoalesced (runState p)) [((), lbls)]) () 1 
@@ -24,7 +29,7 @@ runCompiler p lbls = let (out, _, code) = runRWS (runKleisli (runCoalesced (runS
 type Codegen = Kleisli (RWS () [LLVMInsn] Int)
 
 
-data LLVMInsn = LLVMLabel [Label] | LLVMBranch Label | LLVMInsn String
+data LLVMInsn = LLVMLabel [Label] | LLVMBranch Label | LLVMInsn String deriving Show
 writeLLVMLabels :: [Label] -> String
 writeLLVMLabels (l:rest) = concat [from ++ ":\n" ++ "br label %" ++ to ++ ";\n"
                                    | (to, from) <- reverse $ zip (l:rest) rest]
@@ -106,6 +111,86 @@ instance ArrowInterpreter Compiler String where
     litInt i = expgen (\() -> "add i32 0, " ++ show i)
     varGet (Var v) = expgen $ const $ "load i32* %" ++ v
     varSet (Var v) = stmtgen $ proc e -> write -< LLVMInsn$"store i32 "++e++", i32* %"++v
+
+
+
+
+
+
+
+
+
+type CodegenM = RWS () [LLVMInsn] Int
+
+freshM :: CodegenM Int
+freshM = modify (+1) >> get
+writelistM :: [LLVMInsn] -> CodegenM ()
+writelistM x = tell x
+writeM x = writelistM [x]
+
+freshLabelM = do
+  n <- freshM
+  return $ "L"++show n
+freshVarM = do
+  n <- freshM
+  return $ "%t"++show n
+
+
+type CompilerM = STM.StateT [Label] (ListT CodegenM)
+
+
+
+
+codegenM :: CodegenM [([Label], b)] -> CompilerM b
+codegenM c = do
+  st <- get
+  lift $ lift $ writeM $ LLVMLabel st
+  out <- lift (lift c)
+  (s, x) <- lift (liftList out)
+  put s
+  return x
+
+stmtgenM c = codegenM $ do
+              val <- c
+              l <- freshLabelM
+              writeM $ LLVMBranch l
+              return [([l],val)]
+
+expgenM s = stmtgenM $ do
+               e <- freshVarM
+               writeM $ LLVMInsn $ e ++ " = " ++ s
+               return e
+
+
+
+instance LanguageMonad CompilerM String String where
+    condM b = codegenM $ do
+             tpart <- freshLabelM
+             fpart <- freshLabelM
+             writeM $ LLVMInsn$"br i1 "++b++", label %"++tpart++", label %"++fpart
+             return [([tpart], True), ([fpart], False)]
+
+
+    primBinOpM op e1 e2 = expgenM $ getop op ++ " " ++ e1 ++ ", " ++ e2
+        where
+          getop OpPlus = "add i32"
+          getop OpEq = "icmp eq i32"
+          getop OpNeq = "icmp ne i32"
+
+    litIntM i = expgenM $ "add i32 0, " ++ show i
+    varGetM (Var v) = expgenM $ "load i32* %" ++ v
+    varSetM (Var v) e = stmtgenM $ writeM $ LLVMInsn$"store i32 "++e++", i32* %"++v
+
+
+
+runCompilerM :: CompilerM () -> [String] -> (String, [String])
+runCompilerM p lbls = let (out, _, code) = runRWS (runAllListT (STM.runStateT p lbls)) () 1
+                     in (writeLLVM code, concat $ map snd $ out)
+
+
+
+
+
 
 
 

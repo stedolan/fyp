@@ -15,6 +15,11 @@ import ArrowCoalesce
 import ArrowState
 
 
+import MonadIterate
+import MonadCoalesce
+import Control.Monad.Identity
+import Control.Monad.State
+
 data Val = ValBool Bool | ValInt Int
 instance Show Val where
     show (ValBool b) = show b
@@ -41,4 +46,25 @@ instance ArrowInterpreter Interpreter Val where
                  store -< M.insert v e s
 
 --runInterpreter :: (StateArrow (M.Map Var Val) (->)) () () -> M.Map Var Val
-runInterpreter (Interpreter p) x = snd $ runState p ((), x)
+runInterpreter (Interpreter p) x = snd $ ArrowState.runState p ((), x)
+
+
+newtype InterpreterM a = InterpreterM (StateT (M.Map Var Val) Identity a) deriving (Monad,MonadIterate,MonadCoalesce)
+
+instance MonadState (M.Map Var Val) InterpreterM where { get = InterpreterM get; put x = InterpreterM $ put x; }
+
+instance LanguageMonad InterpreterM Var Val where
+    condM (ValBool b) = return b
+
+    litIntM i = return (ValInt i)
+    primBinOpM OpPlus (ValInt i1) (ValInt i2) =return$ ValInt $ i1 + i2
+    primBinOpM OpEq (ValInt i1) (ValInt i2) =return$ ValBool $ i1 == i2
+    primBinOpM OpNeq (ValInt i1) (ValInt i2) =return$ ValBool $ i1 /= i2
+    varSetM v e = do
+      s <- get
+      put (M.insert v e s)
+    varGetM v = do
+      s <- get
+      return (fromJust $ M.lookup v s)
+
+runInterpreterM (InterpreterM p) x = snd $ runIdentity $ Control.Monad.State.runStateT p x
