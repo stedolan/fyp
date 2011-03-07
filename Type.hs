@@ -1,3 +1,4 @@
+
 module Type where
 
 import Data.Monoid
@@ -14,42 +15,29 @@ import Control.Arrow
 import Control.Monad.ST
 import Data.STRef
 import Data.Function
+import Lattice
 
 
-data Variance = Pos -- Covariant, or a lower bound type
-              | Neg -- Contravariant, or an upper bound type
-                deriving (Eq, Ord, Show, Enum)
+
+-- Partition a list into sets by function f s.t. x and y are in the same set
+-- iff f x == f y
+groupOn :: (Ord b) => (a -> b) -> [a] -> [[a]]
+groupOn f = map (map snd) . 
+            groupBy ((==) `on` fst) . 
+            sortBy (comparing fst) . 
+            map (f &&& id)
+
+
+
 
 data Label = Label String Variance deriving (Eq,Ord,Show)
 labelVariance (Label n v) = v
 
-instance Monoid Variance where
-    mempty = Pos
-    Pos `mappend` Pos = Pos
-    Pos `mappend` Neg = Neg
-    Neg `mappend` Pos = Neg
-    Neg `mappend` Neg = Pos
-
-
--- LatticeMerge t is a function representing the GLB and LUB functions
--- over a lattice whose elements are of type t
--- (f :: LatticeMerge t) Pos a b = LUB(a,b)
--- (f :: LatticeMerge t) Pos a b = GLB(a,b)
-type LatticeMerge t = Variance -> t -> t -> t
-
--- The partial order of a lattice can be defined in terms of its GLB
--- or LUB functions, since a <= b iff a = GLB(a,b) (or b = LUB(a,b))
-latticeSub :: Eq t => LatticeMerge t -> t -> t -> Bool
-latticeSub f a b = f Neg a b == a
-
--- Same as latticeSub but gives <= or >= depending on variance parameter
--- latticeRel f Pos is <=, latticeRel f Neg is <=
-latticeRel :: Eq t => LatticeMerge t -> Variance -> t -> t -> Bool
-latticeRel f Pos a b = latticeSub f a b
-latticeRel f Neg a b = latticeSub f b a
 
 data GroundSig = GroundSig [Constructor]
 data Constructor = Constructor String [Label]
+constParamDirs :: Constructor -> [Variance]
+constParamDirs (Constructor s ls) = map labelVariance ls
 instance Eq Constructor where
     Constructor s1 _ == Constructor s2 _ = s1 == s2
 instance Ord Constructor where
@@ -60,12 +48,10 @@ instance Show Constructor where
 
 getGroundSig :: GroundSig
 getGroundSig = GroundSig [Constructor "Bot" [],
-                          Constructor "->" [Label "arg" Neg, Label "ret" Pos],
+                          Constructor "=>" [Label "arg" Neg, Label "ret" Pos],
                           Constructor "Top" []]
 
 -- least upper bound or greatest lower bound, depending on variance
-groundMerge :: GroundSig -> LatticeMerge Constructor
-
 groundMerge (GroundSig cs) var a b = 
     let
         ia = fromJust $ findIndex (==a) cs
@@ -83,10 +69,13 @@ groundMerge (GroundSig cs) var a b =
 
 -- ground ordering on head type constructors
 -- defined in terms of lattice operation (groundMerge)
-groundSub :: GroundSig -> Constructor -> Constructor -> Bool
-groundSub g = latticeSub (groundMerge g)
 
-groundRel g = latticeRel (groundMerge g)
+groundSub :: GroundSig -> Constructor -> Constructor -> Bool
+groundSub g = \a b -> groundMerge g Neg a b == a
+
+groundRel g = latticeRel
+ where latticeRel Pos a b = groundSub g a b
+       latticeRel Neg a b = groundSub g b a
 
 commonLabels (Constructor _ l1) (Constructor _ l2) =
     -- PERF (sorted lists/merge)
@@ -96,19 +85,25 @@ commonLabels (Constructor _ l1) (Constructor _ l2) =
 
 
 
-type Constructed a = (Constructor, [a])
+data Constructed a = CN {cnConstructor :: Constructor,
+                         cnFields :: [a]}
+                     deriving (Eq,Ord)
+instance Functor Constructed where
+    fmap f (CN c xs) = CN c $ fmap f xs
+instance Show a => Show (Constructed a) where
+    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
+    show (CN c xs) = show c ++ show xs
 
 
-
-mergeIdentity :: Variance -> Constructed v
-mergeIdentity Neg = (groundTop, [])
-mergeIdentity Pos = (groundBot, [])
-mergeZero v = mergeIdentity (Neg `mappend` v)
+mergeIdentityC :: Variance -> Constructed v
+mergeIdentityC Neg = CN groundTop []
+mergeIdentityC Pos = CN groundBot []
+mergeZeroC v = mergeIdentityC (Neg `mappend` v)
 
 
 mergeConstructed :: Variance -> Constructed a -> Constructed a -> 
                     (Constructor, [(Variance, Maybe a, Maybe a)])
-mergeConstructed v (c1@(Constructor _ lbls1), t1) (c2@(Constructor _ lbls2), t2) = 
+mergeConstructed v (CN c1@(Constructor _ lbls1) t1) (CN c2@(Constructor _ lbls2) t2) = 
     -- PERF (sorted lists/merge)
     let c'@(Constructor _ lbls') = groundMerge getGroundSig v c1 c2
         find l x t = do { i<- findIndex (==l) x; return$ t !! i; }
@@ -116,7 +111,7 @@ mergeConstructed v (c1@(Constructor _ lbls1), t1) (c2@(Constructor _ lbls2), t2)
 
 getC n ts = 
     let (GroundSig cs) = getGroundSig 
-    in (maybe (error "Constructor not found") id $ find (==Constructor n undefined) cs, ts)
+    in (CN (maybe (error "Constructor not found") id $ find (==Constructor n undefined) cs) ts)
 
 mkC n ts = Const $ getC n ts
         
@@ -127,19 +122,19 @@ data GroundInstance = GroundInstance [Constructed Int] deriving (Show,Eq)
 
 
 --sample =GroundInstance$ let c a x = (Constructor a [], x) in [c "c" [1], c"a" [1,3], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
-sample =GroundInstance$ let c a x = (Constructor a [], x) in [c"a" [2,3], c"c"[2], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
+sample =GroundInstance$ let c a x = (CN (Constructor a []) x) in [c"a" [2,3], c"c"[2], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
 
-fntoptop = GroundInstance $ [getC "->" [2,3], getC "Top" [], getC "Top" []]
-fnbotbot = GroundInstance $ [getC "->" [2,3], getC "Bot" [], getC "Bot" []]
-fn1 = GroundInstance $ [getC "->" [2,3], getC "Bot" [], getC "->" [4,5], getC "Top" [], getC "Top" []]
-fn2 = GroundInstance $ [getC "->" [3,2], getC "Top" [], getC "->" [4,5], getC "Bot" [], getC "Bot" []]
+fntoptop = GroundInstance $ [getC "=>" [2,3], getC "Top" [], getC "Top" []]
+fnbotbot = GroundInstance $ [getC "=>" [2,3], getC "Bot" [], getC "Bot" []]
+fn1 = GroundInstance $ [getC "=>" [2,3], getC "Bot" [], getC "=>" [4,5], getC "Top" [], getC "Top" []]
+fn2 = GroundInstance $ [getC "=>" [3,2], getC "Top" [], getC "=>" [4,5], getC "Bot" [], getC "Bot" []]
 
-f1 = GroundInstance$ [getC "->" [1,2], getC "Bot" [], getC "Top" []]
-f2 = GroundInstance$ [getC "->" [2,3], getC "->" [1,4], getC "Bot" [], getC "Top" []]
+f1 = GroundInstance$ [getC "=>" [1,2], getC "Bot" [], getC "Top" []]
+f2 = GroundInstance$ [getC "=>" [2,3], getC "=>" [1,4], getC "Bot" [], getC "Top" []]
 
 toDot (GroundInstance g) = 
-    let edges = [(x,y,p) | (x,(_, succ)) <- zip [1..] g, (p,y) <- zip [1..] succ]
-        nodes = [(c,x) | (x,(Constructor c _, _)) <- zip [1..] g]
+    let edges = [(x,y,p) | (x,(CN _ succ)) <- zip [1..] g, (p,y) <- zip [1..] succ]
+        nodes = [(c,x) | (x,(CN (Constructor c _) _)) <- zip [1..] g]
         n x = "n"++show x
         edgetxt = unlines$ [n x ++ " -> " ++ n y ++ "[label=" ++ show p++"]" | (x,y,p) <- edges]
         nodetxt = unlines$ [n x ++ "[label = \""++s++":"++show x++"\"]" | (s,x) <- nodes]
@@ -157,11 +152,11 @@ minimiseGroundInstance (GroundInstance txtable) =
                            [[(state, partidx) | state <- partition] 
                                 | (partidx, partition) <- zip [1..] parts]
       successors :: Int -> [Int]
-      successors = snd . (states!)
+      successors = cnFields . (states!)
 
 
       -- Initial (coarsest possible) partition
-      initPartition = map (map fst) $ groupOn (fst . snd) $ zip [1..] txtable
+      initPartition = map (map fst) $ groupOn (cnConstructor . snd) $ zip [1..] txtable
 
       -- Keep splitting partitions until they stop changing
       recSplit p = 
@@ -171,8 +166,8 @@ minimiseGroundInstance (GroundInstance txtable) =
       -- Convert final partition into a minimal state-machine (term automaton)
       toGroundInstance parts = 
           let stateP p = (states ! (head (parts !! (p-1))))
-              con = fst . stateP
-              succS = snd . stateP
+              con = cnConstructor . stateP
+              succS = cnFields . stateP
               partlist = getPartition parts
               succP = map (partlist!) . succS
               
@@ -199,7 +194,7 @@ minimiseGroundInstance (GroundInstance txtable) =
               
               lookuplabel node = fromJust $ IM.lookup node relabelmap
                     
-              relabeledMachine = array (1,IM.size relabelmap) [(lookuplabel i, (con i, map lookuplabel $ succP i)) | i <- [1..nparts], i `IM.member` relabelmap]
+              relabeledMachine = array (1,IM.size relabelmap) [(lookuplabel i, (CN (con i) (map lookuplabel $ succP i))) | i <- [1..nparts], i `IM.member` relabelmap]
 
           in GroundInstance $ elems relabeledMachine
 --            (parts, partMachine, relabelmap)
@@ -214,13 +209,6 @@ minimiseGroundInstance (GroundInstance txtable) =
               succP = map (partlist!) . successors
           in concat $ map (groupOn succP) $ parts
 
-      -- Partition a list into sets by function f s.t. x and y are in the same set
-      -- iff f x == f y
-      groupOn :: (Ord b) => (a -> b) -> [a] -> [[a]]
-      groupOn f = map (map snd) . 
-                  groupBy ((==) `on` fst) . 
-                  sortBy (comparing fst) . 
-                  map (f &&& id)
       partition getP states = groupOn (getP . snd) states
 
 
@@ -231,7 +219,7 @@ groundInstSub (GroundInstance tx1') (GroundInstance tx2') =
             let already = (s1,s2) `S.member` checked
                 hypothesis = (s1,s2) `S.insert` checked
                 (ctor, ts) = mergeConstructed Pos (tx1!s1) (tx2!s2)
-                validHead = groundRel (getGroundSig) v (fst (tx1!s1)) (fst (tx2!s2))
+                validHead = groundRel (getGroundSig) v (cnConstructor (tx1!s1)) (cnConstructor (tx2!s2))
                 validSub (Pos,Just a,Just b) = recsub (v`mappend`Pos) a b hypothesis
                 validSub (Neg,Just a,Just b) = recsub (v`mappend`Neg) a b hypothesis
                 validSub _ = True
@@ -251,7 +239,7 @@ groundInstMerge mergedir (GroundInstance tx1') (GroundInstance tx2') =
         -- The redundant states will be removed by normalisation later.
             
 
-        addedstates = map mergeIdentity [Pos `mappend` mergedir, Neg `mappend` mergedir]
+        addedstates = map mergeIdentityC [Pos `mappend` mergedir, Neg `mappend` mergedir]
         tx1l = tx1' ++ addedstates
         tx2l = tx2' ++ addedstates
 
@@ -279,7 +267,7 @@ groundInstMerge mergedir (GroundInstance tx1') (GroundInstance tx2') =
                     in oldStateToNew v' 
                            (maybe (identState tx1 v') id ta) 
                            (maybe (identState tx2 v') id tb)
-            in (ctor, map mergeSubterm ts)
+            in (CN ctor $ map mergeSubterm ts)
 
         newstatelist = do
           a <- [1..ntx1]
@@ -296,7 +284,7 @@ groundInstMerge mergedir (GroundInstance tx1') (GroundInstance tx2') =
 generateGroundInstance vars root =
     let varlist = [root] ++ (filter (/= root) $ M.keys vars)
         varid = M.fromList $ zip varlist [1..]
-        convert (c,vs) = (c, map (\[v] -> fromJust $ M.lookup v varid) vs)
+        convert (CN c vs) = (CN c $ map (\[v] -> fromJust $ M.lookup v varid) vs)
     in GroundInstance $ [convert (fromJust (M.lookup v vars)) | v <- varlist]
 --    in (vars,varlist,varid,[M.lookup v vars | v <- varlist])
 
@@ -313,14 +301,19 @@ data TypeTerm v = Const (Constructed (TypeTerm v))
                 | Merge [TypeTerm v] -- in a Pos type, Merge is least-upper-bound
                   deriving (Eq,Ord)
 
+instance Functor TypeTerm where
+    fmap f (Const con) = Const $ fmap (fmap f) con
+    fmap f (TVar v) = TVar $ f v
+    fmap f (Merge ts) = Merge $ map (fmap f) ts
+
 -- for debugging
 instance Show a => Show (TypeTerm a) where
-    show (Const (Constructor name _, ts)) =
+    show (Const (CN (Constructor name _) ts)) =
         if not (any isAlpha name) && length ts == 2 then
-            show (ts !! 0) ++ " " ++ name ++ " " ++ show (ts !! 1)
+            "(" ++ show (ts !! 0) ++ " " ++ name ++ " " ++ show (ts !! 1) ++ ")"
         else
             name ++ (concat $ map ((" "++) . show) ts)
-    show (TVar v) = "$" ++ filter (/='"') (show v)
+    show (TVar v) = filter (/='"') (show v)
     show (Merge ts) = "{" ++ intercalate ", " (map show ts) ++ "}"
 
 
@@ -328,13 +321,13 @@ sortednub :: Ord a => [a] -> [a]
 sortednub = map head . group . sort
 
 
-merge v xs =
+merge' v xs =
     let flat = xs >>= flatten
         (varslong, consts) = partition sepVarConst flat
         const = if null consts then identity else foldl1 mergeConst consts 
         vars = sortednub varslong
-        identity = Const $ mergeIdentity v
-        zero = Const $ mergeZero v
+        identity = Const $ mergeIdentityC v
+        zero = Const $ mergeZeroC v
     in case (const, vars) of
          (_, []) -> const
          (c, _) | c == identity -> case vars of
@@ -350,21 +343,25 @@ merge v xs =
           sepVarConst (Const _) = False
           mergeConst (Const t1) (Const t2) = 
               let (ctor, ts) = mergeConstructed v t1 t2
-              in Const (ctor, map mergeSubterm ts)
+              in Const (CN ctor $ map mergeSubterm ts)
                  where
                    mergeSubterm (v', Nothing, Just y) = y
                    mergeSubterm (v', Just x, Nothing) = x
-                   mergeSubterm (v', Nothing, Nothing) = Const $ mergeIdentity (v `mappend` v')
-                   mergeSubterm (v', Just x, Just y) = merge (v `mappend` v') [x,y]
+                   mergeSubterm (v', Nothing, Nothing) = Const $ mergeIdentityC (v `mappend` v')
+                   mergeSubterm (v', Just x, Just y) = merge' (v `mappend` v') [x,y]
 
 -- Type containment: a partial order on positive or negative type bounds
 typeContained :: Ord v => Variance -> TypeTerm v -> TypeTerm v -> Bool
-typeContained Pos a b = merge Pos [a,b] == b
-typeContained Neg a b = merge Neg [a,b] == a
+typeContained Pos a b = merge' Pos [a,b] == b
+typeContained Neg a b = merge' Neg [a,b] == a
 
     
 -- Constraints are of the form PosType <= NegType
-data Constraint v = Constraint (TypeTerm v) (TypeTerm v) deriving Show
+data Constraint v = Constraint (TypeTerm v) (TypeTerm v) deriving (Eq,Ord)
+instance Functor Constraint where
+    fmap f (Constraint a b) = Constraint (fmap f a) (fmap f b)
+instance Show v => Show (Constraint v) where
+    show (Constraint a b) = show a ++ " <: " ++ show b
 
 -- Elementary constraints are of the forms
 --  Var <= Var, Var <= ConstructedTerm or ConstructedTerm <= Var
@@ -393,7 +390,7 @@ splitConstraint constraint@(Constraint a b) =
             (_, Merge terms) -> splitConstraints $ map (a `Constraint`) terms
             -- Here, we know there are no Merges or elementary constraints
             -- So, both sides must be constructed
-            (Const t1@(c1,_), Const t2@(c2,_)) -> 
+            (Const t1@(CN c1 _), Const t2@(CN c2 _)) -> 
                 -- Split a constraint between constructed terms into constraints
                 -- between common type parameters according to their variances
                 let (ctor, ts) = mergeConstructed Pos t1 t2
@@ -418,67 +415,47 @@ splitConstraint constraint@(Constraint a b) =
 
 -- Small terms are all of the form
 -- Const c [Merge [TVar a,Tvar b,...], Merge [...], ...]
+-- FIXME: should it be S.Set v rather than [v]?
 type SmallTerm v = Constructed [v]
 
-data SmallConstraint v = SConstraintVarVar v v 
-                       | SConstraintVarBound Variance v (SmallTerm v) deriving Show
+data SmallConstraint v = 
+    -- v+ <= v-
+    SConstraintVarVar v v
+
+    -- SCVB Pos => v+ <= T-
+    -- SCVB Neg => T+ <= v-
+  | SConstraintVarBound Variance v (SmallTerm v)
+    deriving Show
 
 
 isCanonical :: SmallTerm v -> Bool
-isCanonical (c, args) = all singleton args
+isCanonical (CN c args) = all singleton args
     where singleton = (==1) . length
+
+
+
+mergeSmallTerm :: Variance -> SmallTerm v -> SmallTerm v -> SmallTerm v
+mergeSmallTerm dir s1 s2 =
+    let (ctor, ts) = mergeConstructed dir s1 s2
+        merged = map (\(d,v1,v2) -> concat $ maybeToList =<< [v1,v2]) ts
+    in (CN ctor merged)
+
+identitySmallTerm :: Variance -> SmallTerm v
+identitySmallTerm Pos = CN groundBot []
+identitySmallTerm Neg = CN groundTop []
 
 
 checkSmallConstraint :: ElementaryConstraint v -> SmallConstraint v
 checkSmallConstraint (ConstraintVarVar v1 v2) = SConstraintVarVar v1 v2
-checkSmallConstraint (ConstraintVarBound v var (Const (c,ts))) = 
-    SConstraintVarBound v var (c, (map fromMergeVar ts))
+checkSmallConstraint (ConstraintVarBound v var (Const (CN c ts))) = 
+    SConstraintVarBound v var (CN c (map fromMergeVar ts))
         where
           fromMergeVar (Merge vs) = map fromVar vs
           fromMergeVar (TVar v) = [v]
           fromVar (TVar v) = v
 
-fromSmallTerm v (c, ms) = Const (c, map (merge v . map TVar) ms)
+fromSmallTerm v (CN c ms) = Const (CN c $ map (merge' v . map TVar) ms)
 fromSmallConstraint (SConstraintVarVar v1 v2) = ConstraintVarVar v1 v2
 fromSmallConstraint (SConstraintVarBound v var t) = 
     ConstraintVarBound v var (fromSmallTerm v t)
 
-
--- Reflexive terms of <=c are not stored in the constraint graph
-type GraphTermBound s = (STRef s (SmallTerm (GraphVar s)))
-type GraphVarBound s = (STRef s (S.Set (GraphVar s)))
-data BiBound t = BiBound t t
-data GraphVar s = GraphVar Int (BiBound (GraphVarBound s)) (BiBound (GraphTermBound s))
-
-varID (GraphVar id _ _) = id
-
-instance Eq (GraphVar s) where
-    (==) = (==) `on` varID
-instance Ord (GraphVar s) where
-    compare = compare `on` varID
-
-getBound :: Variance -> BiBound t -> t
-getBound Pos (BiBound a b) = a -- getBound Pos = lower bound
-getBound Neg (BiBound a b) = b -- getBound Neg = upper bound
-
-varBounds :: Variance -> GraphVar s -> ST s (S.Set (GraphVar s))
-varBounds v (GraphVar n bnd _) = readSTRef (getBound v bnd)
-
-addBound :: GraphVar s -> GraphVar s -> ST s ()
-addBound v1@(GraphVar n1 bnd1 t1) v2@(GraphVar n2 bnd2 t2) = do
-  upper1 <- readSTRef (getBound Neg bnd1)
-  lower2 <- readSTRef (getBound Pos bnd2)
-  writeSTRef (getBound Neg bnd1) (S.insert v2 upper1)
-  writeSTRef (getBound Pos bnd2) (S.insert v1 lower2)
-
-hasBound :: GraphVar s -> GraphVar s -> ST s Bool
-hasBound (GraphVar n1 bnd1 t1) v2 = do
-  upper1 <- readSTRef (getBound Neg bnd1)
-  return (S.member v2 upper1)
-
-{-
-incrClose :: SmallConstraint (GraphVar s) -> ST s ()
-incrClose (SConstraintVarVar v1 v2) = do
-  present <- hasBound v1 v2
-  
--}
