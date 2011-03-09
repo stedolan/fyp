@@ -1,4 +1,4 @@
-{-# LANGUAGE Arrows, TypeSynonymInstances, MultiParamTypeClasses #-}
+{-# LANGUAGE Arrows, TypeSynonymInstances, MultiParamTypeClasses, TypeFamilies #-}
 module Compiler where
 import Data.List
 import Data.Function
@@ -54,7 +54,10 @@ dethread c = do
   return ret
 
 
-instance LanguageMonad CompilerM () Value Value where
+instance LanguageMonad CompilerM where
+    type LType CompilerM = ()
+    type LVal CompilerM = Value
+    type LVar CompilerM = Value
     condM b = codegenM $ do
              tpart <- lift $ freshLabel
              fpart <- lift $ freshLabel

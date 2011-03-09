@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, NoMonomorphismRestriction, GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, NoMonomorphismRestriction, GeneralizedNewtypeDeriving, TypeFamilies #-}
 module Language where
 
 import Control.Monad
@@ -13,75 +13,50 @@ import MonadCoalesce
 import MonadIterate
 import Type
 import UserType
-{-
-evalExpr :: (ArrowInterpreter (#) e) => Expr -> () # e
-evalExpr (BinOpE op exp1 exp2) = proc () -> do
-                            exp1 <- evalExpr exp1 -< ()
-                            exp2 <- evalExpr exp2 -< ()
-                            primBinOp op -< (exp1, exp2)
-                            
-evalExpr (VarRef v) = varGet v
 
-evalExpr (LitInt i) = litInt i
-  -}  
 
 data LoopQuitException = LoopBreak | LoopContinue deriving Eq
 instance Error LoopQuitException where
     noMsg = undefined
     strMsg = undefined
-{-
-distribM = msum
-collectM f =  do {x <- f; return [x]}
-coalesceM f = do {xs <- collectM f; return (mconcat xs);}
--}
+
 
 type FieldName = String
 
-class MonadIterate m => LanguageMonad m t v e | m -> t v e where
-    condM :: e -> m Bool
-    primBinOpM :: BinOp -> e -> e -> m e
-    litIntM :: Int -> m e
-    voidValue :: m e
+data Decl m = DType (LType m)
+            | DVar (LVar m)
+            | DVal (LVal m)
+toLType ~(DType x) = x
+toLVar ~(DVar x) = x
+toLVal ~(DVal x) = x
 
-    varNewM :: m v
-    varSetM :: v -> e -> m ()
-    varGetM :: v -> m e
+
+data BinOp = OpPlus | OpEq | OpNeq deriving Show
+class MonadIterate m => LanguageMonad m where
+    type LType m
+    type LVar m
+    type LVal m
+    condM :: LVal m -> m Bool
+    primBinOpM :: BinOp -> LVal m -> LVal m -> m (LVal m)
+    litIntM :: Int -> m (LVal m)
+    voidValue :: m (LVal m)
+
+    varNewM :: m (LVar m)
+    varSetM :: LVar m -> LVal m -> m ()
+    varGetM :: LVar m -> m (LVal m)
+
+    letrec :: ([Decl m] -> m [Decl m]) -> m [Decl m]
     
-    lambdaM :: (e -> m e) -> m e
-    applyM :: e -> e -> m e
+    lambdaM :: (LVal m -> m (LVal m)) -> m (LVal m)
+    applyM :: LVal m -> LVal m -> m (LVal m)
 
-    structNewM :: [FieldName] -> m e
-    structSetM :: e -> FieldName -> e -> m ()
-    structGetM :: e -> FieldName -> m e
+    structNewM :: [FieldName] -> m (LVal m)
+    structSetM :: LVal m -> FieldName -> (LVal m) -> m ()
+    structGetM :: LVal m -> FieldName -> m (LVal m)
 
-    typeNew :: m t
-    typeConstrain :: Constraint t -> m ()
+    typeNew :: m (LType m)
+    typeConstrain :: Constraint (LType m) -> m ()
 
-
-evalExprM :: LanguageMonad m t v e => M.Map Var v -> Expr -> m e
-
-evalExprM symt (BinOpE op exp1 exp2) = do
-  exp1 <- evalExprM symt exp1
-  exp2 <- evalExprM symt exp2
-  primBinOpM op exp1 exp2
-                            
-evalExprM symt (VarRef v) = varGetM (fromJust $ M.lookup v symt)
-
-evalExprM symt (LitInt i) = litIntM i
-
-evalExprM symt (Lambda v p) = lambdaM $ \e -> do
-  param <- varNewM
-  varSetM param e
-  evalWithoutExitM (M.insert v param symt) p
-  voidValue
-
-evalExprM symt (Apply f' arg') = do
-  f <- evalExprM symt f'
-  arg <- evalExprM symt arg'
-  applyM f arg
-
-evalExprM symt (AllocStruct fs) = structNewM fs
-evalExprM symt (StructField e f) = evalExprM symt e >>= (`structGetM` f)
 
 
 newtype Var = Var String deriving (Ord,Eq)
@@ -90,9 +65,9 @@ instance Show Var where
 newtype TyVar = TyVar String deriving (Ord,Eq,Show)
 
 
-data SymbolTable t v = SymbolTable {symVar :: M.Map Var v,
-                                    symType :: M.Map TyVar t}
-newtype Eval t v m a = Eval (ErrorT LoopQuitException (StateT (SymbolTable t v) m) a) deriving (Monad)
+data SymbolTable m = SymbolTable {symVar :: M.Map Var (LVar m),
+                                  symType :: M.Map TyVar (LType m)}
+newtype Eval m a = Eval (ErrorT LoopQuitException (StateT (SymbolTable m) m) a) deriving (Monad)
 
 
 evLift = Eval . lift . lift
@@ -100,30 +75,50 @@ evLift = Eval . lift . lift
 
 
 
-instance MonadTrans (Eval t v) where
+instance MonadTrans Eval where
     lift = evLift
-instance Monad m => MonadError LoopQuitException (Eval t v m) where
+instance Monad m => MonadError LoopQuitException (Eval m) where
     throwError e = Eval $ throwError e
     catchError (Eval x) handler = Eval $ x `catchError` ((\(Eval x) -> x) . handler)
 
+{-
+instance LanguageMonad m => LanguageMonad (Eval m) where
+    type LType (Eval m) = LType m
+    type LVar (Eval m) = LVar m
+    type LVal (Eval m) = LVal m
+    condM e = lift $ condM e
+    primBinOpM op a b = lift $ primBinOpM op a b
+    litIntM i = lift $ litIntM i
+    voidValue = lift $ voidValue
+    varNewM = lift $ varNewM
+    varSetM v x = lift $ varSetM v x
+    varGetM v = lift $ varGetM v
+    lambdaM f = lift $ lambdaM f
+    applyM f x = lift $ applyM f x
+    structNewM fs = lift $ structNewM fs
+    structSetM s f x = lift $ structSetM s f x
+    structGetM s f = lift $ structGetM s f
+    typeNew = lift $ typeNew
+    typeConstrain cn = lift $ typeConstrain cn
+-}
 
 getSymbolTable = Eval $ lift get
 
-runEval :: LanguageMonad m t v e => SymbolTable t v -> Eval t v m a -> m (Either LoopQuitException a)
+runEval :: LanguageMonad m => SymbolTable m -> Eval m a -> m (Either LoopQuitException a)
 runEval symt (Eval x)= do
   (a,s) <- runStateT (runErrorT x) symt
   return a
-runEval' :: LanguageMonad m t v e => SymbolTable t v -> Eval t v m a -> m a
+runEval' :: LanguageMonad m => SymbolTable m -> Eval m a -> m a
 runEval' symt x = do
   r <- runEval symt x
   case r of
     Left e -> error "misplaced control flow"
     Right f -> return f
 
-noJumps :: LanguageMonad m t v e => Eval t v m a -> Eval t v m a
+noJumps :: LanguageMonad m => Eval m a -> Eval m a
 noJumps x = x `catchError` (error "misplaced control flow")
 
-doWhile :: LanguageMonad m t v e => Eval t v m e -> Eval t v m () -> Eval t v m ()
+doWhile :: LanguageMonad m => Eval m (LVal m) -> Eval m () -> Eval m ()
 doWhile exp blk = do
   symt <- getSymbolTable
   lift $ loop $ do
@@ -139,7 +134,7 @@ doWhile exp blk = do
       Right (Left _) -> Left ()       -- loop exited normally
       Right (Right _) -> Right ()     -- loop is looping
 
-doIf :: LanguageMonad m t v e => Eval t v m e -> Eval t v m () -> Eval t v m () -> Eval t v m ()
+doIf :: LanguageMonad m => Eval m (LVal m) -> Eval m () -> Eval m () -> Eval m ()
 doIf exp t f = do
   e <- noJumps exp
   b <- lift $ condM e
@@ -158,7 +153,7 @@ ErrorT e (StateT s m) a = (StateT s m) (e + a) = s -> m (s, (e + a))
 StateT s (ErrorT e m) a = s -> (ErrorT e m) (s, a) = s -> m (e + (s,a))
 -}
 
-subscope :: LanguageMonad m t v e => Eval t v m a -> Eval t v m a
+subscope :: LanguageMonad m => Eval m a -> Eval m a
 subscope (Eval f) = Eval $ do
   oldtable <- lift get
   ans <- f
@@ -191,77 +186,7 @@ scopeType = scopeGet' symTyLookup
 
 
 
-evalM :: LanguageMonad m t v e => M.Map Var v -> Program -> ErrorT LoopQuitException m ()
-evalM symt prog = coalesceM $ case prog of
-     (If e p1 p2) -> do val <- lift $ evalExprM symt e
-                        c <- lift $ condM val
-                        case c of
-                          True -> evalM symt p1
-                          False -> evalM symt p2
-
-     (While e p) -> lift $ MonadIterate.loop $ do
-                              loop <- runErrorT $
-                                      do
-                                        v <- lift $ evalExprM symt e
-                                        c <- lift $ condM v
-                                        case c of
-                                          True -> liftM Right $ evalM symt p
-                                          False -> return $ Left ()
-                              return $ case loop of
-                                         Left (LoopBreak) -> Left ()
-                                         Left (LoopContinue) -> Right ()
-                                         Right (Left _) -> Left ()
-                                         Right (Right _) -> Right ()
-
-     (Seq p1 p2) -> evalM symt p1 >> evalM symt p2
-
-     (Asgn v exp) -> do
-                    e <- lift $ evalExprM symt exp
-                    lift $ varSetM (fromJust $ M.lookup v symt) e
-     (DeclVars vs prog) -> do
-       vs' <- lift $ sequence $ replicate (length vs) $ varNewM
-       evalM (M.fromList (vs `zip` vs') `M.union` symt) prog
-
-     Break -> throwError LoopBreak
-     Continue -> throwError LoopContinue
-
-     (SetStructField e f v) -> lift $ do
-       e' <- evalExprM symt e
-       v' <- evalExprM symt v
-       structSetM e' f v'
-
-
-
---runProgram p = proc () -> (eval p -< ()) `runError` \x -> error "misplaced break/continue" -< ()
-evalWithoutExitM :: LanguageMonad m t v e => M.Map Var v -> Program -> m ()
-evalWithoutExitM symt p = do
-  x <- runErrorT (evalM symt p)
-  case x of 
-    Left e -> error "misplaced break/continue"
-    Right f -> return f
-
-runProgramM p = do
-  evalWithoutExitM M.empty p
   
 
 
-data BinOp = OpPlus | OpEq | OpNeq deriving Show
-data Expr = BinOpE BinOp Expr Expr | VarRef Var | LitInt Int | Lambda Var Program | AllocStruct [String] | StructField Expr String | Apply Expr Expr
-data Program = If Expr Program Program
-             | While Expr Program
-             | Seq Program Program
-             | Asgn Var Expr
-             | Break
-             | Continue
-             | SetStructField Expr String Expr
-             | DeclVars [Var] Program
-
-{-
-class (ArrowIterate (#), ArrowCoalesce (#)) => ArrowInterpreter (#) e | (#) -> e where
-    cond :: e # Bool
-    primBinOp :: BinOp -> (e, e) # e
-    litInt :: Int -> () # e
-    varGet :: Var -> () # e
-    varSet :: Var -> e # ()
--}
 
