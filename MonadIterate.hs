@@ -3,6 +3,7 @@ import Control.Monad
 import Control.Monad.State.Lazy
 import Control.Monad.Identity
 import Control.Monad.Reader
+import Control.Monad.Error
 
 import Data.Monoid
 import MonadCoalesce
@@ -21,6 +22,12 @@ instance (MonadIterate m, Monoid s)  => MonadIterate (StateT s m) where
 
 instance (MonadIterate m) => MonadIterate (ReaderT r m) where
     fixiterM fn init = ReaderT $ \r -> fixiterM (\x -> runReaderT (fn x) r) init
+
+instance (MonadIterate m, Error e) => MonadIterate (ErrorT e m) where
+    fixiterM fn init = ErrorT $ fixiterM (\x -> liftM packError $ runErrorT $ fn x) init
+        where
+          packError :: Either e (Either b a) -> Either (Either e b) a
+          packError = either (Left . Left) (either (Left . Right) Right)
 
 instance MonadIterate Identity where
     fixiterM f x = do

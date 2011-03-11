@@ -97,6 +97,10 @@ freshGlobal typ = do
   n <- fresh
   return $ Value (TPtr typ) ("@g" ++ show n)
 
+freshInfVar typ = do
+  n <- fresh
+  return $ [Value typ ("%t"++show n++"$"++show i) | i <- [0..]]
+
 -- returns a typetable*
 genStructTable :: S.Set FieldName -> StructGen Value
 genStructTable fs = do
@@ -147,6 +151,9 @@ structSet s field val = do
 structGet s field = do
   ptr <- structIndex s field
   expgen objectT' OpLoad [ptr]
+
+objRename newval obj = do
+  write $ LLVMInsn OpGEP (Just newval) [obj, Value (TBaseType "i32") "0"]
 
 collectCode :: StructGen a -> StructGen (a, LLVMCode)
 collectCode f = censor (const mempty) (listen f)

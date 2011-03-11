@@ -83,6 +83,9 @@ instance LanguageMonad CompilerM where
     varGetM v = stmtgen $ varGet v
     varSetM v val = stmtgen $ varSet v val
 
+    letrec fns = stmtgen $ corecLambda 
+                 (\x -> dethread $ liftM (map (dethread .)) $ fns x)
+
     structNewM fs = stmtgen $ lift $ structNew fs
     structGetM s f = stmtgen $ lift $ structGet s f
     structSetM s f x = stmtgen $ lift $ structSet s f x

@@ -15,23 +15,18 @@ import Type
 import UserType
 
 
-data LoopQuitException = LoopBreak | LoopContinue deriving Eq
-instance Error LoopQuitException where
+data ControlFlowJump m = LoopBreak | LoopContinue | FuncReturn (LVal m) 
+instance Error (ControlFlowJump m) where
     noMsg = undefined
     strMsg = undefined
 
 
 type FieldName = String
 
-data Decl m = DType (LType m)
-            | DVar (LVar m)
-            | DVal (LVal m)
-toLType ~(DType x) = x
-toLVar ~(DVar x) = x
-toLVal ~(DVal x) = x
-
-
 data BinOp = OpPlus | OpEq | OpNeq deriving Show
+
+type LFunc m = LVal m -> m (LVal m)
+
 class MonadIterate m => LanguageMonad m where
     type LType m
     type LVar m
@@ -45,9 +40,9 @@ class MonadIterate m => LanguageMonad m where
     varSetM :: LVar m -> LVal m -> m ()
     varGetM :: LVar m -> m (LVal m)
 
-    letrec :: ([Decl m] -> m [Decl m]) -> m [Decl m]
-    
-    lambdaM :: (LVal m -> m (LVal m)) -> m (LVal m)
+    letrec :: ([LVal m] -> m [LFunc m]) -> m [LVal m]
+
+    lambdaM :: LFunc m -> m (LVal m)
     applyM :: LVal m -> LVal m -> m (LVal m)
 
     structNewM :: [FieldName] -> m (LVal m)
@@ -63,25 +58,31 @@ newtype Var = Var String deriving (Ord,Eq)
 instance Show Var where
     show (Var v) = "$" ++ v
 newtype TyVar = TyVar String deriving (Ord,Eq,Show)
+newtype Def = Def String deriving (Ord,Eq,Show)
 
 
 data SymbolTable m = SymbolTable {symVar :: M.Map Var (LVar m),
+                                  symVal :: M.Map Def (LVal m),
                                   symType :: M.Map TyVar (LType m)}
-newtype Eval m a = Eval (ErrorT LoopQuitException (StateT (SymbolTable m) m) a) deriving (Monad)
 
+-- SymbolTable must be a Monoid for Eval to be a LanguageMonoid
+-- We "combine" multiple symbol tables by choosing the first
+-- This reflects the fact that the variables in scope at a
+-- point do not depend on the path taken to reach that point.
+instance Monoid (SymbolTable m) where
+    mempty = error "mempty not defined for symbol tables"
+    s1 `mappend` _ = s1
 
-evLift = Eval . lift . lift
-
-
+newtype Eval m a = Eval (ErrorT (ControlFlowJump m) (StateT (SymbolTable m) m) a) deriving (Monad,MonadIterate,MonadCoalesce)
 
 
 instance MonadTrans Eval where
-    lift = evLift
-instance Monad m => MonadError LoopQuitException (Eval m) where
+    lift = Eval . lift . lift
+instance Monad m => MonadError (ControlFlowJump m) (Eval m) where
     throwError e = Eval $ throwError e
     catchError (Eval x) handler = Eval $ x `catchError` ((\(Eval x) -> x) . handler)
 
-{-
+
 instance LanguageMonad m => LanguageMonad (Eval m) where
     type LType (Eval m) = LType m
     type LVar (Eval m) = LVar m
@@ -93,18 +94,22 @@ instance LanguageMonad m => LanguageMonad (Eval m) where
     varNewM = lift $ varNewM
     varSetM v x = lift $ varSetM v x
     varGetM v = lift $ varGetM v
-    lambdaM f = lift $ lambdaM f
+    letrec = undefined
+      
+    lambdaM f = do
+      symt <- getSymbolTable
+      lift $ lambdaM (\x -> runEval' symt $ f x)
     applyM f x = lift $ applyM f x
     structNewM fs = lift $ structNewM fs
     structSetM s f x = lift $ structSetM s f x
     structGetM s f = lift $ structGetM s f
     typeNew = lift $ typeNew
     typeConstrain cn = lift $ typeConstrain cn
--}
+
 
 getSymbolTable = Eval $ lift get
 
-runEval :: LanguageMonad m => SymbolTable m -> Eval m a -> m (Either LoopQuitException a)
+runEval :: LanguageMonad m => SymbolTable m -> Eval m a -> m (Either (ControlFlowJump m) a)
 runEval symt (Eval x)= do
   (a,s) <- runStateT (runErrorT x) symt
   return a
@@ -115,6 +120,21 @@ runEval' symt x = do
     Left e -> error "misplaced control flow"
     Right f -> return f
 
+runEvalWithSyms :: LanguageMonad m => SymbolTable m -> Eval m a -> m (a, SymbolTable m)
+runEvalWithSyms symt (Eval x) = do
+  (a,s) <- runStateT (runErrorT x) symt
+  case a of
+    Left e -> error "misplaced control flow"
+    Right f -> return (f,s)
+
+evalUntilRet :: LanguageMonad m => Eval m () -> Eval m (LVal m)
+evalUntilRet (Eval f) = Eval $ lift $ do
+  a <- runErrorT f
+  case a of
+    Left (FuncReturn f) -> return f
+    Left _ -> error "misplaced break/continue"
+    Right a -> lift voidValue
+
 noJumps :: LanguageMonad m => Eval m a -> Eval m a
 noJumps x = x `catchError` (error "misplaced control flow")
 
@@ -124,20 +144,21 @@ doWhile exp blk = do
   lift $ loop $ do
     l <- runEval symt $ do
       e <- noJumps exp
-      c <- lift $ condM e
+      c <- condM e
       case c of
         True -> liftM Right $ blk
         False -> return $ Left ()
     return $ case l of
       Left (LoopBreak) -> Left ()     -- "break"
       Left (LoopContinue) -> Right () -- "continue"
+-- FIXME return inside a while
       Right (Left _) -> Left ()       -- loop exited normally
       Right (Right _) -> Right ()     -- loop is looping
 
 doIf :: LanguageMonad m => Eval m (LVal m) -> Eval m () -> Eval m () -> Eval m ()
 doIf exp t f = do
   e <- noJumps exp
-  b <- lift $ condM e
+  b <- condM e
   if b then t else f
 
 
@@ -161,13 +182,20 @@ subscope (Eval f) = Eval $ do
   return ans
 
 
-symVarInsert v v' (SymbolTable vs ts) = 
-  SymbolTable (M.insert v v' vs) ts
-symTyInsert t t' (SymbolTable vs ts) = 
-  SymbolTable vs (M.insert t t' ts)
-symVarLookup v (SymbolTable vs ts) =
+symVarInsert v v' (SymbolTable vs ds ts) = 
+  SymbolTable (M.insert v v' vs) ds ts
+symVarLookup v (SymbolTable vs ds ts) =
   M.lookup v vs
-symTyLookup t (SymbolTable vs ts) =
+
+symDefInsert d d' (SymbolTable vs ds ts) = 
+  SymbolTable vs (M.insert d d' ds) ts
+symDefLookup d (SymbolTable vs ds ts) =
+  M.lookup d ds
+
+
+symTyInsert t t' (SymbolTable vs ds ts) = 
+  SymbolTable vs ds (M.insert t t' ts)
+symTyLookup t (SymbolTable vs ds ts) =
   M.lookup t ts
 
 scopeNew' create symadd var = Eval $ do
@@ -181,12 +209,66 @@ scopeGet' symlookup var = Eval $ do
 
 scopeVarNew = scopeNew' varNewM symVarInsert
 scopeTyNew = scopeNew' typeNew symTyInsert
+scopeDefNew d d' = Eval $ lift $ modify $ symDefInsert d d'
 scopeVar = scopeGet' symVarLookup
 scopeType = scopeGet' symTyLookup
+scopeDef = scopeGet' symDefLookup
 
 
 
   
 
+data TermDecl m = TermDecl String (m ()) (Maybe (m (LVal m)))
+data BasicBlockDecl m = DeclVar (TermDecl m)
+                      | DeclDef (TermDecl m)
+                      | NoDecl (m ())
+                      | DeclDefFun Def (LFunc m)
+
+-- zip' is lazy in its second argument
+-- which must be of exactly the same length as the first
+zip' (x:xs) = \ ~(y:ys) -> (x,y):(zip' xs ys)
+zip' [] = \ ~[] -> []
 
 
+evalBasicBlockDecls bs = do
+  let corec = filter isCorec bs
+  lift $ letrec $ \fns -> do
+    forM_ (zip' corec fns) define
+    defs <- forM bs $ \decl -> case decl of
+      DeclVar (TermDecl name ty val) -> do
+        v <- scopeVarNew (Var name)
+        when (isJust val) $ do
+          val' <- fromJust val
+          varSetM v val'
+        return []
+      DeclDef (TermDecl name ty val) -> do 
+        val' <- fromJust $ val
+        v <- scopeDefNew (Def name) val'
+        return []
+      NoDecl action -> do
+        action
+        return []
+      DeclDefFun name func -> do
+        return [func]
+    return (concat defs)
+      where
+        isCorec (DeclVar _) = False
+        isCorec (DeclDef _) = False
+        isCorec (NoDecl _) = False
+        isCorec (DeclDefFun _ _) = True
+
+        define ((DeclDefFun name _), val) =
+            scopeDefNew name val
+        
+
+
+
+testCoRec :: LanguageMonad m => m [LVal m]
+testCoRec = letrec $ \fns -> do
+              let f = fns !! 0
+                  g = fns !! 1
+              let f' = \arg -> do
+                         applyM g arg 
+              let g' = \arg ->  do
+                         applyM f arg
+              return [f', g']

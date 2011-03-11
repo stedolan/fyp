@@ -50,8 +50,9 @@ varSet v val = Scoping $ do
   varMark v
   lift $ structSet v "$" val
 
-
-lambda fn = Scoping $ do
+-- genFuncBody generates a new global LLVM function
+-- but does not insert any code into the current function
+genFuncBody fn = Scoping $ do
   -- Find the set of variables being closed over
   parentvars <- ask
   currentvars <- get
@@ -78,16 +79,37 @@ lambda fn = Scoping $ do
     write $ LLVMInsn OpRet Nothing [ret]
   funcname <- lift $ freshGlobal functionT -- better names?
   tell [writeFunc funcname objectT' [currentClosure, param] fullcode]
+  return (funcname, closed)
 
+genClosureHead funcname closed = Scoping $ lift $ do
   -- Generate the closure: a structure containing a function pointer and
   -- a partial environment
-  lift $ do
-    closure <- structNew ("$code$":map snd closed)
-    forM_ closed $ \(var, field) -> do
-      structSet closure field var
-    structSet closure "$code$" (mkConstPtrCast objectT' funcname)
-    return closure
+  closure <- structNew ("$code$":map snd closed)
+  structSet closure "$code$" (mkConstPtrCast objectT' funcname)
+  return closure
 
+genClosureFields closure closed = Scoping $ lift $ do
+  forM_ closed $ \(var, field) -> do
+    structSet closure field var
+  return closure
+
+lambda fn = do
+  (funcname, closed) <- genFuncBody fn
+  closure <- genClosureHead funcname closed
+  genClosureFields closure closed
+
+--FIXME buggy as all hell
+corecLambda :: ([Value] -> Scoping [Value -> Scoping Value]) -> Scoping [Value]
+corecLambda fngen = do
+  closures <- lift $ freshInfVar objectT'
+  funcs <- fngen closures
+  closed <- forM (zip funcs closures) $ \(f,cl) -> do
+    (funcname, closed) <- genFuncBody f
+    cl' <- genClosureHead funcname closed
+    lift $ objRename cl cl'
+    return (cl, closed)
+  forM closed $ \(cl,closed) -> do
+    genClosureFields cl closed
 
 apply closure val = Scoping $ lift $ do
   rawfunction <- structGet closure "$code$"
