@@ -1,0 +1,44 @@
+def f1(x) = 5;
+def f2(x) do
+  var b = print(2);
+  return f3({cond=true, val=x})
+end;
+def f3(x) do
+  var b = print(3);
+  if x.cond do
+    return f1(x.val)
+  else do
+    return f2(x.val)
+  end
+end;
+
+var b = print(f3({cond=false, val=42}));
+var b = print(f1(42));
+
+var i={x,y,z},j,k;
+i.x = i;
+i.y = i.x;
+k = {x = i, y = j};
+j = i.y;
+var x = 1;
+
+def corec(x) do
+  var v = {a=0};
+  def co1(x) do
+    var b = print(1);
+    var b = print(v);
+    v = {a=v}
+  end;
+  def co2(x) do
+    var b = print(2);
+    var b = print(v);
+    v = {a=v}
+  end;
+  return {f1=co1, f2=co2}
+end;
+
+def fns = corec(2);
+fns.f1(0);
+fns.f1(0);
+fns.f2(0);
+fns.f1(0)
