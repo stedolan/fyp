@@ -186,8 +186,8 @@ Type
 
 TypeTerm
   : TypeTerm '=>' TypeTerm      { liftM2 (\a b -> mkC "=>" [a,b]) $1 $3 }
-  | any                         { return $ mkC "Top" [] }
-  | none                        { return $ mkC "Bot" [] }
+  | any                         { return $ mkC "any" [] }
+  | none                        { return $ mkC "none" [] }
 --  | typeof Var                  { undefined }
 --  | Struct                      { $1 >> return undefined }
   | TypeVar                     { liftM TVar $ scopeType $1 }

@@ -1,6 +1,7 @@
 {-# LANGUAGE EmptyDataDecls,MultiParamTypeClasses,FunctionalDependencies #-}
 module Lattice where
 import Data.Monoid
+import qualified Data.Set as S
 
 
 data Variance = Pos -- Covariant, or a lower bound type
@@ -46,9 +47,16 @@ class Eq t => Lattice t where
 
 mergeIdentity v = extremum (v `mappend` Neg)
 mergeZero v = extremum v
+mergeFailure v = mergeZero v
 
-
-
+-- The powerset of a finite set forms a lattice
+-- Since we don't know what exactly the finite set is,
+-- we can't provide a sane implementation for "top"
+instance Ord t => Lattice (S.Set t) where
+    merge Pos a b = a `S.union` b
+    merge Neg a b = a `S.intersection` b
+    extremum Neg = S.empty
+    extremum Pos = error "Top element of set lattice is not known"
 
 
 

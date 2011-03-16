@@ -11,6 +11,8 @@ import Data.IORef
 import Control.Monad
 import Control.Arrow ((&&&),(***))
 
+import ObjectTypes
+
 import Foreign.StablePtr -- oh god
 
 data UserType t = UserType (TypeTerm t) [Constraint t]
@@ -114,7 +116,7 @@ fromUserType dir (UserType tt cns) = do
         return $ fst $ flipByVariance (dir `mappend` Neg) vpair
       cvtType dir (Const con) = do
         parts <- sequence [cvtType (dir `mappend` d) t | 
-                           (d,t) <- zip (constParamDirs (cnConstructor con))
+                           (d,t) <- zip (constLabelDirs (cnConstructor con))
                                         (cnFields con)]
         varNewConst dir $ fmap (:[]) $ (CN (cnConstructor con) parts)
   maintype <- cvtType dir tt
