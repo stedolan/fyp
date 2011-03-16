@@ -38,7 +38,7 @@ vType (Value t s) = t
 vReg (Value t s) = s
 vParam (Value t s) = showType t +-+ if t == labelT then "%"++s else s
 
-data OpCode = OpCall | OpAdd | OpCmpEq | OpCmpNe | OpLoad | OpStore | OpBranch | OpRet | OpGEP | OpPtrCast deriving (Eq,Enum,Show)
+data OpCode = OpCall | OpAdd | OpCmpEq | OpCmpNe | OpLoad | OpStore | OpBranch | OpRet | OpGEP | OpPtrCast  deriving (Eq,Enum,Show)
 opName op = case op of
               OpCall -> "call"
               OpAdd -> "add"

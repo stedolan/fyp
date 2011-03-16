@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeSynonymInstances, GeneralizedNewtypeDeriving, TypeFamilies #-}
+{-# LANGUAGE TypeSynonymInstances, GeneralizedNewtypeDeriving, FlexibleInstances, MultiParamTypeClasses #-}
 module TypeChecker where
 import Control.Monad
 import Control.Monad.RWS.Lazy
@@ -24,10 +24,7 @@ cgen = ConstraintGen . lift
 {- letrec must also do something silly with strictness -}
 
 
-instance LanguageMonad ConstraintGen where 
-    type LType ConstraintGen = (Var,Var)
-    type LVar ConstraintGen = (Var,Var)
-    type LVal ConstraintGen = Var
+instance LanguageMonad ConstraintGen (Var,Var) (Var,Var) Var where 
     condM e = cgen $ do
       bool <- varNewConst Neg (getC "bool" [])
       incrClose (SConstraintVarVar e bool)

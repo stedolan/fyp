@@ -6,13 +6,15 @@ module Lexer where
 
 $digit = 0-9
 $alpha = [a-zA-Z_]
-@reserved = if|else|elif|else|while|break|continue|do|end|var|def|forall|where|typeof|any|none|
- "{"|"}"|"("|")"|";"|"="|"."|","|"<:"|":"|"=>"
+@reserved = if|else|elif|else|while|break|continue|return|do|end|true|false|var|def|forall|where|typeof|any|none|class|
+ "{"|"}"|"["|"]"|"("|")"|";"|"="|"."|","|"<:"|":"|"=>"
 
 @ident = $alpha [$alpha $digit]*
+@comment = "#" [^\r\n]*
 
 tokens :-
   $white+             ;
+  @comment            ;
   @reserved           { TRes }
   @ident              { TIdent }
   $digit+             { TInt . read }

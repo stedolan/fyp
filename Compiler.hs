@@ -54,10 +54,16 @@ dethread c = do
   return ret
 
 
-instance LanguageMonad CompilerM where
-    type LType CompilerM = ()
-    type LVal CompilerM = Value
-    type LVar CompilerM = Value
+dethreadFunc :: (Value -> CompilerM Value) -> (Value -> Scoping Value)
+dethreadFunc f = \arg -> dethread $ 
+  do retV <- varNewM 
+     coalesceM $ do
+       ret <- f arg
+       varSetM retV ret
+     varGetM retV
+
+
+instance LanguageMonad CompilerM () Value Value where
     condM b = codegenM $ do
              tpart <- lift $ freshLabel
              fpart <- lift $ freshLabel
@@ -84,13 +90,13 @@ instance LanguageMonad CompilerM where
     varSetM v val = stmtgen $ varSet v val
 
     letrec fns = stmtgen $ corecLambda 
-                 (\x -> dethread $ liftM (map (dethread .)) $ fns x)
+                 (\x -> dethread $ liftM (map dethreadFunc) $ fns x)
 
     structNewM fs = stmtgen $ lift $ structNew fs
     structGetM s f = stmtgen $ lift $ structGet s f
     structSetM s f x = stmtgen $ lift $ structSet s f x
 
-    lambdaM fn = stmtgen $ lambda (dethread . fn)
+    lambdaM fn = stmtgen $ lambda (dethreadFunc fn)
     applyM f v = stmtgen $ apply f v
 
     typeNew = return ()
