@@ -1,4 +1,4 @@
-def f1(x) = 5;
+def f1 = function(x) do return 1 end;
 def f2(x) do
   var b = print(2);
   return f3({cond=true, val=x})

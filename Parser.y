@@ -33,6 +33,7 @@ import UserType
    end        { TRes "end" }
    true       { TRes "true" }
    false      { TRes "false" }
+   function   { TRes "function" }
    '{'        { TRes "{" }
    '}'        { TRes "}" }
    '['        { TRes "[" }
@@ -91,6 +92,9 @@ Exp
   | true                        { litBool True }
   | false                       { litBool False }
   | Struct                      { $1 }
+  | function '(' ArgBinder ')' FuncBody
+                                { lambdaM $ \e -> $3 e >> $5 }
+
 
 ExpStmt
   : Exp '(' Exp ')'             { do { f <- $1; x <- $3; applyM f x}}
@@ -141,17 +145,15 @@ Stmt
   | var DefList                 { BasicStmt $ map DeclVar $2 }
   | def DefList                 { BasicStmt $ map DeclDef $2 }
 -- FIXME more interesting argument syntax is possible
-  | def ID '(' ID ')'
-      do Block end              { BasicStmt $ [DeclDefFun (Def $2) $ 
-                                  \e -> subscope $ do {
-                                    scopeDefNew (Def $4) e;
-                                    evalUntilRet $7 }] } 
-  | def ID '(' ID ')'
-      '=' Exp                   { BasicStmt $ [DeclDefFun (Def $2) $ 
-                                  \e -> subscope $ do {
-                                    scopeDefNew (Def $4) e;
-                                    $7 }] }
+  | def ID '(' ArgBinder ')' FuncBody
+                                { BasicStmt $ [DeclDefFun (Def $2) $ 
+                                  \e -> $4 e >> $6] }
+ArgBinder
+  : ID                          { \e -> scopeDefNew (Def $1) e }
 
+FuncBody
+  : do Block end                { evalUntilRet $2 }
+  | '=' Exp                     { $2 }
 
 IfTail
   : end                         { return () }

@@ -6,7 +6,7 @@ module Lexer where
 
 $digit = 0-9
 $alpha = [a-zA-Z_]
-@reserved = if|else|elif|else|while|break|continue|return|do|end|true|false|var|def|forall|where|typeof|any|none|class|
+@reserved = if|else|elif|else|while|break|continue|return|do|end|true|false|function|var|def|forall|where|typeof|any|none|class|
  "{"|"}"|"["|"]"|"("|")"|";"|"="|"."|","|"<:"|":"|"=>"
 
 @ident = $alpha [$alpha $digit]*
