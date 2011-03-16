@@ -9,6 +9,7 @@ import Data.Monoid
 import Data.Maybe
 import Type
 import UserType
+import ObjectTypes
 
 }
 
@@ -185,9 +186,9 @@ Type
                                        return $ UserType t qs}}
 
 TypeTerm
-  : TypeTerm '=>' TypeTerm      { liftM2 (\a b -> mkC "=>" [a,b]) $1 $3 }
-  | any                         { return $ mkC "any" [] }
-  | none                        { return $ mkC "none" [] }
+  : TypeTerm '=>' TypeTerm      { liftM2 (\a b -> Const $ getC "=>" [a,b]) $1 $3 }
+  | any                         { return $ Const $ getC "any" [] }
+  | none                        { return $ Const $ getC "none" [] }
 --  | typeof Var                  { undefined }
 --  | Struct                      { $1 >> return undefined }
   | TypeVar                     { liftM TVar $ scopeType $1 }

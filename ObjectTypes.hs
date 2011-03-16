@@ -107,21 +107,25 @@ labelVariance LabelArg = Neg
 labelVariance LabelRet = Pos
 labelVariance (LabelField _ v) = v
 
-data Constructor = CnTop | CnBot | CnFunc | CnObj ObjType deriving (Eq,Ord,Show)
+data Constructor = CnTop | CnBot | CnVoid | CnFunc | CnObj ObjType deriving (Eq,Ord,Show)
 instance Lattice Constructor where
     extremum Pos = CnTop
     extremum Neg = CnBot
     
     merge v CnTop CnTop = CnTop
     merge v CnBot CnBot = CnBot
+    merge v CnVoid CnVoid = CnVoid
     merge v CnFunc CnFunc = CnFunc
     merge v (CnObj o1) (CnObj o2) = CnObj (merge v o1 o2)
-    merge v _ _ = mergeFailure v
+    merge v c1 c2 | c1 == mergeIdentity v = c2
+                  | c2 == mergeIdentity v = c1
+                  | otherwise = mergeFailure v
 
 constLabels CnTop = []
 constLabels CnBot = []
+constLabels CnVoid = []
 constLabels CnFunc = [LabelArg, LabelRet]
-constLabels (CnObj o) = concat [[LabelField s Pos, LabelField s Neg] | 
+constLabels (CnObj o) = concat [[LabelField s Neg, LabelField s Pos] | 
                                 s <- objTypeFields o]
 
 constLabelDirs = map labelVariance . constLabels
@@ -131,4 +135,25 @@ constCommonLabels c1 c2 =
     where
       en c = zip [0..] (constLabels c)
 
+
+data Constructed a = CN {cnConstructor :: Constructor,
+                         cnFields :: [a]}
+                     deriving (Eq,Ord)
+instance Functor Constructed where
+    fmap f (CN c xs) = CN c $ fmap f xs
+instance Show a => Show (Constructed a) where
+--    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
+    show (CN c xs) = show c ++ show xs
+
+mkCN c ts | length ts == length (constLabels c) = CN c ts
+
+getC "any" [] = mkCN CnTop []
+getC "none" [] = mkCN CnBot []
+getC "=>" [a,b] = mkCN CnFunc [a,b]
+getC s _ = error $ "unknown type constructor " ++ s
+
+getCFields fs vs = mkCN (CnObj (fromStructType $ S.fromList fs)) vs
+getCField f (vn,vp) = mkCN (CnObj (fromStructType $ S.singleton f)) [vn,vp]
+
+--mkC n ts = Const $ getC n ts
 

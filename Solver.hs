@@ -13,6 +13,7 @@ import Data.List
 import Data.Maybe
 import Lattice
 import Data.Monoid
+import ObjectTypes
 
 data Var = Var { varDir :: Variance,
                  varID :: Unique,
@@ -24,7 +25,7 @@ instance Ord Var where compare = compare `on` varID
 instance Show Var where
     show v = "$" ++ show (hashUnique (varID v)) ++ show (varDir v)
 
-varNewRaw dir = do
+varNewUnconstrained dir = do
   id <- newUnique
   varBounds <- newIORef (M.empty)
   varConstBound <- newIORef (identitySmallTerm dir)
@@ -71,13 +72,13 @@ varConstrainConstBound v bnd = do
 
 
 varNewPair = do
-  vpos <- varNewRaw Pos
-  vneg <- varNewRaw Neg
+  vpos <- varNewUnconstrained Pos
+  vneg <- varNewUnconstrained Neg
   varAddVarBound (vneg, vpos) -- vneg <= vpos
   return (vneg, vpos)
 
 varNewConst dir bound = do
-  v <- varNewRaw dir
+  v <- varNewUnconstrained dir
   varSetConstBound v bound
   return v
 
@@ -198,7 +199,7 @@ canonise rootv = do
           then return [varmap ! vs]
           else do
             let dir = same (map varDir vs')
-            newv <- varNewRaw dir
+            newv <- varNewUnconstrained dir
             modifyIORef newvarsR (M.insert vs newv)
             return [newv]
       clean v = do

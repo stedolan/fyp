@@ -30,21 +30,6 @@ groupOn f = map (map snd) .
 
 
 
-data Constructed a = CN {cnConstructor :: Constructor,
-                         cnFields :: [a]}
-                     deriving (Eq,Ord)
-instance Functor Constructed where
-    fmap f (CN c xs) = CN c $ fmap f xs
-instance Show a => Show (Constructed a) where
---    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
-    show (CN c xs) = show c ++ show xs
-
-
-getC "any" [] = CN CnTop []
-getC "none" [] = CN CnBot []
-getC "=>" [a,b] = CN CnFunc [a,b]
-
-mkC n ts = Const $ getC n ts
 
 mergeIdentityC :: Variance -> Constructed v
 mergeIdentityC Neg = CN (extremum Pos) []
@@ -257,8 +242,8 @@ instance Functor TypeTerm where
 
 -- for debugging
 instance Show a => Show (TypeTerm a) where
-{-    show (Const (CN (Constructor name _) ts)) =
-        if not (any isAlpha name) && length ts == 2 then
+    show (Const cn) = show cn
+{-        if not (any isAlpha name) && length ts == 2 then
             "(" ++ show (ts !! 0) ++ " " ++ name ++ " " ++ show (ts !! 1) ++ ")"
         else
             name ++ (concat $ map ((" "++) . show) ts)-}
