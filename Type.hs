@@ -16,7 +16,7 @@ import Control.Monad.ST
 import Data.STRef
 import Data.Function
 import Lattice
-
+import ObjectTypes
 
 
 -- Partition a list into sets by function f s.t. x and y are in the same set
@@ -30,97 +30,46 @@ groupOn f = map (map snd) .
 
 
 
-data Label = Label String Variance deriving (Eq,Ord,Show)
-labelVariance (Label n v) = v
-
-
-data GroundSig = GroundSig [Constructor]
-data Constructor = Constructor String [Label]
-constParamDirs :: Constructor -> [Variance]
-constParamDirs (Constructor s ls) = map labelVariance ls
-instance Eq Constructor where
-    Constructor s1 _ == Constructor s2 _ = s1 == s2
-instance Ord Constructor where
-    compare (Constructor s1 _) (Constructor s2 _) = compare s1 s2
-instance Show Constructor where
-    show (Constructor s _) = s
-
-
-getGroundSig :: GroundSig
-getGroundSig = GroundSig [Constructor "Bot" [],
-                          Constructor "=>" [Label "arg" Neg, Label "ret" Pos],
-                          Constructor "Top" []]
-
--- least upper bound or greatest lower bound, depending on variance
-groundMerge (GroundSig cs) var a b = 
-    let
-        ia = fromJust $ findIndex (==a) cs
-        ib = fromJust $ findIndex (==b) cs
-        m = cs !! (combine ia ib)
-    in m
-    where
-      combine = case var of {Pos -> max; Neg -> min;}
-
-
-[groundTop,groundBot] = 
-    let (GroundSig cs) = getGroundSig 
-    in map (\x -> fromJust $ find (==Constructor x undefined) cs) ["Top","Bot"]
-                                                
-
--- ground ordering on head type constructors
--- defined in terms of lattice operation (groundMerge)
-
-groundSub :: GroundSig -> Constructor -> Constructor -> Bool
-groundSub g = \a b -> groundMerge g Neg a b == a
-
-groundRel g = latticeRel
- where latticeRel Pos a b = groundSub g a b
-       latticeRel Neg a b = groundSub g b a
-
-commonLabels (Constructor _ l1) (Constructor _ l2) =
-    -- PERF (sorted lists/merge)
-    unzip3 [(i1,i2,l) | (i1,l) <- en l1, (i2, l') <- en l2, l == l']
-    where
-      en = zip [0..]
-
-
-
 data Constructed a = CN {cnConstructor :: Constructor,
                          cnFields :: [a]}
                      deriving (Eq,Ord)
 instance Functor Constructed where
     fmap f (CN c xs) = CN c $ fmap f xs
 instance Show a => Show (Constructed a) where
-    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
+--    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
     show (CN c xs) = show c ++ show xs
 
 
+getC "any" [] = CN CnTop []
+getC "none" [] = CN CnBot []
+getC "=>" [a,b] = CN CnFunc [a,b]
+
+mkC n ts = Const $ getC n ts
+
 mergeIdentityC :: Variance -> Constructed v
-mergeIdentityC Neg = CN groundTop []
-mergeIdentityC Pos = CN groundBot []
+mergeIdentityC Neg = CN (extremum Pos) []
+mergeIdentityC Pos = CN (extremum Neg) []
 mergeZeroC v = mergeIdentityC (Neg `mappend` v)
 
 
 mergeConstructed :: Variance -> Constructed a -> Constructed a -> 
                     (Constructor, [(Variance, Maybe a, Maybe a)])
-mergeConstructed v (CN c1@(Constructor _ lbls1) t1) (CN c2@(Constructor _ lbls2) t2) = 
+mergeConstructed v (CN c1 t1) (CN c2 t2) = 
     -- PERF (sorted lists/merge)
-    let c'@(Constructor _ lbls') = groundMerge getGroundSig v c1 c2
+    let lbls1 = constLabels c1
+        lbls2 = constLabels c2
+        c' = merge v c1 c2
+        lbls' = constLabels c'
         find l x t = do { i<- findIndex (==l) x; return$ t !! i; }
     in (c', [(labelVariance l, find l lbls1 t1, find l lbls2 t2) | l <- lbls'])
 
-getC n ts = 
-    let (GroundSig cs) = getGroundSig 
-    in (CN (maybe (error "Constructor not found") id $ find (==Constructor n undefined) cs) ts)
 
-mkC n ts = Const $ getC n ts
-        
 
 
 
 data GroundInstance = GroundInstance [Constructed Int] deriving (Show,Eq)
 
-
+{-
 --sample =GroundInstance$ let c a x = (Constructor a [], x) in [c "c" [1], c"a" [1,3], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
 sample =GroundInstance$ let c a x = (CN (Constructor a []) x) in [c"a" [2,3], c"c"[2], c"b"[4,5], c"c"[4], c"c"[6], c"c"[7], c"d"[7]]
 
@@ -288,7 +237,7 @@ generateGroundInstance vars root =
     in GroundInstance $ [convert (fromJust (M.lookup v vars)) | v <- varlist]
 --    in (vars,varlist,varid,[M.lookup v vars | v <- varlist])
 
-
+-}
               
 -- A type bound
 -- A note on "deriving Eq":
@@ -308,11 +257,11 @@ instance Functor TypeTerm where
 
 -- for debugging
 instance Show a => Show (TypeTerm a) where
-    show (Const (CN (Constructor name _) ts)) =
+{-    show (Const (CN (Constructor name _) ts)) =
         if not (any isAlpha name) && length ts == 2 then
             "(" ++ show (ts !! 0) ++ " " ++ name ++ " " ++ show (ts !! 1) ++ ")"
         else
-            name ++ (concat $ map ((" "++) . show) ts)
+            name ++ (concat $ map ((" "++) . show) ts)-}
     show (TVar v) = filter (/='"') (show v)
     show (Merge ts) = "{" ++ intercalate ", " (map show ts) ++ "}"
 
@@ -441,8 +390,7 @@ mergeSmallTerm dir s1 s2 =
     in (CN ctor merged)
 
 identitySmallTerm :: Variance -> SmallTerm v
-identitySmallTerm Pos = CN groundBot []
-identitySmallTerm Neg = CN groundTop []
+identitySmallTerm v = CN (mergeIdentity v) []
 
 
 checkSmallConstraint :: ElementaryConstraint v -> SmallConstraint v
