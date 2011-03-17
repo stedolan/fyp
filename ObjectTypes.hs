@@ -143,13 +143,19 @@ instance Functor Constructed where
     fmap f (CN c xs) = CN c $ fmap f xs
 instance Show a => Show (Constructed a) where
 --    show (CN (Constructor "=>" _) [a,b]) = show a ++ " -> " ++ show b
-    show (CN c xs) = show c ++ show xs
+    show (CN CnTop []) = "any"
+    show (CN CnBot []) = "none"
+    show (CN CnVoid []) = "void"
+    show (CN CnFunc [arg,ret]) = "(" ++ show arg ++ " => " ++ show ret ++ ")"
+    show (CN (CnObj xs) fs) = show xs ++ show fs
 
 mkCN c ts | length ts == length (constLabels c) = CN c ts
 
 getC "any" [] = mkCN CnTop []
 getC "none" [] = mkCN CnBot []
 getC "=>" [a,b] = mkCN CnFunc [a,b]
+--FIXME
+getC "bool" [] = mkCN CnTop []
 getC s _ = error $ "unknown type constructor " ++ s
 
 getCFields fs vs = mkCN (CnObj (fromStructType $ S.fromList fs)) vs

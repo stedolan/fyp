@@ -37,6 +37,18 @@ varGetVarBounds v = do
   -- FIXME: remove gc-ed vars from bounds?
   return $ map fromJust $ filter isJust vars
 
+varNewCloned' v = do
+  id <- newUnique
+  varBounds <- readIORef (varVarBounds v)
+  constBound <- readIORef (varConstBound v)
+  varBoundsR <- newIORef varBounds
+  constBoundR <- newIORef constBound
+  return $ Var (varDir v) id varBoundsR constBoundR
+
+varSetVarBounds' v vs = do
+  refs <- forM vs (\x -> mkWeakPtr x Nothing)
+  let bndmap = M.fromList $ zip (map varID vs) refs
+  writeIORef (varVarBounds v) bndmap
 
 varAddVarBound (vneg, vpos) 
     | varDir vneg == Neg && varDir vpos == Pos = do
@@ -148,11 +160,43 @@ incrClose (SConstraintVarBound dir var bound) = do
 
   incrClose' $ flipByVariance dir (cbnd, bound)
 
--- FIXME FIXME FIXME
--- ohshit I might be dropping reachable nodes
--- if they're reachable other than through the given root
-reachableVariables :: Var -> IO [Var]
-reachableVariables root = do
+
+
+
+-- Type schemes for generalised terms (e.g. top-level functions)
+data TypeScheme = TypeScheme [Var] Var
+
+validTypeSchemeDirs (TypeScheme vs v) = 
+    all ((==Neg).varDir) vs && varDir v == Pos
+
+-- Create a renamed copy of a type scheme
+-- Used when a generalised term is referred to
+instantiateTypeScheme :: TypeScheme -> IO TypeScheme
+instantiateTypeScheme sch@(TypeScheme vs v) = do
+  vars <- reachableVariables (v:vs)
+  vars' <- mapM varNewCloned' vars
+  applySubsitution (M.fromList $ zip vars vars') vars sch
+
+-- Variables which are part of a type scheme must not be aliased
+-- outside the scheme. All constraints on type scheme variables
+-- must already have been applied by the time the scheme is
+-- optimised.
+optimiseTypeScheme :: TypeScheme -> IO TypeScheme
+optimiseTypeScheme sch@(TypeScheme vs v) | validTypeSchemeDirs sch = do
+  vars <- reachableVariables (v:vs)
+  canonise vars
+  -- canonise can add more variables, so we
+  -- recalculate the reachable set (this could
+  -- be done faster, but this is simpler)
+  vars <- reachableVariables (v:vs)
+  sub <- minimise vars
+  applySubsitution sub vars sch
+--  return sch
+
+-- must be given a complete set of root variables
+-- also performs a complete garbage collection on the graph
+reachableVariables :: [Var] -> IO [Var]
+reachableVariables roots = do
   seen <- newIORef M.empty
   let visit v = do
         modifyIORef seen $ M.insert (varID v) v
@@ -164,11 +208,47 @@ reachableVariables root = do
         forM_ vs $ \v' -> do
           s <- readIORef seen
           when (not $ M.member (varID v') s) (visit v')-}
-  visit root
+  mapM_ visit roots
   found <- readIORef seen
---  forM_ (M.toList found) $ \(vid,v) -> do
---    modifyIORef (varVarBounds v) (`M.intersection` found)
-  return $ (root:(M.elems $ M.delete (varID root) found))
+  -- Garbage collection: only those variables reachable
+  -- via decomposing constructed bounds are kept.
+  -- variables only reachable as var-var bounds are dropped.
+  forM_ (M.toList found) $ \(vid,v) -> do
+    modifyIORef (varVarBounds v) (`M.intersection` found)
+  return $ M.elems found
+
+-- for debugging: version of reachableVariables that performs
+-- no GC. May only see a part of the type graph if not given
+-- a complete set of roots.
+reachableVariables' :: [Var] -> IO [Var]
+reachableVariables' roots = do
+  seen <- newIORef M.empty
+  let visit v = do
+        modifyIORef seen $ M.insert (varID v) v
+        vs <- liftM (concat . cnFields) $ varGetConstBound v
+        forM_ vs $ \v' -> do
+          s <- readIORef seen
+          when (not $ M.member (varID v') s) (visit v')
+        vs <- varGetVarBounds v
+        forM_ vs $ \v' -> do
+          s <- readIORef seen
+          when (not $ M.member (varID v') s) (visit v')
+  mapM_ visit roots
+  found <- readIORef seen
+  return $ M.elems found
+
+
+-- perform a variable renaming on a type scheme
+-- does not change the shape of the constructed bounds
+applySubsitution sub vars (TypeScheme vs v) = do
+  let subvar v = do
+        vbounds <- varGetVarBounds v
+        let vbounds' = sortednub (map (sub!) vbounds)
+        varSetVarBounds' v vbounds'
+        cbound <- varGetConstBound v
+        varSetConstBound v (fmap (map (sub!)) cbound)
+  mapM_ subvar vars
+  return $ TypeScheme (map (sub!) vs) (sub ! v)
 
 -- Pick an arbitrary element from a list, whose elements
 -- must all be the same.
@@ -178,9 +258,9 @@ same xs | all (==(head xs)) xs = head xs
         | otherwise = error "same: elements differ"
 
 
-canonise :: Var -> IO ()
-canonise rootv = do
-  vars <- reachableVariables rootv
+-- canonise takes the set of reachable variables of a type scheme
+canonise :: [Var] -> IO ()
+canonise vars = do
   newvarsR <- newIORef M.empty
   initialisedR <- newIORef M.empty
   -- newvars represents the variables to be inserted
@@ -229,41 +309,6 @@ canonise rootv = do
   recVarAdd
 
 
-subsumes :: (Var,Var) -> IO Bool
--- subsumes (var+ <= rigid+)
--- subsumes (rigid- <= var-)
-subsumes cn = do
-  -- We keep track of the changes we make to the constraint
-  -- graph so we can undo them later
-  changes <- newIORef S.empty
-  rigidVars <- newIORef S.empty
-  let subsumes' (v1,v2) = do
-        let variance = same [varDir v1, varDir v2]
-            (var,rigid) = flipByVariance variance (v1,v2)
-            newcns x = flipByVariance variance (x,rigid)
-        modifyIORef rigidVars $ S.insert rigid
-        varbounds <- varGetVarBounds var
-        --FIXME check
-        valid <- allM varbounds $ \v -> do
-          isrigid <- liftM (S.member v) $ readIORef rigidVars
-          let cns = newcns v
-          if isrigid
-            then entailed cns
-            else do
-              varAddVarBound cns
-              modifyIORef changes $ S.insert cns
-              return True
-        v1b <- varGetConstBound v1
-        v2b <- varGetConstBound v2
-        if (not valid)
-          then return False
-          else let cns = decomposeSmallConstraint (v1b,v2b)
-               in maybe (return False) (flip allM subsumes') cns
-  ans <- subsumes' cn
-  changes <- liftM S.toList $ readIORef changes
-  forM changes varDelVarBound
-  return ans
-                
 partFinder :: Ord a => [[a]] -> a -> Int
 partFinder p = 
     let getp = M.fromList [(v,i) |
@@ -274,10 +319,9 @@ partFinder p =
 fromSingleton [x] = x
 fromSingleton _ = error "Not a singleton list"
 
---minimiseType :: Var -> IO ()
---FIXME FIXME FIXME see above
-minimiseType rootv = do
-  vars <- reachableVariables rootv
+minimise :: [Var] -> IO (M.Map Var Var)
+
+minimise vars = do
   boundsets <- liftM (M.fromList . zip vars) $
                mapM (liftM M.keysSet . 
                      readIORef . varVarBounds) vars
@@ -299,7 +343,7 @@ minimiseType rootv = do
   let replacements = M.fromList [(v,head vs) |
                                  vs <- bestPartition,
                                  v <- vs]
-  undefined
+  return replacements
 
 
 allM :: Monad m => [a] -> (a -> m Bool) -> m Bool
@@ -344,6 +388,41 @@ entailed cn = do
 
 
 
+subsumes :: (Var,Var) -> IO Bool
+-- subsumes (var+ <= rigid+)
+-- subsumes (rigid- <= var-)
+subsumes cn = do
+  -- We keep track of the changes we make to the constraint
+  -- graph so we can undo them later
+  changes <- newIORef S.empty
+  rigidVars <- newIORef S.empty
+  let subsumes' (v1,v2) = do
+        let variance = same [varDir v1, varDir v2]
+            (var,rigid) = flipByVariance variance (v1,v2)
+            newcns x = flipByVariance variance (x,rigid)
+        modifyIORef rigidVars $ S.insert rigid
+        varbounds <- varGetVarBounds var
+        --FIXME check
+        valid <- allM varbounds $ \v -> do
+          isrigid <- liftM (S.member v) $ readIORef rigidVars
+          let cns = newcns v
+          if isrigid
+            then entailed cns
+            else do
+              varAddVarBound cns
+              modifyIORef changes $ S.insert cns
+              return True
+        v1b <- varGetConstBound v1
+        v2b <- varGetConstBound v2
+        if (not valid)
+          then return False
+          else let cns = decomposeSmallConstraint (v1b,v2b)
+               in maybe (return False) (flip allM subsumes') cns
+  ans <- subsumes' cn
+  changes <- liftM S.toList $ readIORef changes
+  forM changes varDelVarBound
+  return ans
+                
 
 showTypeGraph :: Var -> IO ()
 showTypeGraph v = do
@@ -353,6 +432,6 @@ showTypeGraph v = do
         let allbounds = intercalate "," $ map show vbounds ++ [show bound]
         let (s1,s2) = flipByVariance (varDir v) (allbounds, show v)
         putStrLn $ s1 ++ " <= " ++ s2
-  vars <- reachableVariables v
+  vars <- reachableVariables' [v]
   forM_ vars showV
      

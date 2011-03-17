@@ -10,26 +10,50 @@ import Solver
 import Type
 import Lattice
 import ObjectTypes
+import qualified Data.Map as M
+import Data.Unique
 
 newtype ConstraintGen a = ConstraintGen (ListT IO a)
     deriving (Monad,MonadIterate,MonadCoalesce)
 
 -- FIXME coalesceM
 runConstraintGen (ConstraintGen f) = do
-  [ret] <- runAllListT f
-  return ret
+  rets <- runAllListT f
+  (rn, rp) <- varNewPair
+  forM rets $ \r -> incrClose $ SConstraintVarVar r rn
+  return rp
 
 
 cgen = ConstraintGen . lift
 
+{-
+
+newtype GeneralisationID = GeneralisationID Unique deriving (Eq,Ord)
+
+
+data GVar = Ungen GeneralisationID Var | Gen TypeScheme
+
+currGenID :: ConstraintGen GeneralisationID
+currGenID = undefined
+
+getVar :: GVar -> ConstraintGen Var
+getVar (Ungen gid var) = do
+  currid <- currGenID
+  if currid == gid
+    then return var
+    else do
+      copyVarToScheme var
+
+type ClosureMap a = M.Map a 
+-}
 {- letrec must also do something silly with strictness -}
 
 
 instance LanguageMonad ConstraintGen (Var,Var) (Var,Var) Var where 
-    condM e = cgen $ do
-      bool <- varNewConst Neg (getC "bool" [])
-      incrClose (SConstraintVarVar e bool)
-      return True `mplus` return False
+    condM e = ConstraintGen $ do
+      bool <- lift $ varNewConst Neg (getC "bool" [])
+      lift $ incrClose (SConstraintVarVar e bool)
+      (return True `mplus` return False)
 
     lambdaM f = cgen $ do
       (argN, argP) <- varNewPair

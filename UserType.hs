@@ -77,7 +77,7 @@ pVarConstraints r u v = do
 -- Converts a (canonical) type to a user type
 toUserType :: Var -> IO (UserType Var)
 toUserType rootv = do
-  vars <- reachableVariables rootv
+  vars <- reachableVariables' [rootv]
   toprint <- newIORef S.empty
   printed <- newIORef S.empty
   uniqs <- liftM (M.fromList . concat) $ 
@@ -135,4 +135,4 @@ fromUserType dir (UserType tt cns) = do
 
 instance Show t => Show (UserType t) where
     show (UserType tt []) = show tt
-    show (UserType tt cns) = show tt ++ " | " ++ intercalate ", " (map show cns)
+    show (UserType tt cns) = show tt ++ " where " ++ intercalate ", " (map show cns)

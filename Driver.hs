@@ -20,13 +20,15 @@ interpret p = runInterpreter ((runEval' (SymbolTable M.empty (M.fromList [(Def "
 
 infertype p = do
   t <- (runConstraintGen $ liftM unWrap $ runEval' (SymbolTable M.empty M.empty M.empty) $ parseExp (runLexer p))
+
   showTypeGraph t
   putStrLn ""
-  canonise t
+  TypeScheme [] t <- optimiseTypeScheme $ TypeScheme [] t
   showTypeGraph t
   putStrLn ""
   ut <- toUserType t
   print ut
+  
 
 {-
 testCoRec = letrec $ \fns -> do
