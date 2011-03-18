@@ -4,11 +4,13 @@ import Language
 import Compiler
 import Parser
 import Lexer
-import TypeChecker
+import TypeChecker hiding (optimiseTypeScheme)
 import Solver
 import UserType
 import Interpreter
 import Control.Monad
+import Control.Monad.Reader
+import Data.Unique
 import qualified Data.Map as M
 
 
@@ -19,8 +21,7 @@ interpret p = runInterpreter ((runEval' (SymbolTable M.empty (M.fromList [(Def "
 
 
 infertype p = do
-  t <- (runConstraintGen $ liftM unWrap $ runEval' (SymbolTable M.empty M.empty M.empty) $ parseExp (runLexer p))
-
+  Ungen (UngenVar _ t) <- (flip runReaderT undefined $ runConstraintGen $ liftM unWrap $ runEval' (SymbolTable M.empty M.empty M.empty) $ parseExp (runLexer p))
   showTypeGraph t
   putStrLn ""
   TypeScheme [] t <- optimiseTypeScheme $ TypeScheme [] t
@@ -28,7 +29,10 @@ infertype p = do
   putStrLn ""
   ut <- toUserType t
   print ut
-  
+
+inferprog p = do
+  genID <- newUnique
+  (flip runReaderT (GeneralisationLevel{generalisationID=GeneralisationID genID, importedVars=error "can't import var"}) $ runConstraintGen $ (runEval' (SymbolTable M.empty M.empty M.empty) $ parseProgram (runLexer p)) >> voidValue)
 
 {-
 testCoRec = letrec $ \fns -> do

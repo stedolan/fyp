@@ -172,10 +172,11 @@ validTypeSchemeDirs (TypeScheme vs v) =
 -- Create a renamed copy of a type scheme
 -- Used when a generalised term is referred to
 instantiateTypeScheme :: TypeScheme -> IO TypeScheme
-instantiateTypeScheme sch@(TypeScheme vs v) = do
+instantiateTypeScheme sch@(TypeScheme vs v) | validTypeSchemeDirs sch = do
   vars <- reachableVariables (v:vs)
   vars' <- mapM varNewCloned' vars
-  applySubsitution (M.fromList $ zip vars vars') vars sch
+  putStrLn $ show vars ++ " ~~> " ++ show vars'
+  applySubsitution (M.fromList $ zip vars vars') vars' sch
 
 -- Variables which are part of a type scheme must not be aliased
 -- outside the scheme. All constraints on type scheme variables

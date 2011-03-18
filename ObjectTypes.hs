@@ -156,6 +156,7 @@ getC "none" [] = mkCN CnBot []
 getC "=>" [a,b] = mkCN CnFunc [a,b]
 --FIXME
 getC "bool" [] = mkCN CnTop []
+getC "void" [] = mkCN CnVoid []
 getC s _ = error $ "unknown type constructor " ++ s
 
 getCFields fs vs = mkCN (CnObj (fromStructType $ S.fromList fs)) vs
