@@ -130,38 +130,55 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-32>
 
-    <with|par-left|3fn|5.2.0.1<space|2spc>Entailment
+    <with|par-left|3fn|5.2.0.1<space|2spc>Mutability
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-33>>
 
-    <with|par-left|3fn|5.2.0.2<space|2spc>Subsumption
+    <with|par-left|3fn|5.2.0.2<space|2spc>The value restriction
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-34>>
 
-    <with|par-left|3fn|5.2.0.3<space|2spc>Mutability
+    <with|par-left|3fn|5.2.0.3<space|2spc>``Polymorphism''
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-35>>
 
-    <with|par-left|3fn|5.2.0.4<space|2spc>The value restriction
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-36>>
-
-    <with|par-left|3fn|5.2.0.5<space|2spc>``Polymorphism''
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-37>>
-
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Implementation
     tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-38><vspace|0.5fn>
+    <no-break><pageref|auto-36><vspace|0.5fn>
+
+    6.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-37>
+
+    <with|par-left|1.5fn|6.1.1<space|2spc>Laziness
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-38>>
+
+    <with|par-left|1.5fn|6.1.2<space|2spc>Monads
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-39>>
+
+    6.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-40>
+
+    6.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-41>
+
+    <with|par-left|1.5fn|6.3.1<space|2spc>LLVM IR
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-42>>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|7<space|2spc>Architecture>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-43><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     A<space|2spc>Detailed typing rules for <error|compound brick>>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-39><vspace|0.5fn>
+    <no-break><pageref|auto-44><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-40><vspace|0.5fn>
+    <no-break><pageref|auto-45><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -193,6 +210,8 @@
     <item><math|n<rsup|3>>, PSPACE
 
     <item>nom / struct
+
+    <item>syntax
 
     <item>...
   </itemize>
@@ -373,13 +392,13 @@
   and series-of-approximation views are useful in proving certain properties
   of regular trees, the directed graph approach is a handy implementation
   technique, the term automaton view is used to define subtyping between
-  ground types (see ###) and the unification representation allows us to show
-  certain constraint graphs are satisfiable in the space of regular trees by
-  reducing them to equality constraints (see ###).
+  ground types and the unification representation allows us to show certain
+  constraint graphs are satisfiable in the space of regular trees by reducing
+  them to equality constraints.
 
   The proofs of the various salient properties of regular trees are omitted.
-  For detailed descriptions, including the equivalence of the above
-  representations, see ###reg, subrec, subrecfast etc.###
+  Detailed descriptions, including the equivalence of the above
+  representations, can be found in <cite|subrec|subrecfast|regulartypes|pottierphd>.
 
   <subsection|Equirecursive and isorecursive data types>
 
@@ -1160,8 +1179,8 @@
   The graph of <tt|f1> has many variables which give no information other
   than to split the type into small terms. For instance, <math|c<rsup|->>
   only exists to link the function type <math|d<rsup|+>\<rightarrow\>e<rsup|->>
-  into the <tt|increment> field of the argument type. Also, the variable
-  <math|e<rsup|->> is not constrained at all (since the result of
+  into the <rigid|<tt|increment>> field of the argument type. Also, the
+  variable <math|e<rsup|->> is not constrained at all (since the result of
   <tt|x.increment> is never used, the programmer doesn't care about the
   variable used to represent its type).
 
@@ -1173,7 +1192,7 @@
 
   Both of these type graphs can be made readable by applying a simple
   substitution: replacing type variables with their unique bounds. ### def in
-  terms of graph, cite, safety, varvar case
+  terms of graph, cite, safety, varvar
 
   This applies the following substitutions to <math|<tt|f1><rsup|+>>:
 
@@ -1206,68 +1225,57 @@
 
   <section|Generalised and ungeneralised bindings>
 
+  \;
+
   <section|Optional type annotations>
 
-  \;
+  Due to the type inference system, <brick> programs need not provide
+  explicit type annotations. Generally, this is an improvement over
+  fully-annotated code as the signal-to-noise ratio increases and less of the
+  code consists of repetitive type declarations.
 
-  We can state the type system as a system of constraints which well-typed
-  programs must satisify. ###
+  However, often it is valuable to be able to provide some annotations, as a
+  form of machine-checked documentation. This is common practice in the
+  Haskell programming language (which also supports global type inference),
+  where annotations are commonly placed on top-level functions as
+  documentation of the interface provided.
 
-  In order to show that a program is correctly typed, we must show that its
-  corresponding constraint system is <em|satisfiable>. ###
+  Annotations may also be used to voluntarily restrict a piece of code with a
+  very general type to a specific subtype. By the behavioural subtyping rule,
+  a term with a given type can also be considered to have any supertype of
+  that type. A programmer, after writing a program fragment with a particular
+  type <math|t>, may want to explicitly limit the uses of that fragment as
+  though it in fact had type <math|t<rprime|'>>, where
+  <math|t\<leqslant\>t<rprime|'>>. This could be done to make it more clear
+  what the programmer's intentions were and to indicate to a user what the
+  function's purpose is.
 
-  \;
+  As an example, consider a program which uses the type
+  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>> to represent
+  points on a 2-D plane. The programmer writes a function <tt|get_x> to
+  extract the <tt|x> co-ordinate of a point<\footnote>
+    Ignoring for a moment that <tt|get_x> is actually
+    <with|font-shape|italic|longer> than the expression it abstracts!
+  </footnote>:
 
-  Closure
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def get_x(point)
+  do>>|<row|<cell| \ return point.x>>|<row|<cell|end>>>>>>>
 
-  A constraint system <math|C> is said to be
-  <with|font-shape|italic|closed><\footnote>
-    refrefref (various defs of ``closed'') ###
-  </footnote> if:
+  This will be given the type <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a> by
+  inference. However, the programmer wishes to indicate that this function is
+  to be used only with points, and not with merely any structure which
+  declares an <math|x> coordinate. So, the function can be rewritten to
+  include specific annotations:
 
-  <\itemize>
-    <item>It is closed under transitivity: if <math|a\<leqslant\><rsub|C>b>
-    and <math|b\<leqslant\><rsub|C>c> then <math|a\<leqslant\><rsub|C>c>.
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def
+  get_x(point:{x:float,y:float}):float do>>|<row|<cell| \ return
+  point.x>>|<row|<cell|end>>>>>>>
 
-    <item>It is closed under structural decomposition: if
-    <math|a\<rightarrow\>b\<leqslant\><rsub|C>c\<rightarrow\>d> then
-    <math|c\<leqslant\><rsub|C>a> and <math|b\<leqslant\><rsub|C>d>.
-  </itemize>
-
-  The structural decomposition rule generalises to any type constructor, not
-  just the function constructor <math|\<rightarrow\>>. The details will be
-  provided when the closure algorithm is described in ###
-
-  Every solvable constraint system (and only solvable ones) is equivalent to
-  a closed constraint system. So, the core of the type-checking algorithm is
-  to compute the closure of the constraint system: this will succeed if and
-  only if the program is type-correct. ### ref
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  <subsubsection|Entailment>
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  <subsubsection|Subsumption>
-
-  \;
-
-  \;
-
-  \;
+  In this case, the function has type <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>,
+  which better indicates the programmer's intentions. Since
+  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>
+  is a supertype of <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a>, the
+  annotation is valid.
 
   \;
 
@@ -1302,8 +1310,28 @@
   For reasons outlined in the introduction###, it was a design goal to
   support both structural and nominative typing.
 
-  ### bunch of previous work: whiteoak<cite|whiteoak> and
-  unity<cite|unitynomstruct> for starters###
+  <brick> is not the first language to seek to combine nominative and
+  structural typing for objects. Whiteoak<cite|whiteoak> is an extension of
+  the Java programming language with, amongst other features, structural
+  subtyping. Their implementation of structural subtyping is somewhat
+  complex, as it is necessary to shoehorn the new feature into the existing
+  nominatively-typed Java virtual machine. Since Java requires full type
+  annotations, this is done by detecting all points in the program where a
+  nominative type is converted to a structural type and generating code for
+  wrapper objects at rutime.
+
+  A similar effort was undertaken to add structural subtyping to the language
+  Scala<cite|scalastructural> which also runs on the Java virtual machine.
+  This included a more sophisticated implementation, combining techniques
+  based on runtime code generation and Java's reflection mechanism.
+
+  The Unity language<cite|unitynomstruct> combines nominative and structural
+  subtyping in a way somewhat closer to the technique used in <brick>, as
+  well as providing other features such as external dispatch (aka
+  multi-methods) and a full proof of soundness. It does not attempt to tackle
+  the problem of integrating type inference with this system.
+
+  \;
 
   ### footnote that multiple subtyping is vital, regardless of whether
   multiple inheritance is a good thing ###
@@ -1529,9 +1557,9 @@
   with the definition, but the uses need not be compatible with each other.
 
   In languages like Haskell, every <with|font-family|tt|let>-bound and all
-  toplevel bindings are generalised. This poses a well-known problem
-  ###ref### in the presence of mutable references and side-effects. Consider
-  this example:
+  toplevel bindings are generalised. This poses a well-known
+  problem<cite|valuerestriction|valurestriction2> in the presence of mutable
+  references and side-effects. Consider this example:
 
   <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def obj = {list =
   []}>>>>>>>
@@ -1551,15 +1579,39 @@
   <with|font-family|tt|int> can't be read as a <with|font-family|tt|string>!
 
   The problem is that having mutable references allows communication between
-  different instantiations of a generalised binding. Thus, the uses of
-  objects containing mutable fields must be compatible, and hence the binding
-  can't be generalised.
+  different uses of a binding. Thus, the uses of objects containing mutable
+  fields must be compatible, and hence the binding can't be generalised.
 
   There are a number of standard techniques used to mitigate this problem.
-  ### ImpTyVar (unsuitable because of pervasiveness), extensions of Tofte's
-  (incomprehensible), Value restriction (used)### Brick adopts a version of
-  the value restriction: only certain syntactic forms (function and class
-  definitions) are generalised.
+  Tofte's system<cite|toftepoly>, used in many ML implementations, separates
+  the type variables into two categories: the <dfn|imperative> and the
+  <dfn|applicative> type variables. A binding will not be generalised if it
+  contains imperative type variables. There are various increasingly complex
+  extensions of this system, such as Leroy's system<cite|leroypoly>, which
+  all aim to generalise as many bindings as possible. They have the property
+  that any purely functional term can be generalised, as is the case in
+  languages without direct imperative features.
+
+  The <dfn|value restriction><cite|valuerestriction|valuerestriction2> is a
+  much simpler alternative. Using it, only values (that is, literal
+  constants, functions or immutable data structures consisting only of other
+  values) may be generalised in a binding. This results in a certain loss of
+  generality: some terms which could previously be generalised cannot with
+  this restriction in place. However, simple changes to such terms (making
+  them functions, essentially) make them generalisable, so it seems to be
+  worthwhile for the reduction in complexity of the type system compared to
+  other solutions.
+
+  Finally, the value restriction is much more natural in <brick>, a language
+  where imperative constructs are pervasive. Since almost all terms include
+  some imperative side-effects, separating imperative and applicative type
+  variables would have little benefit as purely applicative typings would be
+  difficult to achieve.
+
+  In fact, <brick> adopts an even more restrictive version of the value
+  restriction, on the basis that it should be easier to understand: only
+  function bindings (those of the form ``<tt|def f(x)>'') and classes are
+  generalised.
 
   \;
 
@@ -1613,9 +1665,193 @@
 
   <chapter|Implementation tools>
 
-  \;
+  <section|Haskell>
 
-  \;
+  The pure, lazy, functional language Haskell ###cite### was used for the
+  implementation. There are two somewhat unusual features of Haskell which
+  were used<\footnote>
+    Abused
+  </footnote> heavily to describe the generic compiler infrastructure:
+  laziness and monads.
+
+  <subsection|Laziness>
+
+  Haskell evaluates lazily. That is, when evaluating an application of a
+  function to a value, Haskell will go straight into the evaluation of the
+  function and only evaluate the value as and when it's needed. This means
+  that a number of constructs which would loop infinitely in other languages
+  complete in a finite time in Haskell. Also, constructs which would cause an
+  error such as division by zero or the built-in <tt|error> function only
+  propagate the error if the offending value is actually examined during the
+  computation. For example:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|f x y = x * 2>>>>>>>
+
+  This defines a function <tt|f> which takes two arguments and returns the
+  first multiplied by two, ignoring the second. Haskell's laziness means that
+  a term like <tt|f 42 (error ``broken!'')> will in fact output 84, since the
+  error term is never evaluated.
+
+  We can do some more interesting things with laziness. In particular, it
+  allows us to define ``infinite'' data structures:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|biglist = [1,2,3] ++
+  biglist>>>>>>>
+
+  Here <tt|biglist> represents the list <tt|[1,2,3,1,2,3,1,2,3,1,2,3,...]>.
+  This list is evaluated as needed, and so takes only a finite amount of
+  memory. Similarly, we can ``use'' the result of a computation before it has
+  been fully evaluated:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|let result = f
+  100>>|<row|<cell| \ \ \ f x = [1,2] ++ [a + x \| a \<less\>-
+  result]>>|<row|<cell|in result>>>>>>>
+
+  That is, the result is defined to be 1, then 2, followed by each element of
+  the result with 42 added. When evaluated, the list comes out as
+  <tt|[1,2,101,102,201,202,...]>. Of course, we must ensure that we don't try
+  and use a value in the computation of that value, but we may use the
+  earlier parts to compute the later parts. For instance, if this example did
+  not include the <tt|[1,2]> at the start, there would be no way to compute
+  the first element of the list and so the program can hang<\footnote>
+    Such errors are known as ``strictness bugs'' and are one of the most
+    truly evil problems to debug as attempting to observe the value will
+    change the order of evaluation.
+  </footnote>. This tactic is used in the implementation of recursive
+  functions, loops and similar recursive structures.
+
+  <subsection|Monads>
+
+  Monads are a central mechanism for expressing sequential code in Haskell.
+  There are many, many, many introductions to the concept (###) ranging from
+  category-theoretic interpretations to their use in describing I/O effects.
+  What follows is a broad overview of how they can be used to describe
+  sequential computation in a generic way, without reference to the
+  technicalities of Haskell's type system. For a deeper discussion, see any
+  of the above references.
+
+  Haskell does not have any notion of ``side-effect'' as present in most
+  other languages. When a Haskell function is invoked, the only thing that
+  can happen is the function producing a value. The function cannot modify a
+  global, or perform I/O, or change a local variable, or perform side-effects
+  of any form. This has advantages (you can be utterly sure that the function
+  doesn't silently change some important piece of state) but it makes many
+  constructs which are trivial in an imperative language difficult to express
+  in Haskell.
+
+  Haskell supports pieces of imperative-looking code like:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|do {x \<less\>-
+  doSomething 42;>>|<row|<cell| \ \ \ somethingElse x;>>|<row|<cell|
+  \ \ \ return (y + 7)}>>>>>>>
+
+  This does not execute as would be expected by someone familiar with
+  imperative languages. In an imperative language, the semicolon acts as a
+  sequencing operator separating evaluations, so that whatever side-effects
+  the first computation has can affect the second.
+
+  In Haskell there are no side-effects and order of evaluation is irrelevant.
+  So, the semicolon must do something different.
+
+  Haskell's semicolon is <with|font-shape|italic|programmable>: exactly what
+  it does depends on which monad the statement is being evaluated in. ###
+
+  <section|Happy and Alex>
+
+  Happy<cite|happy> is a LR parser generator for Haskell, in the style of
+  yacc for C. It accepts input in the form of a BNF grammar. Each production
+  of the grammar is annotated with an action, which gives a means of
+  computing a value for that node in the derivation tree from the values of
+  the sub-nodes. There are no restrictions on what form the values may take;
+  any Haskell value is permissable. Common examples would be simple
+  calculator-style grammars, where the value is simply the result of the
+  computation, and grammars constructing abstract sytax trees where the value
+  is a list (or other structure) of its children.
+
+  These essentially amount to an attributed translation grammar with support
+  for synthesised attributes. Inherited attributes, where a node higher in
+  the derivation tree passes a value to a node lower in the tree, can be
+  emulated. Since Haskell has first-class functions, the synthesised value
+  from a node can in fact be a function. A higher-level node can apply this
+  function (in effect passing a value down the tree) before return its result
+  (passing it up the tree).
+
+  Like all LR parser generators, to parse any interesting languages Happy
+  needs a pre-processing lexical analysis stage to convert the input string
+  into a sequence of tokens. This is provided by the Alex package<cite|alex>,
+  which is a rough equivalent of C's lex. The lexical syntax is described by
+  a sequence of regular expressions, and Alex generates a scanner which is
+  used to feed Happy with tokens.
+
+  <section|LLVM>
+
+  LLVM, or the Low-Level Virtual Machine, is ``a compilation framework for
+  lifelong program analysis and transformation''<cite|llvm>. It provides a
+  simple language-independent framework for compilation, and a machine-level
+  type system.
+
+  Programs are expressed in the LLVM intermediate representation, which is
+  essentially a typed assembly language. The LLVM type system is purely
+  structural and tries to impose minimal constraints on the higher-level
+  language being compiled.\ 
+
+  LLVM provides a generic backend for compiler authors. LLVM contains a large
+  number of standard analysis and optimisation passes defined in terms of the
+  LLVM IR, and so can be used to perform all of the mid- and low-level
+  optimisations that are necessary for efficient code. These include dead
+  code elimination, partial redudancy elimination, invariant hoisting and
+  inlining. So, the task for a compiler-writer becomes simply to generate
+  <with|font-shape|italic|valid> LLVM IR and let LLVM worry about generating
+  fast code.
+
+  There are a number of higher-level optimisations which should be applied at
+  a level above LLVM. Most of these rely on having extra type information
+  available. For instance, knowledge about types would allow a compiler to
+  make extra assumptions about aliasing, and may present better opportunities
+  for inlining. The implementation of such optimisations wouldn't generally
+  take the form of complicated code transformations, but rather generating
+  code in such a way that LLVM's standard optimisation passes can pick up on
+  the extra opportunities. None of these type-based optimisations have been
+  implemented yet, but some rough designs are noted in the ###future work
+  section###.
+
+  <subsection|LLVM IR>
+
+  The LLVM IR is a typed assembly language for a virtual machine with:
+
+  <\description>
+    <item*|An arbitrary number of registers>LLVM registers are simply
+    identifiers, and any number of them can be used. All operations using IR
+    registers are in SSA form, but LLVM contains an optimisation pass
+    (<tt|mem2reg>) to convert non-SSA reads and writes into SSA form.
+
+    <item*|A structural, machine-level type system>LLVM knows about the type
+    of each operand or register, which may be an integer of any bit-width, a
+    structure, an array, a function pointer, etc. The operations are defined
+    in terms of the types, and so for instance there is an ``instruction'' to
+    convert a pointer to a structure into a pointer to one of its fields.
+    LLVM handles target structure layout issues and calculates offsets before
+    generating native code.
+
+    <item*|Stack management>Stack slots are explicitly allocated and typed
+    using the <tt|alloca> instruction and the LLVM system keeps track of the
+    stack offsets at which data is stored. Since the system ``knows'' about
+    every access to the stack, it can safely perform optimisations such as
+    assigning a value to a register and eliminating the stack slot, as well
+    as producing register spill and restore code without affecting stack
+    variables.
+
+    <item*|Calling convention support>The <tt|call> instruction abstracts
+    away all of the target-specific details of the platform, and so functions
+    can be called without worrying about issues such as calling conventions,
+    caller-save registers, stack frame management and so on.
+  </description>
+
+  All of these features make LLVM IR a much more pleasant target for a
+  compiler than a normal assembly language. The LLVM typing system makes
+  debugging code generation much easier.
+
+  <chapter|Architecture>
 
   \;
 
@@ -1746,7 +1982,7 @@
   implementation, easy to verify, don't have to throw it away each change
 
   <\bibliography|bib|plain|/home/stephen/papers/papers.bib>
-    <\bib-list|1>
+    <\bib-list|10>
       <bibitem*|1><label|bib-hopcroftmin>A.<nbsp>V. Aho, J.<nbsp>E. Hopcroft,
       and J.<nbsp>D. Ullman. <newblock><with|font-shape|italic|The Design and
       Analysis of Computer Algorithms>. <newblock>Addison-Wesley Publishing
@@ -1757,38 +1993,75 @@
       <newblock><with|font-shape|italic|ACM Trans. Program. Lang. Syst.>,
       15(4):575--631, 1993.
 
-      <bibitem*|3><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
-      Valery Trifonov. <newblock>Type inference for recursively constrained
-      types and its application to oop. <newblock><with|font-shape|italic|Electronic
+      <bibitem*|3><label|bib-alex>C.<nbsp>Dornan, I.<nbsp>Jones, and
+      S.<nbsp>Marlow. <newblock>Alex: A lexical analyser generator for
+      Haskell. <newblock><with|font-shape|italic|University of Glasgow>,
+      1995.
+
+      <bibitem*|4><label|bib-scalastructural>G.<nbsp>Dubochet and
+      M.<nbsp>Odersky. <newblock>Compiling structural types on the JVM: a
+      comparison of reflective and generative techniques from Scala's
+      perspective. <newblock>pages 34--41, 2009.
+
+      <bibitem*|5><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
+      Valery Trifonov. <newblock>Type Inference for Recursively Constrained
+      Types and its Application to OOP. <newblock><with|font-shape|italic|Electronic
       Notes in Theoretical Computer Science>, 1:132 -- 153, 1995.
       <newblock>MFPS XI, Mathematical Foundations of Programming Semantics,
       Eleventh Annual Conference.
 
-      <bibitem*|4><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
+      <bibitem*|6><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
       <newblock>Whiteoak: introducing structural typing into java.
       <newblock><with|font-shape|italic|ACM SIGPLAN Notices>, 43(10):73--90,
       2008.
 
-      <bibitem*|5><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
+      <bibitem*|7><label|bib-happy>A.<nbsp>Gill and S.<nbsp>Marlow.
+      <newblock>Happy: The parser generator for Haskell.
+      <newblock><with|font-shape|italic|University of Glasgow>, 1995.
+
+      <bibitem*|8><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
       Michael<nbsp>I. Schwartzbach. <newblock>Efficient recursive subtyping.
       <newblock>pages 419--428, 1993.
 
-      <bibitem*|6><label|bib-unitynomstruct>D.<nbsp>Malayeri and
+      <bibitem*|9><label|bib-llvm>Chris Lattner and Vikram Adve.
+      <newblock>LLVM: A Compilation Framework for Lifelong Program Analysis &
+      Transformation. <newblock>Mar 2004.
+
+      <bibitem*|10><label|bib-leroypoly>X.<nbsp>Leroy. <newblock>Polymorphism
+      by name for references and continuations. <newblock>In
+      <with|font-shape|italic|Proceedings of the 20th ACM SIGPLAN-SIGACT
+      symposium on Principles of programming languages>, pages 220--231. ACM,
+      1993.
+
+      <bibitem*|11><label|bib-unitynomstruct>D.<nbsp>Malayeri and
       J.<nbsp>Aldrich. <newblock>Integrating nominal and structural
       subtyping. <newblock><with|font-shape|italic|ECOOP
       2008--Object-Oriented Programming>, pages 260--284, 2008.
 
-      <bibitem*|7><label|bib-pottierframework>François Pottier. <newblock>A
-      framework for type inference with subtyping.
-      <newblock><with|font-shape|italic|SIGPLAN Not.>, 34(1):228--238, 1999.
-
-      <bibitem*|8><label|bib-pottierphd>FranÃ§ois Pottier. <newblock>Type
+      <bibitem*|12><label|bib-pottierphd>François Pottier. <newblock>Type
       inference in the presence of subtyping: from theory to practice.
       <newblock>Research Report RR-3483, INRIA, 1998.
 
-      <bibitem*|9><label|bib-subconst>Valery Trifonov and Scott Smith.
+      <bibitem*|13><label|bib-pottierframework>François Pottier. <newblock>A
+      framework for type inference with subtyping.
+      <newblock><with|font-shape|italic|SIGPLAN Not.>, 34(1):228--238, 1999.
+
+      <bibitem*|14><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
+      inference for polymorphic references.
+      <newblock><with|font-shape|italic|Information and computation>,
+      89(1):1--34, 1990.
+
+      <bibitem*|15><label|bib-subconst>Valery Trifonov and Scott Smith.
       <newblock>Subtyping constrained types. <newblock>1145:349--365, 1996.
       <newblock>10.1007/3-540-61739-6<rsub|5>2.
+
+      <bibitem*|16><label|bib-valuerestriction>A.K. Wright.
+      <newblock>Polymorphism for imperative languages without imperative
+      types. <newblock>1993.
+
+      <bibitem*|17><label|bib-valuerestriction2>A.K. Wright. <newblock>Simple
+      imperative polymorphism. <newblock><with|font-shape|italic|Lisp and
+      symbolic computation>, 8(4):343--355, 1995.
     </bib-list>
   </bibliography>
 </body>
@@ -1807,52 +2080,64 @@
     <associate|auto-11|<tuple|3.3.1|13>>
     <associate|auto-12|<tuple|3.3.2|13>>
     <associate|auto-13|<tuple|3.4|13>>
-    <associate|auto-14|<tuple|3.5|14>>
-    <associate|auto-15|<tuple|3.6|15>>
+    <associate|auto-14|<tuple|3.5|13>>
+    <associate|auto-15|<tuple|3.6|14>>
     <associate|auto-16|<tuple|4|15>>
     <associate|auto-17|<tuple|4.1|15>>
-    <associate|auto-18|<tuple|4.2|16>>
+    <associate|auto-18|<tuple|4.2|15>>
     <associate|auto-19|<tuple|4.3|16>>
     <associate|auto-2|<tuple|1|5>>
-    <associate|auto-20|<tuple|4.4|17>>
-    <associate|auto-21|<tuple|4.5|17>>
+    <associate|auto-20|<tuple|4.4|16>>
+    <associate|auto-21|<tuple|4.5|16>>
     <associate|auto-22|<tuple|4.6|17>>
     <associate|auto-23|<tuple|4.7|17>>
     <associate|auto-24|<tuple|4.7.1|17>>
-    <associate|auto-25|<tuple|4.7.2|17>>
-    <associate|auto-26|<tuple|4.8|17>>
-    <associate|auto-27|<tuple|4.8.1|19>>
-    <associate|auto-28|<tuple|4.8.2|19>>
-    <associate|auto-29|<tuple|4.9|19>>
+    <associate|auto-25|<tuple|4.7.2|18>>
+    <associate|auto-26|<tuple|4.8|19>>
+    <associate|auto-27|<tuple|4.8.1|20>>
+    <associate|auto-28|<tuple|4.8.2|20>>
+    <associate|auto-29|<tuple|4.9|20>>
     <associate|auto-3|<tuple|2|7>>
-    <associate|auto-30|<tuple|5|19>>
-    <associate|auto-31|<tuple|5.1|19>>
-    <associate|auto-32|<tuple|5.2|21>>
-    <associate|auto-33|<tuple|5.2.0.1|22>>
+    <associate|auto-30|<tuple|5|23>>
+    <associate|auto-31|<tuple|5.1|23>>
+    <associate|auto-32|<tuple|5.2|23>>
+    <associate|auto-33|<tuple|5.2.0.1|23>>
     <associate|auto-34|<tuple|5.2.0.2|23>>
     <associate|auto-35|<tuple|5.2.0.3|25>>
-    <associate|auto-36|<tuple|5.2.0.4|27>>
-    <associate|auto-37|<tuple|5.2.0.5|?>>
-    <associate|auto-38|<tuple|6|?>>
-    <associate|auto-39|<tuple|A|?>>
+    <associate|auto-36|<tuple|6|26>>
+    <associate|auto-37|<tuple|6.1|27>>
+    <associate|auto-38|<tuple|6.1.1|29>>
+    <associate|auto-39|<tuple|6.1.2|31>>
     <associate|auto-4|<tuple|3|9>>
-    <associate|auto-40|<tuple|A|?>>
-    <associate|auto-41|<tuple|A|?>>
+    <associate|auto-40|<tuple|6.2|33>>
+    <associate|auto-41|<tuple|6.3|?>>
+    <associate|auto-42|<tuple|6.3.1|?>>
+    <associate|auto-43|<tuple|7|?>>
+    <associate|auto-44|<tuple|A|?>>
+    <associate|auto-45|<tuple|A|?>>
     <associate|auto-5|<tuple|3.1|9>>
     <associate|auto-6|<tuple|3.1.1|10>>
     <associate|auto-7|<tuple|3.2|10>>
     <associate|auto-8|<tuple|3.2.1|11>>
     <associate|auto-9|<tuple|3.2.2|12>>
-    <associate|bib-hopcroftmin|<tuple|1|?>>
+    <associate|bib-alex|<tuple|3|?>>
+    <associate|bib-happy|<tuple|7|?>>
+    <associate|bib-hopcroftmin|<tuple|1|33>>
+    <associate|bib-leroypoly|<tuple|10|?>>
+    <associate|bib-llvm|<tuple|9|?>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|3|27>>
-    <associate|bib-pottierframework|<tuple|7|27>>
-    <associate|bib-pottierphd|<tuple|8|27>>
-    <associate|bib-subconst|<tuple|9|?>>
-    <associate|bib-subrec|<tuple|2|27>>
-    <associate|bib-subrecfast|<tuple|5|27>>
-    <associate|bib-unitynomstruct|<tuple|6|27>>
-    <associate|bib-whiteoak|<tuple|4|27>>
+    <associate|bib-ooprectypes|<tuple|5|33>>
+    <associate|bib-pottierframework|<tuple|13|33>>
+    <associate|bib-pottierphd|<tuple|12|33>>
+    <associate|bib-scalastructural|<tuple|4|?>>
+    <associate|bib-subconst|<tuple|15|33>>
+    <associate|bib-subrec|<tuple|2|33>>
+    <associate|bib-subrecfast|<tuple|8|33>>
+    <associate|bib-toftepoly|<tuple|14|?>>
+    <associate|bib-unitynomstruct|<tuple|11|33>>
+    <associate|bib-valuerestriction|<tuple|16|?>>
+    <associate|bib-valuerestriction2|<tuple|17|?>>
+    <associate|bib-whiteoak|<tuple|6|33>>
     <associate|footnote-1|<tuple|1|?>>
     <associate|footnote-1.1|<tuple|1.1|?>>
     <associate|footnote-1.2|<tuple|1.2|?>>
@@ -1876,13 +2161,16 @@
     <associate|footnote-4.3|<tuple|4.3|?>>
     <associate|footnote-4.4|<tuple|4.4|?>>
     <associate|footnote-5|<tuple|5|?>>
-    <associate|footnote-5.1|<tuple|5.1|19>>
-    <associate|footnote-5.2|<tuple|5.2|21>>
-    <associate|footnote-5.3|<tuple|5.3|21>>
-    <associate|footnote-5.4|<tuple|5.4|22>>
+    <associate|footnote-5.1|<tuple|5.1|23>>
+    <associate|footnote-5.2|<tuple|5.2|25>>
+    <associate|footnote-5.3|<tuple|5.3|25>>
+    <associate|footnote-5.4|<tuple|5.4|26>>
+    <associate|footnote-5.5|<tuple|5.5|?>>
     <associate|footnote-6|<tuple|6|?>>
-    <associate|footnote-6.1|<tuple|6.1|25>>
-    <associate|footnote-6.2|<tuple|6.2|26>>
+    <associate|footnote-6.1|<tuple|6.1|29>>
+    <associate|footnote-6.2|<tuple|6.2|30>>
+    <associate|footnote-7.1|<tuple|7.1|?>>
+    <associate|footnote-7.2|<tuple|7.2|?>>
     <associate|footnr-1|<tuple|1|?>>
     <associate|footnr-1.1|<tuple|1.1|?>>
     <associate|footnr-1.2|<tuple|1.2|?>>
@@ -1906,13 +2194,16 @@
     <associate|footnr-4.3|<tuple|4.3|?>>
     <associate|footnr-4.4|<tuple|4.4|?>>
     <associate|footnr-5|<tuple|5|?>>
-    <associate|footnr-5.1|<tuple|5.1|19>>
-    <associate|footnr-5.2|<tuple|5.2|21>>
-    <associate|footnr-5.3|<tuple|5.3|21>>
-    <associate|footnr-5.4|<tuple|5.4|22>>
+    <associate|footnr-5.1|<tuple|5.1|23>>
+    <associate|footnr-5.2|<tuple|5.2|25>>
+    <associate|footnr-5.3|<tuple|5.3|25>>
+    <associate|footnr-5.4|<tuple|5.4|26>>
+    <associate|footnr-5.5|<tuple|5.5|?>>
     <associate|footnr-6|<tuple|6|?>>
-    <associate|footnr-6.1|<tuple|6.1|25>>
-    <associate|footnr-6.2|<tuple|6.2|26>>
+    <associate|footnr-6.1|<tuple|6.1|29>>
+    <associate|footnr-6.2|<tuple|6.2|30>>
+    <associate|footnr-7.1|<tuple|7.1|?>>
+    <associate|footnr-7.2|<tuple|7.2|?>>
   </collection>
 </references>
 
@@ -1949,7 +2240,27 @@
 
       whiteoak
 
+      scalastructural
+
       unitynomstruct
+
+      valuerestriction
+
+      valurestriction2
+
+      toftepoly
+
+      leroypoly
+
+      valuerestriction
+
+      valuerestriction2
+
+      happy
+
+      alex
+
+      llvm
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Abstract>
@@ -2075,38 +2386,55 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-32>
 
-      <with|par-left|<quote|3fn>|5.2.0.1<space|2spc>Entailment
+      <with|par-left|<quote|3fn>|5.2.0.1<space|2spc>Mutability
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-33>>
 
-      <with|par-left|<quote|3fn>|5.2.0.2<space|2spc>Subsumption
+      <with|par-left|<quote|3fn>|5.2.0.2<space|2spc>The value restriction
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-34>>
 
-      <with|par-left|<quote|3fn>|5.2.0.3<space|2spc>Mutability
+      <with|par-left|<quote|3fn>|5.2.0.3<space|2spc>``Polymorphism''
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-35>>
 
-      <with|par-left|<quote|3fn>|5.2.0.4<space|2spc>The value restriction
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36>>
-
-      <with|par-left|<quote|3fn>|5.2.0.5<space|2spc>``Polymorphism''
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37>>
-
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Implementation
       tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-38><vspace|0.5fn>
+      <no-break><pageref|auto-36><vspace|0.5fn>
+
+      6.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-37>
+
+      <with|par-left|<quote|1.5fn>|6.1.1<space|2spc>Laziness
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-38>>
+
+      <with|par-left|<quote|1.5fn>|6.1.2<space|2spc>Monads
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-39>>
+
+      6.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-40>
+
+      6.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-41>
+
+      <with|par-left|<quote|1.5fn>|6.3.1<space|2spc>LLVM IR
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-42>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|2spc>Architecture>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-43><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|2spc>Detailed typing rules for <error|compound brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-39><vspace|0.5fn>
+      <no-break><pageref|auto-44><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-40><vspace|0.5fn>
+      <no-break><pageref|auto-45><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
