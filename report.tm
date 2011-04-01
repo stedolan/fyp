@@ -679,12 +679,63 @@
   has the potential to cause problems. To remedy these, a further requirement
   known as <dfn|convexity of arity> is placed on the structure of the
   constructor lattice. For all constructors <math|c<rsub|1>>,
-  <math|c<rsub|2>> and <math|c<rsub|3>> with label sets <math|L<rsub|1>>,
-  <math|L<rsub|2>> and <math|L<rsub|3>> such that
+  <math|c<rsub|2>> and <math|c<rsub|3>> with label sets
+  <math|L<around*|(|c<rsub|1>|)>>, <math|L<around*|(|c<rsub|2>|)>> and
+  <math|L<around*|(|c<rsub|3>|)>> such that
   <math|c<rsub|1>\<leqslant\>c<rsub|2>\<leqslant\>c<rsub|3>>, it must be the
-  case that <math|L<rsub|1>\<cap\>L<rsub|3>\<subseteq\>L<rsub|2>>. ###explain
+  case that <math|L<around*|(|c<rsub|1>|)>\<cap\>L<around*|(|c<rsub|3>|)>\<subseteq\>L<around*|(|c<rsub|2>|)>>.
+  This means that it is impossible to ignore parameters which will later be
+  constrained: as the bound of a constraint moves up the constructor lattice,
+  labels will never disappear and then reappear.
 
-  \;
+  <subsection|Formal definition of constructor lattice>
+
+  Having defined convexity of arity, we are now able to make a formal
+  statement of the conditions that must hold on the space of constructors.
+  This is important, as it provides a separation between the type inference
+  engine and the gory details of the type system and object model. The
+  inference engine will work over any set of constructors which satisfy these
+  properties, and the concrete types allowed can later be specified as such a
+  set.
+
+  Firstly, a <dfn|variance> is either <with|font-shape|italic|positive> (or
+  <with|font-shape|italic|covariant>) or <with|font-shape|italic|negative>
+  (or <with|font-shape|italic|contravariant>), which are represented as
+  <math|+> and <math|-> respectively. The set <math|<around*|{|+,-|}>> will
+  be denoted <math|\<bbb-V\>>.
+
+  A <dfn|constructor lattice> consists of:
+
+  <\itemize>
+    <item>A set of constructors, <math|\<bbb-C\>> (whose elements are
+    <math|c<rsub|1>>, <math|c<rsub|2>>, etc.)
+
+    <item>A set of labels, <math|\<bbb-L\>> (whose elements are
+    <math|l<rsub|1>>, <math|l<rsub|2>\<nocomma\>>, etc.)
+
+    <item>A mapping <math|\<bbb-C\>\<rightarrow\>\<cal-P\><around*|(|\<bbb-L\>|)>>,
+    called the arity of a constructor
+
+    <item>A mapping <math|\<bbb-L\>\<rightarrow\>\<bbb-V\>>, called the
+    variance of a label
+
+    <item>An ordering <math|\<leqslant\>> defined on <math|\<bbb-C\>>, known
+    as constructor subtyping
+  </itemize>
+
+  It must satisfy the following conditions:
+
+  <\itemize>
+    <item><math|\<leqslant\>> forms a lattice
+
+    <item>For all <math|c<rsub|1>,c<rsub|2>,c<rsub|3>\<in\>\<bbb-C\>> such
+    that <math|c<rsub|1>\<leqslant\>c<rsub|2>\<leqslant\>c<rsub|3>>,
+    <math|arity<around*|(|c<rsub|1>|)>\<cap\>arity<around*|(|c<rsub|3>|)>\<subseteq\>arity<around*|(|c<rsub|2>|)>>
+  </itemize>
+
+  Also note that since variance is a property of labels rather than of
+  constructors, a label must have the same variance for each constructor in
+  which it appears.
 
   <section|Closure>
 
@@ -734,14 +785,15 @@
   represent the type as <math|x\<rightarrow\>y> with the constraints that
   <math|x=a\<rightarrow\>b> and <math|y=c\<rightarrow\>d>.
 
-  Somewhat more formally, we define a <dfn|small constructed type> as one
-  that is of the form <math|c<around*|(|p,q,r,\<ldots\>|)>> where <math|c> is
-  a type constructor and its parameters <math|p,q,r,\<ldots\>> are type
-  variables. Any constraint set is equivalent to a constraint set where both
-  sides of each constraint are either variables or small constructed types.
-  The latter constraint set can be built from the former by breaking down
-  each non-small constructed type into a small constructed type and a set of
-  constraints.
+  Somewhat more formally, we<\footnote>
+    Provisionally, see the next section
+  </footnote> define a <dfn|small constructed type> as one that is of the
+  form <math|c<around*|(|p,q,r,\<ldots\>|)>> where <math|c> is a type
+  constructor and its parameters <math|p,q,r,\<ldots\>> are type variables.
+  Any constraint set is equivalent to a constraint set where both sides of
+  each constraint are either variables or small constructed types. The latter
+  constraint set can be built from the former by breaking down each non-small
+  constructed type into a small constructed type and a set of constraints.
 
   Since our constraint sets don't support equality constraints, we might
   choose to represent constraints like <math|x=a\<rightarrow\>b> as a pair of
@@ -1277,6 +1329,10 @@
   is a supertype of <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a>, the
   annotation is valid.
 
+  <subsection|Checking type annotations>
+
+  \;
+
   \;
 
   \;
@@ -1348,7 +1404,7 @@
   \;
 
   <center|<with|font-family|tt|<tabular|<tformat|<cwith|1|3|2|3|cell-lborder|0.2pt>|<cwith|1|3|1|3|cell-width|5.1cm>|<cwith|1|3|1|3|cell-hmode|exact>|<table|<row|<cell|def
-  draw(x) do>|<cell|def render(x: Shape) do>|<cell|def brandish(x: Cowboy)
+  drawany(x) do>|<cell|def render(x: Shape) do>|<cell|def brandish(x: Cowboy)
   do>>|<row|<cell| \ x.draw()>|<cell| \ x.draw()>|<cell|
   \ x.draw()>>|<row|<cell|end>|<cell|end>|<cell|end>>>>>>>
 
@@ -1360,7 +1416,7 @@
 
   <center|<tabular*|<tformat|<table|<row|<cell|>|<cell|<with|font-family|tt|a:
   Cowboy>>|<cell|<with|font-family|tt|b: Shape>>|<cell|<with|font-family|tt|c:
-  Square>>>|<row|<cell|<with|font-family|tt|draw>>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>>|<row|<cell|<with|font-family|tt|render>>|<cell|>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>>|<row|<cell|<with|font-family|tt|brandish>>|<cell|<math|\<checked\>>>|<cell|>|<cell|>>>>>>
+  Square>>>|<row|<cell|<with|font-family|tt|drawany>>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>>|<row|<cell|<with|font-family|tt|render>>|<cell|>|<cell|<math|\<checked\>>>|<cell|<math|\<checked\>>>>|<row|<cell|<with|font-family|tt|brandish>>|<cell|<math|\<checked\>>>|<cell|>|<cell|>>>>>>
 
   That is, the functions that required their arguments to be of specific
   class types only accept those types, while the function that required
@@ -1373,9 +1429,51 @@
   subtypes of <with|font-family|tt|{draw}> (i.e. the structural type
   ``containing a draw field''), but unrelated to each other.
 
-  ### lattice ###
+  \;
 
-  ### interface intersection types ###
+  <subsection|A potential problem>
+
+  A class may extend any number of other classes. Whether multiple
+  inheritance (the ability to inherit code and data definitions from multiple
+  extended classes) is a good thing or not, it is clear from its presence in
+  almost every that multiple <with|font-shape|italic|subtyping> (the ability
+  to implement interfaces from multiple exteded classes, such as Java or C#
+  interfaces) is vital to a nominatively-typed object-oriented language. It
+  is this feature which allows, say, a <tt|List> class to be iterated over
+  (via a <tt|Iterable> interface), checked for equality with other lists (via
+  a <tt|Comparable> interface) and so on using common generic interfaces.
+
+  So, consider two subclasses of <tt|Shape>: <tt|Rectangle> and
+  <tt|RegularPolygon>. <tt|Rectangle> defines width and height fields, and
+  <tt|RegularPolygon> defines a side-length field. A subclass <tt|Square> is
+  created, extending both of these. This poses no problem: <tt|Square> must
+  simply implement all of the interfaces its superclasses demand. That is, it
+  must provide <tt|draw>, <tt|width>, <tt|height>, and <tt|side-length>.
+
+  What if a programmer tried to write a subclass of both <tt|Rectangle> and
+  <tt|Cowboy>? In particular, what operation would such a class's <tt|draw>
+  method perform? One of the central features of a nominative type system is
+  that two features of a type are not considered equivalent merely by having
+  the same name.\ 
+
+  The problem is not merely having two different superclasses that define the
+  same name. There was no problem with <tt|Square> having a <tt|draw> method,
+  even though it was part of both <tt|Rectangle> and <tt|RegularPolygon>,
+  since both methods referred to the same <with|font-shape|italic|meaning>,
+  that of <tt|Shape.draw>. Our hypothetical rectangular cowboy has no such
+  luxury: its <tt|draw> method must implement both <tt|Shape.draw> and
+  <tt|Cowboy.draw>, which is nonsensical.
+
+  We cannot allow such objects: we cannot demand that there be a single
+  <tt|draw> method, for that would violate the principle that nominative
+  declarations are not equivalent unless declared so, and we cannot allow
+  multiple <tt|draw> methods since we cannot in general disambiguate (what if
+  such an object was passed to <tt|drawany> above?).
+
+  So, the problem is solved simply by disallowing such objects. This requires
+  a certain amount of subtlety: we must find a way of detecting when a
+  constraint graph requires such an impossible object and consider it in
+  error.\ 
 
   \;
 
@@ -1383,31 +1481,191 @@
 
   \;
 
-  An object type constructor consists of a set of field names and a set of
-  classes. The set of classes must be upwards-closed (that is, if it contains
-  a class <math|C> it also contains all superclasses of <math|C>) and contain
-  no conflicting classes. A type is a subtype of another if it has a superset
-  of the fields and a superset of the classes.
+  \;
 
-  It remains to show that this structure forms a lattice. Rather than prove
-  this directly (which would be somewhat messy), we prove it by showing that
-  it is constructed from lattices using only operations which map lattices to
-  lattices.
+  \;
 
-  First, a few well-known properties of lattices:
+  Having given an intuitive explanation for how we would like nominative and
+  structural types to interoperate, it remains to fit it into the formal
+  model of constructor lattices defined in section ###. If this can be done,
+  then we will know that the type inference algorithms will support inference
+  and annotation-checking of code using these types.
+
+  So, we would like to add <dfn|object types> to our constructor lattice.
+  These types must support an arbitrary set of fields, and must support
+  (user-defined) classes. As was explained above, a class is a subtype of the
+  purely structural type with the same set of fields, as well as being a
+  subtype of those classes it explicitly extends. An important (almost
+  defining) property of nominative typing is that two classes do not enter
+  into a subtype relation merely by having the same set of fields. However,
+  those two classes must both be subtypes of the structural type defining
+  their common fields.
+
+  <subsection|Classes (partial description)>
+
+  We may consider a class, therefore, as consisting of a set of classes that
+  it directly extends and a set of members that it defines (as specified by
+  the programmer in the class definition). Classes will be written as
+  <math|\<b-C\><rsub|1>\<nocomma\>\<nocomma\>,\<b-C\><rsub|2>,\<ldots\>> with
+  <math|\<b-C\><rsub|1> <with|math-font-series|bold|extends> \<b-C\><rsub|2>>
+  denoting the ``directly extends'' relation and
+  <math|<with|math-font-series|bold|defined><around*|(|<with|math-font-series|bold|C><rsub|1>|)>>
+  denoting the set of members defined in the class.
+
+  We will temporarily ignore that part of the class which places restrictions
+  on the types of its members, which will be explained in a later section.
+  For now, we seek only to define a constructor lattice capable of
+  representing the top-level types.
+
+  The directed graph formed by the <math|<with|math-font-series|bold|extends>>
+  relation is acyclic, and so its reflexive transitive closure forms a
+  partial order, which we will refer to as <dfn|subclassing><\footnote>
+    Not that, under this definition, each class is a subclass of itself.
+  </footnote>. <math|<with|math-font-series|bold|superclasses><around*|(|<with|math-font-series|bold|C>|)>>
+  will denote the set of classes of which
+  <math|<with|math-font-series|bold|C>> is a subclass.
+
+  As well as defining some members, a class inherits the members defined in
+  each of its superclasses. Some of these members (particularly methods) may
+  be overridden and given a different definition in the superclass, giving
+  rise to ``polymorphic dispatch'': the target of a function call depends on
+  the runtime class of a object ### reword ###
+
+  We will consider <math|<with|math-font-series|bold|defined><around*|(|<with|math-font-series|bold|C>|)>>
+  to include only those members defined for the first time in
+  <math|<with|math-font-series|bold|C>>, rather than those inherited or
+  overriden. Thus, we can define <math|<with|math-font-series|bold|members><around*|(|<with|math-font-series|bold|C>|)>>,
+  the complete set of members in <math|<with|math-font-series|bold|C>>, as
+  <math|<big-around|\<cup\>|<around*|{|<with|math-font-series|bold|defined><around*|(|<with|math-font-series|bold|C<rprime|'>>|)><with|math-font-series|bold|>\|<with|math-font-series|bold|C<rprime|'>>\<in\><with|math-font-series|bold|superclasses><around*|(|<with|math-font-series|bold|C>|)>|}>>>.
+
+  The sets <with|mode|math|<around*|{|<with|math-font-series|bold|defined><around*|(|<with|math-font-series|bold|C<rprime|'>>|)><with|math-font-series|bold|>\|<with|math-font-series|bold|C<rprime|'>>\<in\><with|math-font-series|bold|superclasses><around*|(|<with|math-font-series|bold|C>|)>|}>>
+  must be disjoint, and so for any member in
+  <math|<with|math-font-series|bold|members><around*|(|<with|math-font-series|bold|C>|)>>
+  we may find the unique superclass <with|mode|math|<with|math-font-series|bold|C<rprime|'>>>
+  which defines it. Two classes which define disjoint sets of members are
+  said to be <dfn|compatible>, and so the above condition may be restated as
+  ``no class may have two incompatible superclasses''. In the example above,
+  <tt|Shape>, <tt|RegularPolygon> and <tt|Rectangle> are all
+  pairwise-compatible (and so <tt|Square> is a legal class), but <tt|Shape>
+  is not compatible with <tt|Cowboy> (thus banning rectangular cowboys).
+
+  Since the set of classes extended and the set of members defined by a new
+  class are written directly in the class declaration, these restrictions
+  (that <math|<with|math-font-series|bold|extends>> is acyclic and that
+  superclasses are all pairwise compatible) are simple syntactic criteria and
+  can be verified without invoking the typechecker.
+
+  This brings us part-way towards solving the problem mentioned above: it now
+  becomes impossible to define a class which is a subclass of both
+  <tt|Cowboy> and <tt|Shape>, since the <tt|draw> method would not have a
+  unique definition. The problem is not completely solved, however, as it
+  will require some more sophistication to recognise that a function which
+  tries to use objects of both these types (say, a function that passes its
+  argument to both <tt|brandish> and <tt|render>) is ill-typed.
+
+  <subsection|The object constructor lattice>
+
+  An <dfn|object type constructor> <math|\<b-O\>> consists of a set of
+  classes <math|<with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>
+  and a set of fields <math|<with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O>|)>>
+  such that:
 
   <\itemize>
-    <item>If <math|S> is a set ordered by subset inclusion, then
-    <math|S,\<subseteq\>>forms a lattice (with
-    <math|\<sqcap\>=\<cap\>,\<sqcup\>=\<cup\>>)
+    <item><math|<with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>
+    is upwards-closed.
 
-    <item>If <math|S> is a partially ordered set, then the upwards-closed
-    subsets of <math|S> form a lattice (again under subset inclusion)
+    That is, for all <math|<with|math-font-series|bold|C>\<in\><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>,
+    <math|<with|math-font-series|bold|superclasses><around*|(|<with|math-font-series|bold|C>|)>\<subseteq\><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>.
+
+    <item>The elements of <math|<with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>
+    are compatible.
+
+    That is, for all <math|<with|math-font-series|bold|C<rsub|1>>,<with|math-font-series|bold|C<rsub|2>>\<in\><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>,
+    <math|<with|math-font-series|bold|>><with|mode|math|<with|math-font-series|bold|C<rsub|1>>
+    >and <with|mode|math|<with|math-font-series|bold|C<rsub|2>>> are
+    compatible.
+
+    <item><math|<with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O>|)>>
+    contains at least the fields defined by the classes in
+    <math|<with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>.
+
+    That is, for all <math|<with|math-font-series|bold|C>\<in\><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>,
+    <math|><with|mode|math|<with|math-font-series|bold|members><around*|(|<with|math-font-series|bold|C>|)>\<subseteq\><with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O>|)>>.
+  </itemize>
+
+  The space of object type constructors <math|\<bbb-O\>> consists of all such
+  object type constructors, as well as a bottom element
+  <math|\<bot\><rsub|\<bbb-o\>>>. For the type inference engine to
+  successfully check programs, it must be proven that <math|\<bbb-O\>> forms
+  a type constructor lattice (as defined in ###).
+
+  <\itemize>
+    <item>The set of constructors is <math|\<bbb-O\>>.
+
+    <item>The set of labels is the set of all possible field names.
+
+    <item><math|arity<around*|(|<with|math-font-series|bold|O>|)>=<with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O>|)>;
+    arity<around*|(|\<bot\><rsub|\<bbb-o\>>|)>=<around*|{|all possible field
+    names|}>>
+
+    The arity is simply the set of fields, each field becomes a label.
+
+    <item><math|variance<around*|(|f|)>=+>
+
+    All of the labels (fields) have positive variance.###
+
+    <item><math|\<bot\><rsub|\<bbb-o\>>\<leqslant\><with|math-font-series|bold|O>;<with|math-font-series|bold|O<rsub|1>\<leqslant\>O<rsub|2>\<Leftrightarrow\>><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O<rsub|1>>|)>\<supseteq\><with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O<rsub|2>>|)>\<wedge\><with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O<rsub|1>>|)>\<supseteq\><with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O<rsub|2>>|)>>
+
+    <with|mode|math|\<bot\><rsub|\<bbb-o\>>> is a subtype of every type
+    constructor.
+
+    A type constructor <math|<with|math-font-series|bold|O<rsub|1>>> is a
+    subtype of <math|<with|math-font-series|bold|O<rsub|2>>> if it has a
+    larger set of classes and fields.
+  </itemize>
+
+  We need to show that the ordering on object type constructors forms a
+  lattice and follows the convexity of arity condition. The latter is easy:
+  the constructor ordering is anti-monotonic in arity (that is,
+  <math|<with|math-font-series|bold|O<rsub|1>\<leqslant\>O<rsub|2>>> only if
+  <math|arity<around*|(|<with|math-font-series|bold|O<rsub|1>>|)>\<supseteq\>arity<around*|(|<with|math-font-series|bold|O<rsub|2>>|)>>),
+  and so the convexity condition trivially holds.
+
+  It remains to show that this structure forms a lattice. Rather than prove
+  this directly (which would be somewhat messy), we prove it by ###.
+
+  First, a few well-known lattice constructions:
+
+  <\itemize>
+    <item>If <math|S> is a set, then <math|S> forms a lattice under
+    <math|\<subseteq\>>:
+
+    <math|a\<sqcap\><rprime|'>b is a\<cap\>b;a\<sqcup\><rprime|'>b is
+    a\<cup\>b;\<bot\><rprime|'> is \<varnothing\>;\<top\><rprime|'> is S>
+
+    <item>If <math|S> is partially ordered, then the upwards-closed subsets
+    of <math|S> form a lattice under <math|\<subseteq\>>:
+
+    <math|a\<sqcap\><rprime|'>b is a\<cap\>b;a\<sqcup\><rprime|'>b is
+    a\<cup\>b;\<bot\><rprime|'> is \<varnothing\>;\<top\><rprime|'> is
+    \<cal-P\><around*|(|S|)>>
 
     <item><math|If L<rsub|1>,L<rsub|2> >are lattices, then <math|L<rsub|1>
     \<times\>L<rsub|2>> forms a lattice where
     <math|<around|(|x,y|)>\<leqslant\><around|(|x<rprime|'>,y<rprime|'>|)>
-    \<Leftrightarrow\>x\<leqslant\>x<rprime|'> and y\<leqslant\>y<rprime|'>>
+    \<Leftrightarrow\>x\<leqslant\>x<rprime|'> and y\<leqslant\>y<rprime|'>>:
+
+    <math|><math|<around*|(|a,x|)>\<sqcap\><rprime|'><around*|(|b,y|)> is
+    <around*|(|a\<sqcap\>b,x\<sqcap\>y|)>;<around*|(|a,x|)>\<sqcup\><rprime|'><around*|(|b,y|)>
+    is <around*|(|a\<sqcup\>b,x\<sqcup\>y|)>;\<bot\><rprime|'> is
+    <around*|(|\<bot\>,\<bot\>|)>;\<top\><rprime|'> is
+    <around*|(|\<top\>,\<top\>|)>>
+
+    <item>If <math|L> is a lattice, the dual of <math|L> (the same set with
+    the ordering reversed) forms a lattice:
+
+    <math|a\<sqcap\><rprime|'>b is a\<sqcup\>b;a\<sqcup\><rprime|'>b is
+    a\<sqcap\>b;\<bot\><rprime|'> is \<top\>;\<top\><rprime|'> is \<bot\>>
   </itemize>
 
   <\lemma>
@@ -1431,13 +1689,15 @@
     <math|x> or <math|y> is <math|\<bot\>>, then <math|x\<sqcap\>y> and
     <math|x\<sqcup\>y> are trivially well-defined. Hence we can assume
     <math|x> and <math|y> are not <math|\<bot\>>, and by definition of
-    <math|erase<rsub|s>> that <math|x\<nleqslant\>s> and <math|y\<gtr\>s>.
+    <math|erase<rsub|s>> that <math|x\<nleqslant\>s> and
+    <math|y\<nleqslant\>s>.
 
-    Let <math|a\<in\>L=x \<sqcup\><rsub|L> y> and <math|b\<in\>L=x
-    \<sqcap\><rsub|L> y>. Since <math|x\<nleqslant\>s> and
-    <math|y\<nleqslant\>s>, <math|a\<nleqslant\>s> and so
-    <math|a\<in\>L<rprime|'>>. Thus, <math|\<sqcup\>> is well-defined on
-    <math|L<rprime|'>>.\ 
+    Let <math|a\<in\>L=x \<sqcup\><rsub|L> y><math|>. Since
+    <math|x\<nleqslant\>s> and <math|y\<nleqslant\>s>, <math|a\<nleqslant\>s>
+    and so <math|a\<in\>L<rprime|'>>. Thus, <math|\<sqcup\>> is well-defined
+    on <math|L<rprime|'>>.
+
+    Let <math|b\<in\>L=x\<sqcap\><rsub|L>y>.
   </proof>
 
   <math|erase<rsub|s><around|(|L|)>> can be thought of as a new lattice with
@@ -1751,10 +2011,65 @@
   the first computation has can affect the second.
 
   In Haskell there are no side-effects and order of evaluation is irrelevant.
-  So, the semicolon must do something different.
+  So, the semicolon must do something different. Haskell's semicolon is
+  <with|font-shape|italic|programmable>: exactly what it does depends on
+  which monad the statement is being evaluated in.\ 
 
-  Haskell's semicolon is <with|font-shape|italic|programmable>: exactly what
-  it does depends on which monad the statement is being evaluated in. ###
+  Semicolon is a sequential composition operator: its action is to combine
+  two statements into a larger statement. The second statement may depend on
+  the results of the first, as in the call to <tt|somethingElse> above and
+  can so be considered a function producing a statement from a value. Thus, a
+  semicolon takes a statement on the left, and a function from values to
+  statements on the right, and combines them into a larger statement whose
+  effect is to perform both statements, passing the result of the first into
+  the second.
+
+  This allows a number of otherwise difficult-to-express operations to be
+  written simply. For instance, some monads in the Haskell standard library
+  include:
+
+  <\description>
+    <item*|Reader>This is used to pass global data or configuration
+    information to every operation in a program. The sequential composition
+    operation performs the left statement and the right statement, but passes
+    an extra hidden datum to both.
+
+    <item*|Writer>Similarly, Writer allows logging or additional output from
+    a function. Its notion of sequential composition is to perform both
+    statements and combine their extra hidden outputs.
+
+    <item*|State>This allows stateful imperative programming to be simulated
+    within a functional language. Each statement has an extra hidden input
+    and output, and the sequential composition threads them together so that
+    each statement can ``see'' the effect the previous one had on this hidden
+    parametr.
+
+    <item*|List>This one is difficult to express in an imperative language:
+    its notion of sequential composition is to perfom the second statement
+    for each value that the left produces, thus modelling non-determinism or
+    multiple-valued returns.
+
+    <item*|Error>Error handling in Haskell is implemented as a monad where
+    each statement can either return a value or an error. Sequential
+    composition runs the first statement, and then runs the second statement
+    only if the first didn't raise an error. The result from the composed
+    statement will an error if either statement resulted in an error,
+    otherwise it will be the result of the second statement.
+  </description>
+
+  These can be layered using a technique known as <dfn|monad transformers>
+  ###cite###. For instance, a <strong|Reader> can be layered over any monad
+  to give a monad which acts as the underlying monad, but where each
+  statement can also access a global parameter.
+
+  The power of the <brick> compiler architecture lies in defining an
+  ``evaluator'' which implements most of the semantics of the language such
+  as symbol table management, order of evaluation issues, and the like. This
+  evaluator is a monad transformer which will evaluate programs in
+  <with|font-shape|italic|any> monad which defines a certain set of primitive
+  operations. We can then define a number of distinct underlying monads which
+  implement only the primitives, and yet provide a full interpreter,
+  compiler, or typechecker.
 
   <section|Happy and Alex>
 
@@ -1849,7 +2164,9 @@
 
   All of these features make LLVM IR a much more pleasant target for a
   compiler than a normal assembly language. The LLVM typing system makes
-  debugging code generation much easier.
+  debugging code generation much easier, as many simple bugs such as
+  accessing the incorrect field of a structure can be caught by the LLVM
+  code-generation utilities.
 
   <chapter|Architecture>
 
@@ -2081,63 +2398,68 @@
     <associate|auto-12|<tuple|3.3.2|13>>
     <associate|auto-13|<tuple|3.4|13>>
     <associate|auto-14|<tuple|3.5|13>>
-    <associate|auto-15|<tuple|3.6|14>>
-    <associate|auto-16|<tuple|4|15>>
-    <associate|auto-17|<tuple|4.1|15>>
-    <associate|auto-18|<tuple|4.2|15>>
-    <associate|auto-19|<tuple|4.3|16>>
+    <associate|auto-15|<tuple|3.5.1|14>>
+    <associate|auto-16|<tuple|3.6|15>>
+    <associate|auto-17|<tuple|4|17>>
+    <associate|auto-18|<tuple|4.1|17>>
+    <associate|auto-19|<tuple|4.2|17>>
     <associate|auto-2|<tuple|1|5>>
-    <associate|auto-20|<tuple|4.4|16>>
-    <associate|auto-21|<tuple|4.5|16>>
-    <associate|auto-22|<tuple|4.6|17>>
-    <associate|auto-23|<tuple|4.7|17>>
-    <associate|auto-24|<tuple|4.7.1|17>>
-    <associate|auto-25|<tuple|4.7.2|18>>
-    <associate|auto-26|<tuple|4.8|19>>
-    <associate|auto-27|<tuple|4.8.1|20>>
-    <associate|auto-28|<tuple|4.8.2|20>>
-    <associate|auto-29|<tuple|4.9|20>>
+    <associate|auto-20|<tuple|4.3|18>>
+    <associate|auto-21|<tuple|4.4|18>>
+    <associate|auto-22|<tuple|4.5|18>>
+    <associate|auto-23|<tuple|4.6|19>>
+    <associate|auto-24|<tuple|4.7|19>>
+    <associate|auto-25|<tuple|4.7.1|19>>
+    <associate|auto-26|<tuple|4.7.2|20>>
+    <associate|auto-27|<tuple|4.8|21>>
+    <associate|auto-28|<tuple|4.8.1|22>>
+    <associate|auto-29|<tuple|4.8.2|22>>
     <associate|auto-3|<tuple|2|7>>
-    <associate|auto-30|<tuple|5|23>>
-    <associate|auto-31|<tuple|5.1|23>>
-    <associate|auto-32|<tuple|5.2|23>>
-    <associate|auto-33|<tuple|5.2.0.1|23>>
-    <associate|auto-34|<tuple|5.2.0.2|23>>
-    <associate|auto-35|<tuple|5.2.0.3|25>>
-    <associate|auto-36|<tuple|6|26>>
-    <associate|auto-37|<tuple|6.1|27>>
-    <associate|auto-38|<tuple|6.1.1|29>>
-    <associate|auto-39|<tuple|6.1.2|31>>
+    <associate|auto-30|<tuple|4.9|22>>
+    <associate|auto-31|<tuple|5|25>>
+    <associate|auto-32|<tuple|5.1|25>>
+    <associate|auto-33|<tuple|5.2|25>>
+    <associate|auto-34|<tuple|5.2.1|25>>
+    <associate|auto-35|<tuple|5.2.2|27>>
+    <associate|auto-36|<tuple|5.2.3|27>>
+    <associate|auto-37|<tuple|5.2.4|28>>
+    <associate|auto-38|<tuple|5.2.4.1|29>>
+    <associate|auto-39|<tuple|5.2.4.2|30>>
     <associate|auto-4|<tuple|3|9>>
-    <associate|auto-40|<tuple|6.2|33>>
-    <associate|auto-41|<tuple|6.3|?>>
-    <associate|auto-42|<tuple|6.3.1|?>>
-    <associate|auto-43|<tuple|7|?>>
-    <associate|auto-44|<tuple|A|?>>
-    <associate|auto-45|<tuple|A|?>>
+    <associate|auto-40|<tuple|5.2.4.3|31>>
+    <associate|auto-41|<tuple|6|33>>
+    <associate|auto-42|<tuple|6.1|33>>
+    <associate|auto-43|<tuple|6.1.1|33>>
+    <associate|auto-44|<tuple|6.1.2|33>>
+    <associate|auto-45|<tuple|6.2|35>>
+    <associate|auto-46|<tuple|6.3|35>>
+    <associate|auto-47|<tuple|6.3.1|35>>
+    <associate|auto-48|<tuple|7|37>>
+    <associate|auto-49|<tuple|A|39>>
     <associate|auto-5|<tuple|3.1|9>>
+    <associate|auto-50|<tuple|A|41>>
     <associate|auto-6|<tuple|3.1.1|10>>
     <associate|auto-7|<tuple|3.2|10>>
     <associate|auto-8|<tuple|3.2.1|11>>
     <associate|auto-9|<tuple|3.2.2|12>>
-    <associate|bib-alex|<tuple|3|?>>
-    <associate|bib-happy|<tuple|7|?>>
-    <associate|bib-hopcroftmin|<tuple|1|33>>
-    <associate|bib-leroypoly|<tuple|10|?>>
-    <associate|bib-llvm|<tuple|9|?>>
+    <associate|bib-alex|<tuple|3|41>>
+    <associate|bib-happy|<tuple|7|41>>
+    <associate|bib-hopcroftmin|<tuple|1|41>>
+    <associate|bib-leroypoly|<tuple|10|41>>
+    <associate|bib-llvm|<tuple|9|41>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|5|33>>
-    <associate|bib-pottierframework|<tuple|13|33>>
-    <associate|bib-pottierphd|<tuple|12|33>>
-    <associate|bib-scalastructural|<tuple|4|?>>
-    <associate|bib-subconst|<tuple|15|33>>
-    <associate|bib-subrec|<tuple|2|33>>
-    <associate|bib-subrecfast|<tuple|8|33>>
-    <associate|bib-toftepoly|<tuple|14|?>>
-    <associate|bib-unitynomstruct|<tuple|11|33>>
-    <associate|bib-valuerestriction|<tuple|16|?>>
-    <associate|bib-valuerestriction2|<tuple|17|?>>
-    <associate|bib-whiteoak|<tuple|6|33>>
+    <associate|bib-ooprectypes|<tuple|5|41>>
+    <associate|bib-pottierframework|<tuple|13|41>>
+    <associate|bib-pottierphd|<tuple|12|41>>
+    <associate|bib-scalastructural|<tuple|4|41>>
+    <associate|bib-subconst|<tuple|15|41>>
+    <associate|bib-subrec|<tuple|2|41>>
+    <associate|bib-subrecfast|<tuple|8|41>>
+    <associate|bib-toftepoly|<tuple|14|41>>
+    <associate|bib-unitynomstruct|<tuple|11|41>>
+    <associate|bib-valuerestriction|<tuple|16|41>>
+    <associate|bib-valuerestriction2|<tuple|17|41>>
+    <associate|bib-whiteoak|<tuple|6|41>>
     <associate|footnote-1|<tuple|1|?>>
     <associate|footnote-1.1|<tuple|1.1|?>>
     <associate|footnote-1.2|<tuple|1.2|?>>
@@ -2156,21 +2478,21 @@
     <associate|footnote-3.3|<tuple|3.3|?>>
     <associate|footnote-3.4|<tuple|3.4|?>>
     <associate|footnote-4|<tuple|4|?>>
-    <associate|footnote-4.1|<tuple|4.1|?>>
+    <associate|footnote-4.1|<tuple|4.1|17>>
     <associate|footnote-4.2|<tuple|4.2|?>>
     <associate|footnote-4.3|<tuple|4.3|?>>
     <associate|footnote-4.4|<tuple|4.4|?>>
     <associate|footnote-5|<tuple|5|?>>
-    <associate|footnote-5.1|<tuple|5.1|23>>
-    <associate|footnote-5.2|<tuple|5.2|25>>
-    <associate|footnote-5.3|<tuple|5.3|25>>
-    <associate|footnote-5.4|<tuple|5.4|26>>
-    <associate|footnote-5.5|<tuple|5.5|?>>
+    <associate|footnote-5.1|<tuple|5.1|25>>
+    <associate|footnote-5.2|<tuple|5.2|28>>
+    <associate|footnote-5.3|<tuple|5.3|29>>
+    <associate|footnote-5.4|<tuple|5.4|29>>
+    <associate|footnote-5.5|<tuple|5.5|30>>
     <associate|footnote-6|<tuple|6|?>>
-    <associate|footnote-6.1|<tuple|6.1|29>>
-    <associate|footnote-6.2|<tuple|6.2|30>>
-    <associate|footnote-7.1|<tuple|7.1|?>>
-    <associate|footnote-7.2|<tuple|7.2|?>>
+    <associate|footnote-6.1|<tuple|6.1|33>>
+    <associate|footnote-6.2|<tuple|6.2|33>>
+    <associate|footnote-7.1|<tuple|7.1|37>>
+    <associate|footnote-7.2|<tuple|7.2|38>>
     <associate|footnr-1|<tuple|1|?>>
     <associate|footnr-1.1|<tuple|1.1|?>>
     <associate|footnr-1.2|<tuple|1.2|?>>
@@ -2189,21 +2511,21 @@
     <associate|footnr-3.3|<tuple|3.3|?>>
     <associate|footnr-3.4|<tuple|3.4|?>>
     <associate|footnr-4|<tuple|4|?>>
-    <associate|footnr-4.1|<tuple|4.1|?>>
+    <associate|footnr-4.1|<tuple|4.1|17>>
     <associate|footnr-4.2|<tuple|4.2|?>>
     <associate|footnr-4.3|<tuple|4.3|?>>
     <associate|footnr-4.4|<tuple|4.4|?>>
     <associate|footnr-5|<tuple|5|?>>
-    <associate|footnr-5.1|<tuple|5.1|23>>
-    <associate|footnr-5.2|<tuple|5.2|25>>
-    <associate|footnr-5.3|<tuple|5.3|25>>
-    <associate|footnr-5.4|<tuple|5.4|26>>
-    <associate|footnr-5.5|<tuple|5.5|?>>
+    <associate|footnr-5.1|<tuple|5.1|25>>
+    <associate|footnr-5.2|<tuple|5.2|28>>
+    <associate|footnr-5.3|<tuple|5.3|29>>
+    <associate|footnr-5.4|<tuple|5.4|29>>
+    <associate|footnr-5.5|<tuple|5.5|30>>
     <associate|footnr-6|<tuple|6|?>>
-    <associate|footnr-6.1|<tuple|6.1|29>>
-    <associate|footnr-6.2|<tuple|6.2|30>>
-    <associate|footnr-7.1|<tuple|7.1|?>>
-    <associate|footnr-7.2|<tuple|7.2|?>>
+    <associate|footnr-6.1|<tuple|6.1|33>>
+    <associate|footnr-6.2|<tuple|6.2|33>>
+    <associate|footnr-7.1|<tuple|7.1|37>>
+    <associate|footnr-7.2|<tuple|7.2|38>>
   </collection>
 </references>
 
@@ -2211,6 +2533,14 @@
   <\collection>
     <\associate|bib>
       subrec
+
+      subrec
+
+      subrecfast
+
+      regulartypes
+
+      pottierphd
 
       pottierphd
 
@@ -2318,123 +2648,143 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-14>
 
+      <with|par-left|<quote|1.5fn>|3.5.1<space|2spc>Formal definition of
+      constructor lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-15>>
+
       3.6<space|2spc>Closure <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-15>
+      <no-break><pageref|auto-16>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>The
       type inference engine> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-16><vspace|0.5fn>
+      <no-break><pageref|auto-17><vspace|0.5fn>
 
       4.1<space|2spc>The small terms invariant
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-17>
+      <no-break><pageref|auto-18>
 
       4.2<space|2spc>Merging constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-18>
+      <no-break><pageref|auto-19>
 
       4.3<space|2spc>The mono-polarity invariant
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-19>
+      <no-break><pageref|auto-20>
 
       4.4<space|2spc>Garbage collection <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-20>
+      <no-break><pageref|auto-21>
 
       4.5<space|2spc>Representing the constraint set
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-21>
+      <no-break><pageref|auto-22>
 
       4.6<space|2spc>The incremental closure algorithm
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-22>
+      <no-break><pageref|auto-23>
 
       4.7<space|2spc>Type simplification and optimisation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-23>
+      <no-break><pageref|auto-24>
 
       <with|par-left|<quote|1.5fn>|4.7.1<space|2spc>Canonisation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-24>>
+      <no-break><pageref|auto-25>>
 
       <with|par-left|<quote|1.5fn>|4.7.2<space|2spc>Minimisation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-25>>
+      <no-break><pageref|auto-26>>
 
       4.8<space|2spc>rc type subsumption <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-26>
+      <no-break><pageref|auto-27>
 
       <with|par-left|<quote|1.5fn>|4.8.1<space|2spc>Entailment
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-27>>
+      <no-break><pageref|auto-28>>
 
       <with|par-left|<quote|1.5fn>|4.8.2<space|2spc>Subsumption
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-28>>
+      <no-break><pageref|auto-29>>
 
       4.9<space|2spc>Display <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-29>
+      <no-break><pageref|auto-30>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>...
       (objects, nom/struct, constraintgen)>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-30><vspace|0.5fn>
+      <no-break><pageref|auto-31><vspace|0.5fn>
 
       5.1<space|2spc>Generalised and ungeneralised bindings
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-31>
+      <no-break><pageref|auto-32>
 
       5.2<space|2spc>Optional type annotations
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-32>
+      <no-break><pageref|auto-33>
 
-      <with|par-left|<quote|3fn>|5.2.0.1<space|2spc>Mutability
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-33>>
-
-      <with|par-left|<quote|3fn>|5.2.0.2<space|2spc>The value restriction
+      <with|par-left|<quote|1.5fn>|5.2.1<space|2spc>Checking type annotations
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-34>>
 
-      <with|par-left|<quote|3fn>|5.2.0.3<space|2spc>``Polymorphism''
+      <with|par-left|<quote|1.5fn>|5.2.2<space|2spc>A potential problem
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-35>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Implementation
-      tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36><vspace|0.5fn>
+      <with|par-left|<quote|1.5fn>|5.2.3<space|2spc>Classes (partial
+      description) <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-36>>
 
-      6.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37>
+      <with|par-left|<quote|1.5fn>|5.2.4<space|2spc>The object constructor
+      lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-37>>
 
-      <with|par-left|<quote|1.5fn>|6.1.1<space|2spc>Laziness
+      <with|par-left|<quote|3fn>|5.2.4.1<space|2spc>Mutability
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-38>>
 
-      <with|par-left|<quote|1.5fn>|6.1.2<space|2spc>Monads
+      <with|par-left|<quote|3fn>|5.2.4.2<space|2spc>The value restriction
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-39>>
 
+      <with|par-left|<quote|3fn>|5.2.4.3<space|2spc>``Polymorphism''
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-40>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Implementation
+      tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-41><vspace|0.5fn>
+
+      6.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-42>
+
+      <with|par-left|<quote|1.5fn>|6.1.1<space|2spc>Laziness
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-43>>
+
+      <with|par-left|<quote|1.5fn>|6.1.2<space|2spc>Monads
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-44>>
+
       6.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-40>
+      <no-break><pageref|auto-45>
 
       6.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-41>
+      <no-break><pageref|auto-46>
 
       <with|par-left|<quote|1.5fn>|6.3.1<space|2spc>LLVM IR
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-42>>
+      <no-break><pageref|auto-47>>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|2spc>Architecture>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-43><vspace|0.5fn>
+      <no-break><pageref|auto-48><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|2spc>Detailed typing rules for <error|compound brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-44><vspace|0.5fn>
+      <no-break><pageref|auto-49><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-45><vspace|0.5fn>
+      <no-break><pageref|auto-50><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
