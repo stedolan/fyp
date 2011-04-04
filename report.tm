@@ -130,35 +130,35 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-32>
 
+    <with|par-left|1.5fn|5.1.1<space|2spc>The value restriction
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-33>>
+
     5.2<space|2spc>Optional type annotations
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-33>
+    <no-break><pageref|auto-34>
 
     <with|par-left|1.5fn|5.2.1<space|2spc>Checking type annotations
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-34>>
+    <no-break><pageref|auto-35>>
 
     <with|par-left|1.5fn|5.2.2<space|2spc>A potential problem
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-35>>
+    <no-break><pageref|auto-36>>
 
     <with|par-left|1.5fn|5.2.3<space|2spc>Classes (partial description)
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-36>>
+    <no-break><pageref|auto-37>>
 
     <with|par-left|1.5fn|5.2.4<space|2spc>The object constructor lattice
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-37>>
+    <no-break><pageref|auto-38>>
 
     <with|par-left|3fn|5.2.4.1<space|2spc>Mutability
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-38>>
-
-    <with|par-left|3fn|5.2.4.2<space|2spc>The value restriction
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-39>>
 
-    <with|par-left|3fn|5.2.4.3<space|2spc>``Polymorphism''
+    <with|par-left|3fn|5.2.4.2<space|2spc>``Polymorphism''
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-40>>
 
@@ -187,18 +187,78 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-47>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|7<space|2spc>Architecture>
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|7<space|2spc>Extending
+    an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-48><vspace|0.5fn>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
-    A<space|2spc>Detailed typing rules for <error|compound brick>>
+    7.1<space|2spc>Meta-circular interpreters
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-49><vspace|0.5fn>
+    <no-break><pageref|auto-49>
+
+    7.2<space|2spc>Monadic interpreters <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-50>
+
+    7.3<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
+    further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-51>
+
+    7.4<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
+    even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-52>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|8<space|2spc>A
+    compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-53><vspace|0.5fn>
+
+    8.1<space|2spc>A code generation monad
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-54>
+
+    8.2<space|2spc>Representing flow control
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-55>
+
+    <with|par-left|1.5fn|8.2.1<space|2spc>Coalescing
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-56>>
+
+    <with|par-left|1.5fn|8.2.2<space|2spc>Iteration
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-57>>
+
+    8.3<space|2spc>Implementation of structures
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-58>
+
+    8.4<space|2spc>Implementation of closures
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-59>
+
+    8.5<space|2spc>A typechecker from an interpreter
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-60>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|9<space|2spc>Future
+    work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-61><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|10<space|2spc>Conclusions>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-62><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
+    A<space|2spc>BNF grammar for the syntax of <error|compound brick>>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-63><vspace|0.5fn>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
+    B<space|2spc>Detailed typing rules for <error|compound brick>>
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-64><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-50><vspace|0.5fn>
+    <no-break><pageref|auto-65><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -221,8 +281,6 @@
 
     <item>ground types as abstraction
 
-    <item>rc types as sets of ground types
-
     <item>vars
 
     <item>rc types vague desc
@@ -231,7 +289,9 @@
 
     <item>nom / struct
 
-    <item>syntax
+    <item>syntax intro
+
+    <item>compiler
 
     <item>...
   </itemize>
@@ -316,13 +376,6 @@
   As well as forming a lattice, there is one extra condition attached to the
   space of type constructors called <with|font-shape|italic|convexity of
   arity>. It is explained fully in ###
-
-  \;
-
-  \;
-
-  ### constraints on ground signature: variances are per-param and convexity
-  of arity
 
   <subsection|<math|\<top\>> and <math|\<bot\>>>
 
@@ -755,20 +808,24 @@
 
   Also note that since variance is a property of labels rather than of
   constructors, a label must have the same variance for each constructor in
-  which it appears.
+  which it appears.\ 
 
   One more note on variances: the set <math|\<bbb-V\>> forms a monoid: the
   monoid of two elements, with <rigid|identity <rigid|<math|+>.>> Thus, we
   have an operation for combining variances:
 
   <\eqnarray>
-    <tformat|<table|<row|<cell|++>|<cell|=>|<cell|+>>|<row|<cell|+->|<cell|=>|<cell|->>|<row|<cell|-+>|<cell|=>|<cell|->>|<row|<cell|-->|<cell|=>|<cell|+>>>>
+    <tformat|<table|<row|<cell|+\<cdot\>+>|<cell|=>|<cell|+>>|<row|<cell|+\<cdot\>->|<cell|=>|<cell|->>|<row|<cell|-\<cdot\>+>|<cell|=>|<cell|->>|<row|<cell|-\<cdot\>->|<cell|=>|<cell|+>>>>
   </eqnarray>
 
   This expresses the notion that appearing contravariantly in a contravariant
   position causes a term to appear covariantly in the whole type, and will be
   useful for some definitions of the operations on constraint sets in the
   next sections, including the polarity of a variable.
+
+  Generally, a positive variance indicates an output, while a negative
+  variance indicates an input. Terms that can be used as both outputs and
+  inputs (e.g. mutable variables) require special treatment (see ###).
 
   <section|Closure>
 
@@ -839,7 +896,7 @@
   statements whose expression part is of height at most one. It serves much
   the same purpose here as it does in an imperative language's compiler:
   implementation is simpler and optimisations based on finding common
-  subexpressions are more effective (see ###)
+  subexpressions are more effective (see ###).
 
   <section|Merging constraints>
 
@@ -879,15 +936,17 @@
   is of type <math|a\<sqcup\>b>.
 
   Since we're enforcing the small terms invariant defined above,
-  <math|\<sqcap\>> and <math|\<sqcup\>> are quite simply defined. First,
-  however, we need to extend the definition of a small constructed term to
-  allow <math|\<sqcap\>> and <math|\<sqcup\>> to appear inside constructors.
-  ### small terms + latticeops
+  <math|\<sqcap\>> and <math|\<sqcup\>> are quite simply defined<\footnote>
+    For a more thorough presentation of the <math|\<sqcup\>> and
+    <math|\<sqcap\>> operators (including their generalisation to non-small
+    terms), see <cite|pottierphd>.
+  </footnote>. We need only to extend the definition of a small constructed
+  term to allow <math|\<sqcap\>> and <math|\<sqcup\>> to appear inside
+  constructor parameters.
 
-  \;
-
-  ### for a fuller presentation of <math|\<sqcap\>> and <math|\<sqcup\>>, see
-  pottier
+  Before we give a formal description of small constructed terms, however, we
+  must introduce polarities of terms and variables and the mono-polarity
+  invariant.
 
   <section|The mono-polarity invariant>
 
@@ -946,6 +1005,55 @@
   <math|a<rsup|->,b<rsup|->, \<ldots\>>. Restricting the constraint system so
   that each variable is only\ 
 
+  \;
+
+  \;
+
+  \;
+
+  Having established that no variable may be both positive and negative, we
+  may now give a proper definition of variables and small constructed types.
+  The variables are divided into two infinite disjoint sets
+  <math|\<cal-V\><rsup|+>> (positive variables, denoted
+  <math|a<rsup|+>,b<rsup|+>,\<ldots\>>) and <math|\<cal-V\><rsup|->>
+  (negative variables, denoted <math|<around*|(|a<rsup|->, b<rsup|->,
+  \<ldots\>|)>>. The polarity signs are considered part of the name, there is
+  no implied relationship between <math|a<rsup|+>> and <math|a<rsup|->>.
+
+  Likewise, the <dfn|small constructed terms> are divided into two classes.
+  Positive small constructed terms will be written
+  <math|\<tau\><rsup|+><rsub|1>,\<tau\><rsup|+><rsub|2>,\<ldots\>> while
+  negative ones are <math|\<tau\><rsub|1><rsup|->,\<tau\><rsup|-><rsub|2>>.
+  We will occasionally abstract over the polarity of a term or variable and
+  write <math|a<rsup|v>> or <math|\<tau\><rsup|v>> to mean a term of polarity
+  <math|v\<in\>\<bbb-V\>>. Similarly, <math|\<box\><rsup|v>> will be used to
+  abstract over <math|\<sqcup\>> and <math|\<sqcap\>>, where
+  <math|\<box\><rsup|+>=\<sqcup\>> and <math|\<box\><rsup|->=\<sqcap\>>.
+
+  A small constructed term is defined as:
+
+  <\equation*>
+    \<tau\><rsup|v>=c<around*|(|l<rsub|1>:a<rsup|p> \<box\><rsup|p> b<rsup|p>
+    \<box\><rsup|p> \<ldots\>\<nocomma\>,l<rsub|2>:c<rsup|q> \<box\><rsup|q>
+    d<rsup|q> \<box\><rsup|q>\<ldots\>,\<ldots\>|)> where p =
+    variance<around*|(|l<rsub|1>|)>\<cdot\>v\<nocomma\>\<nocomma\>,q=variance<around*|(|l<rsub|2>|)>\<cdot\>v
+  </equation*>
+
+  That is, a postive small constructed term is one where the parameters to
+  the constructor are given by a set of variables combined with
+  <math|\<sqcup\>> in covariant positions and <math|\<sqcap\>> in
+  contravariant positions, while a negative small constructed term uses
+  <math|\<sqcap\>> in covariant positions and <math|\<sqcup\>> in
+  contravariant positions.
+
+  These rules allow any set of positive small constructed terms to merged via
+  <math|\<sqcup\>> into a single small constructed term, while any set of
+  negative small constructed terms can be merged via <math|\<sqcap\>>.
+
+  \;
+
+  ### formal def. merge
+
   <section|Garbage collection>
 
   A constraint set constructed from a program will include many redundant
@@ -965,11 +1073,11 @@
   The type variables <math|c>, <math|d> and <math|e> clearly do not constrain
   the type at all. We can generalise this idea a little by defining a
   preliminary notion of <dfn|reachability> of type variables: a type variable
-  is reachable if it is present in the type part of the rc type, or if it is
-  present in a constraint with one or more reachable variables. This notion,
-  similar to the standard notion of garbage collection of data structures,
-  allows us to delete the variables <math|c>, <math|d> and <math|e> and the
-  constraints in which they appear.
+  is reachable if it is present in the type part of the rc type (left of the
+  <math|\\>), or if it is present in a constraint with one or more reachable
+  variables. This notion, similar to the standard notion of garbage
+  collection of data structures, allows us to delete the variables <math|c>,
+  <math|d> and <math|e> and the constraints in which they appear.
 
   \;
 
@@ -988,11 +1096,92 @@
 
   \;
 
-  <section|Representing the constraint set>
+  \;
 
   \;
 
+  <section|Representing the constraint set>
+
+  <math|>Thanks to the garbage collection algorithm, we can vastly limit the
+  amount of information we need to store for each variable. In particular,
+  for any positive variable <math|a<rsup|+>> we need only store constraints
+  of the form <math|\<tau\><rsup|+>\<leqslant\>a<rsup|+>> and
+  <math|a<rsup|->\<leqslant\>a<rsup|+>>. Since all of the constraints of the
+  first form can be merged into a single one via <math|\<sqcup\>>, all we
+  need to store is a single positive small constructed term (written
+  <math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>>) and a set of
+  negative variables (written <math|\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|+>|)>>).
+  We extend this to negative variables and end up with:
+
+  <\eqnarray>
+    <tformat|<table|<row|<cell|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|v>|)>>|<cell|=>|<cell|\<tau\><rsup|v>>>|<row|<cell|\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|v>|)>>|<cell|\<subseteq\>>|<cell|\<cal-V\><rsup|-v>>>>>
+  </eqnarray>
+
+  In the notation of <math|<cite|pottierphd|pottierframework>>
+  <math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>=\<tau\><rsup|+>> would
+  be represented as <math|C<rsup|\<uparrow\>><around*|(|a<rsup|+>|)>=\<tau\><rsup|+>>,
+  while in <cite|subconst> it would be <math|\<tau\><rsup|+>\<leqslant\>a<rsup|+>\<in\>K>.
+  The advantage of this representation is that we can store half as many
+  bounds by entirely ignoring <math|C<rsup|\<downarrow\>><around*|(|a<rsup|+>|)>>,
+  since the mono-polarity invariant ensures that it contains no information
+  that would not be immediately removed by garbage collection.
+
+  <subsection|Implementation detail>
+
+  We now present an interesting trick for performing the garbage collection
+  algorithm. Since the polarity of each variable is known, GC is only
+  concerned with calculating reachability. Reachability must propagate
+  through constructed bounds (<math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|v>|)>>)
+  but not through variable bounds (<math|\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|v>|)>>).
+
+  In an implementation language supporting <dfn|weak references> ### such as
+  Haskell ###, we can implement this by using weak references to store the
+  elements of <math|\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|v>|)>>. This
+  causes the Haskell garbage collector to collect a variable and destroy weak
+  references to it when it becomes unreachable except through weak
+  references. So, this type simplification is performed automatically by the
+  system garbage collector.
+
   <section|The incremental closure algorithm>
+
+  When we want to add a constraint on existing variables to the constraint
+  graph, we need to ensure that the resulting constraint graph is closed (as
+  definined in ###). Since our garbage collection techniques and the
+  simplification algorithms described later depend on the graph being closed,
+  we must compute the closure of the graph incrementally.
+
+  There are four types of constraint that our constraint generation rules may
+  produce:
+
+  <\eqnarray>
+    <tformat|<table|<row|<cell|a<rsup|->>|<cell|\<leqslant\>>|<cell|a<rsup|+>\<nocomma\>\<nocomma\><text|,
+    for some fresh <math|a<rsup|->> and <math|a<rsup|+>>>>>|<row|<cell|\<tau\><rsup|+>>|<cell|\<leqslant\>>|<cell|a<rsup|+><text|,
+    for some fresh <math|a<rsup|+>>>>>|<row|<cell|a<rsup|->>|<cell|\<leqslant\>>|<cell|\<tau\><rsup|-><text|,
+    for some fresh <math|a<rsup|->>>>>|<row|<cell|a<rsup|+>>|<cell|\<leqslant\>>|<cell|a<rsup|->>>>>
+  </eqnarray>
+
+  The first three rules are trivial to handle: since the variables
+  <math|a<rsup|->> and <math|a<rsup|+>> are fresh, closure is guaranteed
+  since decomposition yields no new constraints. They are added simply by
+  allocating space for the new variable(s) and setting
+  <math|\<Omega\><rsup|\<tau\>>> and <math|\<Omega\><rsup|\<cal-V\>>>
+  appropriately.
+
+  The last example is the one which requires the incremental closure
+  algorithm. The algorithm here is the one presented and proved correct in
+  ###citecitecite###, adapted to our constraint graph representation.
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|addConstraint(<math|a<rsup|+>>,<math|b<rsup|->>):>>|<row|<cell|
+  \ for each <math|c<rsup|->\<in\>\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|+>|)>>,
+  <math|d<rsup|+>\<in\>\<Omega\><rsup|\<cal-V\>><around*|(|b<rsup|->|)>>:>>|<row|<cell|
+  \ \ \ \ add <math|c<rsup|->> to <math|\<Omega\><rsup|\<cal-V\>><around*|(|d<rsup|+>|)>>>>|<row|<cell|
+  \ \ \ \ add <math|d<rsup|+>> to <with|mode|math|\<Omega\><rsup|\<cal-V\>><around*|(|c<rsup|->|)>>>>|<row|<cell|
+  \ \ \ \ set <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>>
+  := <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>\<sqcup\>\<Omega\><rsup|\<tau\>><around*|(|d<rsup|+>|)>>>>|<row|<cell|
+  \ \ \ \ set <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>>
+  := <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>\<sqcap\>\<Omega\><rsup|\<tau\>><around*|(|c<rsup|->|)>>>>|<row|<cell|>>|<row|<cell|
+  \ for each constraint <math|e<rsup|+>\<leqslant\>f<rsup|->\<in\>subc<around*|(|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>\<leqslant\>\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>|)>>:>>|<row|<cell|
+  \ \ \ \ addConstraint(<math|e<rsup|+>>,<math|f<rsup|->>)>>>>>>>
 
   <section|Type simplification and optimisation>
 
@@ -1047,14 +1236,25 @@
 
   <subsection|Canonisation>
 
-  The canonisation algorithm is as follows. Let <math|V> be the set of
-  variables in the constraint graph. ###
+  The canonisation algorithm is as follows. Introduce new variables to
+  represent all subsets of at least two variables:
+  <math|<around*|{|S<rsup|->\|S\<subseteq\>\<cal-V\><rsup|->,<around*|\||S|\|>\<geqslant\>2|}>>
+  and <math|<around*|{|S<rsup|+>\|S\<subseteq\>\<cal-V\><rsup|+>,<around*|\||S|\|>\<geqslant\>2|}>>.
+  Set:
 
-  \;
+  <\eqnarray>
+    <tformat|<table|<row|<cell|\<Omega\><rsup|\<tau\>><around*|(|S<rsup|v>|)>>|<cell|=>|<cell|<big-around|\<box\>|<rsub|a<rsup|v>\<in\>S<rsup|>>\<Omega\><rsup|\<tau\>><around*|(|a<rsup|v>|)>>>>|<row|<cell|\<Omega\><rsup|\<cal-V\>><around*|(|S<rsup|v>|)>>|<cell|=>|<cell|<big-around|\<cup\>|<rsub|a<rsup|v>\<in\>S<rsup|>>\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|v>|)>>>>>>
+  </eqnarray>
+
+  Thus, <math|S<rsup|v>> represents a merging of the constraints present
+  about each <math|a<rsup|v>\<in\>S>. Then, each set of variables with more
+  than two elements appearing in a constructed term may be removed and
+  replaced with the singleton set <math|<around*|{|S<rsup|v>|}>>.
 
   Of course, the actual implementation canonisation algorithm does not create
-  all of the variables in ###. Instead, the new variables are created lazily
-  as a ### is found which requires them.
+  all of the variables <math|S<rsup|+>,S<rsup|->>. Instead, the new variables
+  are created lazily as a term is found which requires them, and the actual
+  set of new variables inserted is calculated as a least-fixed-point.
 
   It would seem that canonisation always increases the number of terms in the
   constraint graph by adding more variables. This is not necessarily the case
@@ -1351,7 +1551,109 @@
 
   <section|Generalised and ungeneralised bindings>
 
+  A binding of a name may be <with|font-shape|italic|generalised>. This
+  allows it to be used with multiple different incompatible types at
+  different points in the program. ### xref ### For instance, consider this
+  function:
+
+  <center|<\verbatim>
+    <tabular|<tformat|<table|<row|<cell|def id(x) do>>|<row|<cell| \ return
+    x>>|<row|<cell|end>>>>>
+  </verbatim>>
+
+  This function has type <math|a\<rightarrow\>a>, for all values of <math|a>.
+  It may be used with different instantiations of this type scheme at
+  different points in the program: in one instance it may be passed a string
+  and return a string, and in another it may be passed an integer and return
+  an integer.
+
+  Generalisation essentially means that the type of the term is inferred
+  based on its definition but not on its uses. Each use must be compatible
+  with the definition, but the uses need not be compatible with each other.\ 
+
+  An <dfn|ungeneralised> binding, on the other hand, infers its type based on
+  both its definition and its uses. In the example above, if <tt|id> were
+  called with both string and integer arguments at different points in the
+  program, it would be inferred the type <math|\<top\>\<rightarrow\>\<top\>>.
+  That is, its argument would be of any type, and it would return an argument
+  about which nothing could be proven.
+
+  Typing ungeneralised bindings is simpler as all of the information about
+  the binding can be merged into a single set of constraints. Generalised
+  bindings offer more flexibility since they allow terms to be used in
+  different ways at different points in the program. Unfortuneatly, we can't
+  generalise everything: type inference with first-class generalised bindings
+  is undecidable<\footnote>
+    Although, by requiring type annotations in situations requiring
+    first-class generalised bindings, the typing problem can be made
+    tractable, see <cite|ranknml|ranknhaskell> for examples.
+  </footnote>. The variables bound as function arguments must therefore be
+  ungeneralised, and as we'll see in the next section, due to imperative
+  constructs some other classes of binding must be ungeneralised.
+
+  <subsection|The value restriction>
+
   \;
+
+  In languages like Haskell, every <with|font-family|tt|let>-bound and all
+  toplevel bindings are generalised<\footnote>
+    Generalised bindings are \ known as <with|font-family|tt|let>-bindings in
+    functional languages.
+  </footnote>. This poses a well-known problem<cite|valuerestriction|valurestriction2>
+  in the presence of mutable references and side-effects. Consider this
+  example:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def obj = {list =
+  []}>>>>>>>
+
+  This creates an object containing a single mutable field which is an empty
+  list. If we generalise the type, we infer that
+  <with|font-family|tt|obj.list> is a list of element type <math|a>. That is,
+  it may be used with any possible element type.
+
+  This causes a problem when we refer to <with|font-family|tt|obj>. If we
+  store an integer into <with|font-family|tt|obj.list>, the typechecker will
+  instantiate <math|a> as <with|font-family|tt|int>, and the program will
+  pass the typechecker. If we read a string from
+  <with|font-family|tt|obj.list>, the typechecker will instantiate <math|a>
+  as <with|font-family|tt|string>, and the program will pass the typechecker.
+  But the program will crash since what's written as an
+  <with|font-family|tt|int> can't be read as a <with|font-family|tt|string>!
+
+  The problem is that having mutable references allows communication between
+  different uses of a binding. Thus, the uses of objects containing mutable
+  fields must be compatible, and hence the binding can't be generalised.
+
+  There are a number of standard techniques used to mitigate this problem.
+  Tofte's system<cite|toftepoly>, used in many ML implementations, separates
+  the type variables into two categories: the <dfn|imperative> and the
+  <dfn|applicative> type variables. A binding will not be generalised if it
+  contains imperative type variables. There are various increasingly complex
+  extensions of this system, such as Leroy's system<cite|leroypoly>, which
+  all aim to generalise as many bindings as possible. They have the property
+  that any purely functional term can be generalised, as is the case in
+  languages without direct imperative features.
+
+  The <dfn|value restriction><cite|valuerestriction|valuerestriction2> is a
+  much simpler alternative. Using it, only values (that is, literal
+  constants, functions or immutable data structures consisting only of other
+  values) may be generalised in a binding. This results in a certain loss of
+  generality: some terms which could previously be generalised cannot with
+  this restriction in place. However, simple changes to such terms (making
+  them functions, essentially) make them generalisable, so it seems to be
+  worthwhile for the reduction in complexity of the type system compared to
+  other solutions.
+
+  Finally, the value restriction is much more natural in <brick>, a language
+  where imperative constructs are pervasive. Since almost all terms include
+  some imperative side-effects, separating imperative and applicative type
+  variables would have little benefit as purely applicative typings would be
+  difficult to achieve.
+
+  In fact, <brick> adopts an even more restrictive version of the value
+  restriction, on the basis that it should be easier to understand: only
+  function bindings (those of the form ``<tt|def f(x)>'') and classes are
+  generalised.
 
   <section|Optional type annotations>
 
@@ -1867,85 +2169,7 @@
 
   \;
 
-  <subsubsection|The value restriction>
-
-  Another problem with mutability arises with generalised bindings<\footnote>
-    Also known as <with|font-family|tt|let>-bindings in functional languages.
-  </footnote>. A binding of a name may be
-  <with|font-shape|italic|generalised>. This allows it to be used with
-  multiple different incompatible types at different points in the program.
-  ### xref ### For instance, consider this function:
-
-  <center|<\verbatim>
-    <tabular|<tformat|<table|<row|<cell|def id(x) do>>|<row|<cell| \ return
-    x>>|<row|<cell|end>>>>>
-  </verbatim>>
-
-  This function has type <math|\<forall\>a. a\<rightarrow\>a###syntax###>. It
-  may be used with different instantiations of this type scheme at different
-  points in the program: in one instance it may be passed a string and return
-  a string, and in another it may be passed an integer and return an integer.
-
-  Generalisation essentially means that the type of the term is inferred
-  based on its definition but not on its uses. Each use must be compatible
-  with the definition, but the uses need not be compatible with each other.
-
-  In languages like Haskell, every <with|font-family|tt|let>-bound and all
-  toplevel bindings are generalised. This poses a well-known
-  problem<cite|valuerestriction|valurestriction2> in the presence of mutable
-  references and side-effects. Consider this example:
-
-  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def obj = {list =
-  []}>>>>>>>
-
-  This creates an object containing a single mutable field which is an empty
-  list. If we generalise the type, we infer that
-  <with|font-family|tt|obj.list> is a list of element type <math|a>. That is,
-  it may be used with any possible element type.
-
-  This causes a problem when we refer to <with|font-family|tt|obj>. If we
-  store an integer into <with|font-family|tt|obj.list>, the typechecker will
-  instantiate <math|a> as <with|font-family|tt|int>, and the program will
-  pass the typechecker. If we read a string from
-  <with|font-family|tt|obj.list>, the typechecker will instantiate <math|a>
-  as <with|font-family|tt|string>, and the program will pass the typechecker.
-  But the program will crash since what's written as an
-  <with|font-family|tt|int> can't be read as a <with|font-family|tt|string>!
-
-  The problem is that having mutable references allows communication between
-  different uses of a binding. Thus, the uses of objects containing mutable
-  fields must be compatible, and hence the binding can't be generalised.
-
-  There are a number of standard techniques used to mitigate this problem.
-  Tofte's system<cite|toftepoly>, used in many ML implementations, separates
-  the type variables into two categories: the <dfn|imperative> and the
-  <dfn|applicative> type variables. A binding will not be generalised if it
-  contains imperative type variables. There are various increasingly complex
-  extensions of this system, such as Leroy's system<cite|leroypoly>, which
-  all aim to generalise as many bindings as possible. They have the property
-  that any purely functional term can be generalised, as is the case in
-  languages without direct imperative features.
-
-  The <dfn|value restriction><cite|valuerestriction|valuerestriction2> is a
-  much simpler alternative. Using it, only values (that is, literal
-  constants, functions or immutable data structures consisting only of other
-  values) may be generalised in a binding. This results in a certain loss of
-  generality: some terms which could previously be generalised cannot with
-  this restriction in place. However, simple changes to such terms (making
-  them functions, essentially) make them generalisable, so it seems to be
-  worthwhile for the reduction in complexity of the type system compared to
-  other solutions.
-
-  Finally, the value restriction is much more natural in <brick>, a language
-  where imperative constructs are pervasive. Since almost all terms include
-  some imperative side-effects, separating imperative and applicative type
-  variables would have little benefit as purely applicative typings would be
-  difficult to achieve.
-
-  In fact, <brick> adopts an even more restrictive version of the value
-  restriction, on the basis that it should be easier to understand: only
-  function bindings (those of the form ``<tt|def f(x)>'') and classes are
-  generalised.
+  \;
 
   \;
 
@@ -2797,7 +3021,10 @@
   rules for <brick>>
 
   Subjred as abstract interpretation a la Cousot, fits with compiler
-  implementation, easy to verify, don't have to throw it away each change
+  implementation, easy to verify, don't have to throw it away each
+  change<cite|ranknml>
+
+  \;
 
   <\bibliography|bib|plain|/home/stephen/papers/papers.bib>
     <\bib-list|10>
@@ -2912,77 +3139,77 @@
     <associate|auto-2|<tuple|1|5>>
     <associate|auto-20|<tuple|4.3|18>>
     <associate|auto-21|<tuple|4.4|18>>
-    <associate|auto-22|<tuple|4.5|18>>
-    <associate|auto-23|<tuple|4.6|19>>
-    <associate|auto-24|<tuple|4.7|19>>
-    <associate|auto-25|<tuple|4.7.1|19>>
-    <associate|auto-26|<tuple|4.7.2|20>>
-    <associate|auto-27|<tuple|4.8|21>>
-    <associate|auto-28|<tuple|4.8.1|22>>
-    <associate|auto-29|<tuple|4.8.2|22>>
+    <associate|auto-22|<tuple|4.5|19>>
+    <associate|auto-23|<tuple|4.5.1|19>>
+    <associate|auto-24|<tuple|4.6|19>>
+    <associate|auto-25|<tuple|4.7|20>>
+    <associate|auto-26|<tuple|4.7.1|20>>
+    <associate|auto-27|<tuple|4.7.2|22>>
+    <associate|auto-28|<tuple|4.8|22>>
+    <associate|auto-29|<tuple|4.8.1|22>>
     <associate|auto-3|<tuple|2|7>>
-    <associate|auto-30|<tuple|4.9|22>>
-    <associate|auto-31|<tuple|5|25>>
-    <associate|auto-32|<tuple|5.1|25>>
-    <associate|auto-33|<tuple|5.2|25>>
-    <associate|auto-34|<tuple|5.2.1|25>>
-    <associate|auto-35|<tuple|5.2.2|27>>
-    <associate|auto-36|<tuple|5.2.3|27>>
-    <associate|auto-37|<tuple|5.2.4|28>>
-    <associate|auto-38|<tuple|5.2.4.1|29>>
-    <associate|auto-39|<tuple|5.2.4.2|30>>
+    <associate|auto-30|<tuple|4.8.2|22>>
+    <associate|auto-31|<tuple|4.9|25>>
+    <associate|auto-32|<tuple|5|25>>
+    <associate|auto-33|<tuple|5.1|25>>
+    <associate|auto-34|<tuple|5.1.1|26>>
+    <associate|auto-35|<tuple|5.2|27>>
+    <associate|auto-36|<tuple|5.2.1|28>>
+    <associate|auto-37|<tuple|5.2.2|28>>
+    <associate|auto-38|<tuple|5.2.3|29>>
+    <associate|auto-39|<tuple|5.2.4|31>>
     <associate|auto-4|<tuple|3|9>>
-    <associate|auto-40|<tuple|5.2.4.3|31>>
-    <associate|auto-41|<tuple|6|33>>
-    <associate|auto-42|<tuple|6.1|33>>
-    <associate|auto-43|<tuple|6.1.1|33>>
-    <associate|auto-44|<tuple|6.1.2|33>>
-    <associate|auto-45|<tuple|6.2|35>>
-    <associate|auto-46|<tuple|6.3|35>>
-    <associate|auto-47|<tuple|6.3.1|35>>
-    <associate|auto-48|<tuple|7|37>>
-    <associate|auto-49|<tuple|7.1|39>>
+    <associate|auto-40|<tuple|5.2.4.1|31>>
+    <associate|auto-41|<tuple|5.2.4.2|33>>
+    <associate|auto-42|<tuple|6|33>>
+    <associate|auto-43|<tuple|6.1|33>>
+    <associate|auto-44|<tuple|6.1.1|33>>
+    <associate|auto-45|<tuple|6.1.2|35>>
+    <associate|auto-46|<tuple|6.2|35>>
+    <associate|auto-47|<tuple|6.3|35>>
+    <associate|auto-48|<tuple|6.3.1|37>>
+    <associate|auto-49|<tuple|7|37>>
     <associate|auto-5|<tuple|3.1|9>>
-    <associate|auto-50|<tuple|7.2|41>>
-    <associate|auto-51|<tuple|7.3|?>>
-    <associate|auto-52|<tuple|7.4|?>>
-    <associate|auto-53|<tuple|8|?>>
-    <associate|auto-54|<tuple|8.1|?>>
-    <associate|auto-55|<tuple|8.2|?>>
-    <associate|auto-56|<tuple|8.2.1|?>>
-    <associate|auto-57|<tuple|8.2.2|?>>
-    <associate|auto-58|<tuple|8.3|?>>
-    <associate|auto-59|<tuple|8.4|?>>
+    <associate|auto-50|<tuple|7.1|37>>
+    <associate|auto-51|<tuple|7.2|38>>
+    <associate|auto-52|<tuple|7.3|38>>
+    <associate|auto-53|<tuple|7.4|41>>
+    <associate|auto-54|<tuple|8|41>>
+    <associate|auto-55|<tuple|8.1|41>>
+    <associate|auto-56|<tuple|8.2|42>>
+    <associate|auto-57|<tuple|8.2.1|43>>
+    <associate|auto-58|<tuple|8.2.2|43>>
+    <associate|auto-59|<tuple|8.3|44>>
     <associate|auto-6|<tuple|3.1.1|10>>
-    <associate|auto-60|<tuple|8.5|?>>
-    <associate|auto-61|<tuple|9|?>>
-    <associate|auto-62|<tuple|10|?>>
-    <associate|auto-63|<tuple|A|?>>
-    <associate|auto-64|<tuple|B|?>>
-    <associate|auto-65|<tuple|B|?>>
+    <associate|auto-60|<tuple|8.4|45>>
+    <associate|auto-61|<tuple|8.5|47>>
+    <associate|auto-62|<tuple|9|49>>
+    <associate|auto-63|<tuple|10|51>>
+    <associate|auto-64|<tuple|A|53>>
+    <associate|auto-65|<tuple|B|55>>
     <associate|auto-66|<tuple|B|?>>
     <associate|auto-7|<tuple|3.2|10>>
     <associate|auto-8|<tuple|3.2.1|11>>
     <associate|auto-9|<tuple|3.2.2|12>>
-    <associate|bib-alex|<tuple|3|41>>
-    <associate|bib-happy|<tuple|7|41>>
-    <associate|bib-hopcroftmin|<tuple|1|41>>
-    <associate|bib-leroypoly|<tuple|10|41>>
-    <associate|bib-llvm|<tuple|9|41>>
+    <associate|bib-alex|<tuple|3|55>>
+    <associate|bib-happy|<tuple|7|55>>
+    <associate|bib-hopcroftmin|<tuple|1|55>>
+    <associate|bib-leroypoly|<tuple|10|55>>
+    <associate|bib-llvm|<tuple|9|55>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|5|41>>
-    <associate|bib-pottierframework|<tuple|14|41>>
-    <associate|bib-pottierphd|<tuple|13|41>>
-    <associate|bib-regulartypes|<tuple|12|?>>
-    <associate|bib-scalastructural|<tuple|4|41>>
-    <associate|bib-subconst|<tuple|16|41>>
-    <associate|bib-subrec|<tuple|2|41>>
-    <associate|bib-subrecfast|<tuple|8|41>>
-    <associate|bib-toftepoly|<tuple|15|41>>
-    <associate|bib-unitynomstruct|<tuple|11|41>>
-    <associate|bib-valuerestriction|<tuple|17|41>>
-    <associate|bib-valuerestriction2|<tuple|18|41>>
-    <associate|bib-whiteoak|<tuple|6|41>>
+    <associate|bib-ooprectypes|<tuple|5|55>>
+    <associate|bib-pottierframework|<tuple|14|55>>
+    <associate|bib-pottierphd|<tuple|13|55>>
+    <associate|bib-regulartypes|<tuple|12|55>>
+    <associate|bib-scalastructural|<tuple|4|55>>
+    <associate|bib-subconst|<tuple|16|55>>
+    <associate|bib-subrec|<tuple|2|55>>
+    <associate|bib-subrecfast|<tuple|8|55>>
+    <associate|bib-toftepoly|<tuple|15|55>>
+    <associate|bib-unitynomstruct|<tuple|11|55>>
+    <associate|bib-valuerestriction|<tuple|17|55>>
+    <associate|bib-valuerestriction2|<tuple|18|55>>
+    <associate|bib-whiteoak|<tuple|6|55>>
     <associate|footnote-1|<tuple|1|?>>
     <associate|footnote-1.1|<tuple|1.1|?>>
     <associate|footnote-1.2|<tuple|1.2|?>>
@@ -3010,18 +3237,19 @@
     <associate|footnote-4.4|<tuple|4.4|?>>
     <associate|footnote-5|<tuple|5|?>>
     <associate|footnote-5.1|<tuple|5.1|25>>
-    <associate|footnote-5.2|<tuple|5.2|28>>
-    <associate|footnote-5.3|<tuple|5.3|29>>
+    <associate|footnote-5.2|<tuple|5.2|25>>
+    <associate|footnote-5.3|<tuple|5.3|26>>
     <associate|footnote-5.4|<tuple|5.4|29>>
     <associate|footnote-5.5|<tuple|5.5|30>>
+    <associate|footnote-5.6|<tuple|5.6|30>>
     <associate|footnote-6|<tuple|6|?>>
     <associate|footnote-6.1|<tuple|6.1|33>>
     <associate|footnote-6.2|<tuple|6.2|33>>
     <associate|footnote-7.1|<tuple|7.1|37>>
     <associate|footnote-7.2|<tuple|7.2|38>>
-    <associate|footnote-8.1|<tuple|8.1|?>>
-    <associate|footnote-8.2|<tuple|8.2|?>>
-    <associate|footnote-8.3|<tuple|8.3|?>>
+    <associate|footnote-8.1|<tuple|8.1|42>>
+    <associate|footnote-8.2|<tuple|8.2|44>>
+    <associate|footnote-8.3|<tuple|8.3|44>>
     <associate|footnr-1|<tuple|1|?>>
     <associate|footnr-1.1|<tuple|1.1|?>>
     <associate|footnr-1.2|<tuple|1.2|?>>
@@ -3049,18 +3277,19 @@
     <associate|footnr-4.4|<tuple|4.4|?>>
     <associate|footnr-5|<tuple|5|?>>
     <associate|footnr-5.1|<tuple|5.1|25>>
-    <associate|footnr-5.2|<tuple|5.2|28>>
-    <associate|footnr-5.3|<tuple|5.3|29>>
+    <associate|footnr-5.2|<tuple|5.2|25>>
+    <associate|footnr-5.3|<tuple|5.3|26>>
     <associate|footnr-5.4|<tuple|5.4|29>>
     <associate|footnr-5.5|<tuple|5.5|30>>
+    <associate|footnr-5.6|<tuple|5.6|30>>
     <associate|footnr-6|<tuple|6|?>>
     <associate|footnr-6.1|<tuple|6.1|33>>
     <associate|footnr-6.2|<tuple|6.2|33>>
     <associate|footnr-7.1|<tuple|7.1|37>>
     <associate|footnr-7.2|<tuple|7.2|38>>
-    <associate|footnr-8.1|<tuple|8.1|?>>
-    <associate|footnr-8.2|<tuple|8.2|?>>
-    <associate|footnr-8.3|<tuple|8.3|?>>
+    <associate|footnr-8.1|<tuple|8.1|42>>
+    <associate|footnr-8.2|<tuple|8.2|44>>
+    <associate|footnr-8.3|<tuple|8.3|44>>
   </collection>
 </references>
 
@@ -3103,11 +3332,9 @@
 
       pottierphd
 
-      whiteoak
+      ranknml
 
-      scalastructural
-
-      unitynomstruct
+      ranknhaskell
 
       valuerestriction
 
@@ -3121,11 +3348,21 @@
 
       valuerestriction2
 
+      whiteoak
+
+      scalastructural
+
+      unitynomstruct
+
       happy
 
       alex
 
       llvm
+
+      abstracttypes
+
+      ranknml
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Abstract>
@@ -3251,35 +3488,35 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-32>
 
+      <with|par-left|<quote|1.5fn>|5.1.1<space|2spc>The value restriction
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-33>>
+
       5.2<space|2spc>Optional type annotations
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-33>
+      <no-break><pageref|auto-34>
 
       <with|par-left|<quote|1.5fn>|5.2.1<space|2spc>Checking type annotations
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-34>>
+      <no-break><pageref|auto-35>>
 
       <with|par-left|<quote|1.5fn>|5.2.2<space|2spc>A potential problem
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-35>>
+      <no-break><pageref|auto-36>>
 
       <with|par-left|<quote|1.5fn>|5.2.3<space|2spc>Classes (partial
       description) <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36>>
+      <no-break><pageref|auto-37>>
 
       <with|par-left|<quote|1.5fn>|5.2.4<space|2spc>The object constructor
       lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37>>
+      <no-break><pageref|auto-38>>
 
       <with|par-left|<quote|3fn>|5.2.4.1<space|2spc>Mutability
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-38>>
-
-      <with|par-left|<quote|3fn>|5.2.4.2<space|2spc>The value restriction
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-39>>
 
-      <with|par-left|<quote|3fn>|5.2.4.3<space|2spc>``Polymorphism''
+      <with|par-left|<quote|3fn>|5.2.4.2<space|2spc>``Polymorphism''
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-40>>
 
@@ -3328,14 +3565,59 @@
       even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-52>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
-      A<space|2spc>Detailed typing rules for <error|compound brick>>
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|8<space|2spc>A
+      compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-53><vspace|0.5fn>
+
+      8.1<space|2spc>A code generation monad
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-54>
+
+      8.2<space|2spc>Representing flow control
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-55>
+
+      <with|par-left|<quote|1.5fn>|8.2.1<space|2spc>Coalescing
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-56>>
+
+      <with|par-left|<quote|1.5fn>|8.2.2<space|2spc>Iteration
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-57>>
+
+      8.3<space|2spc>Implementation of structures
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-58>
+
+      8.4<space|2spc>Implementation of closures
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-59>
+
+      8.5<space|2spc>A typechecker from an interpreter
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-60>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|9<space|2spc>Future
+      work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-61><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|10<space|2spc>Conclusions>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-62><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
+      A<space|2spc>BNF grammar for the syntax of <error|compound brick>>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-63><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
+      B<space|2spc>Detailed typing rules for <error|compound brick>>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-64><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-54><vspace|0.5fn>
+      <no-break><pageref|auto-65><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
