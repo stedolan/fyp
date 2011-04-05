@@ -301,23 +301,18 @@
 
   This report describes the design and implementation of the object-oriented
   imperative language <brick>. <brick> has a sophisticated type system,
-  supporting global type inference
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
+  supporting global type inference, subtyping and seamless integration of
+  nominative and structural typing. <brick>'s prototype implementation has an
+  unusual and interesting compiler architecture, combining and abstracting
+  several previously separate parts of a language implementation.
 
   <section|Background>
 
-  <brick> seeks
+  The design of the language sought to improve upon most imperative,
+  object-oriented languages by importing a number of advanced features from
+  functional programming languages. Features like type inference and
+  structural typing are common in statically-typed functional languages, and
+  seemed worth trying out in an object-oriented imperative setting.
 
   <subsection|Type systems>
 
@@ -367,11 +362,8 @@
 
   <subsection|Subtyping and object-orientation>
 
-  Subtyping allows for a term to be more treated as less specific\ 
-
-  ### DEF
-
-  \;
+  Subtyping allows an object with a specific interface to be used when a
+  general one is expected.
 
   Subtyping is one of the primary mechanisms for producing modularity in
   object-oriented programs: if a method takes a parameter with certain
@@ -393,6 +385,12 @@
   of a more specific type than required, but when receiving output we may
   treat the output as a more <with|font-shape|italic|general> type than
   provided.
+
+  Subtyping presents interesting problems for type inference, as a system of
+  subtyping constraints is more difficult to solve than a system of term
+  equations. However, the typings produced by an inference system with
+  subtyping are more precise as they take into account the direction of data
+  flow.
 
   <subsection|Nominative and structural types>
 
@@ -486,8 +484,8 @@
   access>>|<row|<cell| \ return pt.y \ \ \ \ \ \ \ \ \ # return
   values>>|<row|<cell|end>>>>>>>
 
-  Specific features of <brick> will be described in turn, and a BNF grammar
-  is given in ###.
+  Specific features of <brick> will be described in the following chapters,
+  and a BNF grammar is given in ###.
 
   <section|<brick>'s type system>
 
@@ -589,9 +587,38 @@
   solver described here is heavily based upon the one described by Pottier in
   <cite|pottierframework|pottierphd|pottiersimplifying>.
 
+  Most of the statements about these type systems are presented here without
+  proof. The interested reader may check those references for a more in-depth
+  discussion.
+
   <section|Language implementation>
 
-  \;
+  The implementation sought to reduce the workload associated with the
+  development of a compiler through modularity. In most language
+  implementations, a compiler, interpreter and typechecker are largely
+  separate bodies of code. Many algorithms which on the surface appear
+  similar (such as analysing data flow through the program) must be
+  implemented separately for each component.
+
+  <brick>'s implementation, using functional programming techniques,
+  abstracts away the common parts of the language's semantics into a single
+  ``evaluator''. This is used by all phases of the compiler, and contains a
+  single definition of the common semantics (e.g. control flow, symbol
+  resolution, bindings, matching operands to operators) while each of the
+  phases need only implement a small set of primitive operations (e.g. loads,
+  stores and functions).
+
+  Thus, we gain a compiler and a type-checker, without having to write them!
+  We write a very simple interpreter, and re-use its definition of the
+  language in the two other phases.
+
+  In particular, this reduces the amount of work necessary to experiment with
+  a new language feature: it is much easier to add a feature to this system
+  than to a traditional compiler, which is very valuable in an exploratory
+  project such as this one. When a language feature requiring a new primitive
+  operation is added, it can first be implemented in the interpreter and then
+  most of that implementation can be re-used if it is decided to add support
+  to the compiler.###
 
   <chapter|Type inference as constraint solving>
 
@@ -608,6 +635,8 @@
   include:
 
   <\itemize>
+    <item>Primitive types such as <tt|int> and <tt|bool>
+
     <item>Structure types such as <math|<around*|{|<tt|foo>:a,<tt|bar>:b|}>>,
     which is the type of structures having a field <tt|foo> of type <math|a>
     and a field <tt|bar> of type <math|b>.
@@ -615,9 +644,7 @@
     <item>The unit type (written <math|<around*|(||)>> in descriptions of the
     type system and <tt|void> in <brick> source)
 
-    <item>User-defined (possibly generic) classes
-
-    <item>###
+    <item>User-defined classes (see ###)
 
     <item>The special types <math|\<top\>> and <math|\<bot\>> (<tt|any> and
     <tt|none> in source code)
@@ -650,10 +677,7 @@
   If we consider types to be predicates about the values they describe, then
   this is equivalent to stating that we can strengthen a statement about a
   function by strengthening what we say about its result, or
-  <with|font-shape|italic|weakening> what we say about its parameter. ###
-  single eq?
-
-  ### fwd ref about invariant params / mutable cells
+  <with|font-shape|italic|weakening> what we say about its parameter.
 
   The space of type constructors is equipped with a subtype ordering, which
   forms a lattice. That is, for any two type constructors <math|a> and
@@ -2074,9 +2098,9 @@
   constraints inferred).
 
   If an annotation is placed on a generalised term, for instance if the
-  programmer writes <rigid|<tt|id:a =\<gtr\> a forall a>>, we must use the
-  subsumption algorithm in order to cover all of the possilble instantiations
-  of the free variable <math|a>.
+  programmer defines an identity function <tt|id> and writes <rigid|<tt|id:a
+  =\<gtr\> a forall a>>, we must use the subsumption algorithm in order to
+  cover all of the possilble instantiations of the free variable <math|a>.
 
   \;
 
@@ -3174,6 +3198,49 @@
   it's been defined since all we do with the state is blindly copy it to the
   output.
 
+  <subsection|Aside: Arrows>
+
+  The original version of this work implemented the concepts not in terms of
+  monads but in terms of arrows. Arrows are a generalisation of monads which
+  can represent ``computations with side-effects'' as opposed to monads which
+  represent ``results with side effects'', the difference being that an arrow
+  can reason about a computation's inputs as well as its
+  outputs<cite|arrowcomp|arrows>. In this version of the work, the equivalent
+  of <tt|fixiter> arose more naturally.
+
+  In standard presentations of arrows, there are combinators to produce more
+  complex arrows from simpler. Two important ones are:
+
+  <\eqnarray>
+    <tformat|<table|<row|<cell|first>|<cell|\<colons\>>|<cell|<around*|(|a\<rightarrowlim\><rsup|\<cal-A\>>b|)>\<mapsto\><around*|(|<around*|(|a,s|)>\<rightarrowlim\><rsup|\<cal-A\>><around*|(|b,s|)>|)>>>|<row|<cell|left>|<cell|\<colons\>>|<cell|<around*|(|a\<rightarrowlim\><rsup|\<cal-A\>>b|)>\<mapsto\><around*|(|<around*|(|a+s|)>\<rightarrowlim\><rsup|\<cal-A\>><around*|(|b+s|)>|)>>>>>
+  </eqnarray>
+
+  <math|a\<rightarrowlim\><rsup|\<cal-A\>>b> denotes a computation taking
+  <math|a> and producing <math|b> in the arrow, <math|<around*|(|a,s|)>> is a
+  pair of <math|a> and <math|s>, while <math|a+s> is a value which is either
+  an <math|a> or an <math|s>. The action of first is to produce an arrow
+  which takes two inputs, passes the first through a given arrow and pass the
+  second through unchanged. Left is analogous, except it passes only those
+  values which match a condition through the given arrow and passes those
+  which don't through unchanged.
+
+  First has a standard inverse, known as loop:
+
+  <\eqnarray>
+    <tformat|<table|<row|<cell|loop>|<cell|\<colons\>>|<cell|<around*|(|<around*|(|a,s|)>\<rightarrowlim\><rsup|\<cal-A\>><around*|(|b,s|)>|)>\<mapsto\><around*|(|a\<rightarrowlim\><rsup|\<cal-A\>>b|)>>>>>
+  </eqnarray>
+
+  This constructs an arrow whose second output is connected to its second
+  input, and is used to model recursion in arrows. If we construct a similar
+  inverse for left, we get:
+
+  <\eqnarray>
+    <tformat|<table|<row|<cell|iter>|<cell|\<colons\>>|<cell|<around*|(|<around*|(|a+s|)>\<rightarrowlim\><rsup|\<cal-A\>><around*|(|b+s|)>|)>\<mapsto\><around*|(|a\<rightarrowlim\><rsup|\<cal-A\>>b|)>>>>>
+  </eqnarray>
+
+  This constructs an arrow whose output is fed back to its input if it fails
+  to meet a condition, and is a natural equivalent to <tt|fixiter>.
+
   <section|Implementation of structures>
 
   The fundamental data type used to represent objects is the ``struct'': this
@@ -3335,15 +3402,49 @@
   Thus, with a single definition of <tt|eval>, as well as getting a compiler
   we also gain a typechecker.
 
-  <chapter|Future work>
-
-  The ``difficult problems'' in the implementation of <brick> are solved.
-  However, in the quest to implement the interesting and difficult parts of
-  <brick>'s type system, compiler framework and runtime, some of the more
-  mundane parts of a programming language were neglected. For instance,
-  <brick> does not yet support something as trivial as integer addition.
+  <chapter|Conclusions and future work>
 
   \;
+
+  The interpreter and compiler can parse and run many programs, although some
+  of the more advanced object-oriented features have not fully been
+  implemented yet.
+
+  The type checker has been implemented more-or-less fully, and can infer and
+  simplify types for some quite complex expressions (including recognising
+  partial unrollings of a recursive type and correctly typing the Y
+  combinator). Its performance (often a sore spot for complex inference
+  algorithms) has so far been more than adequate, although it has yet to be
+  tested on any large programs.
+
+  The ``difficult problems'' in the implementation of <brick> are solved.
+  However, in the quest to implement the more advanced parts of <brick>'s
+  type system, compiler framework and runtime, some of the more mundane parts
+  of a programming language were neglected. For instance, <brick> does not
+  yet support something as trivial as integer addition, and there is little
+  support for input and output. These features are not complex to add, but
+  time constraints during this project prevented their implementation.
+
+  Besides finishing the implementation of the features already described,
+  other interesting areas of future work include:
+
+  <\description>
+    <item*|Error messages>Currently <brick> does not provide useful error
+    messages on either syntax or type errors. This is an open research
+    problem (particularly for complex type errors), but even basic support
+    would be a boon to the current implementation.
+
+    <item*|Garbage collection>Writing a garbage collector was considered to
+    be outside the scope of this project, and so compiled <brick> programs
+    simply run until available memory is exhausted (interpreted programs are
+    garbage-collected by Haskell's GC). This is obviously a vital addition
+    before <brick> becomes a usable general-purpose language.
+
+    <item*|Optimisation>There is currently no mechanism by which the type
+    inference engine can pass typing data to the compiler. Were this to be
+    implemented, the compiler would have a large scope for type-based
+    optimisations such as the elision of name-based field lookups.
+  </description>
 
   <appendix|BNF grammar for the syntax of <brick>><appendix|Detailed typing
   rules for <brick>>
@@ -3353,7 +3454,72 @@
 
   \;
 
+  \;
+
+  In the discussion of the typing rules, we will use a simplified, more
+  functional-looking syntax. Programs will be represented as:
+
+  <\equation*>
+    <tabular|<tformat|<cwith|1|7|2|2|cell-halign|r>|<table|<row|<cell|\<mathe\>>|<cell|=>|<cell|\<lambda\><text|x>.\<mathe\>>|<cell|\<lambda\><text|-abstraction>
+    <around*|(|ungeneralised binding|)>>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>
+    \<mathe\>>|<cell|<text|function application>>>|<row|<cell|>|<cell|<mid|\|>>|<cell|let
+    \ <wide|\<b-x\>|^>= \<mathe\> in \<mathe\>>|<cell|let<text|-abstraction>
+    <around*|(|generalised binding|)>>>|<row|<cell|>|<cell|\|>|<cell|<around*|{|<tt|f1>:\<mathe\>,<tt|f2>:\<mathe\>|}>>|<cell|structure
+    creation>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>.<tt|f>>|<cell|structure
+    field read>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>.<tt|f>\<assign\>\<mathe\>>|<cell|structure
+    field write>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>;\<mathe\>>|<cell|sequential
+    composition>>>>>
+  </equation*>
+
+  Bound names will be divided into two syntatically distinct classes:
+  <math|<text|x>>, <text|y>, <text|z>, bound by <math|\<lambda\>>, and
+  <math|<wide|\<b-x\>|^>,<wide|\<b-y\>|^>,<wide|\<b-z\>|^>>, bound by let.
+  For a discussion of the distinction, see ###.
+
+  Typing judgements will be of the form <math|\<Gamma\>\<vdash\>\<mathe\>:a\\C>,
+  where <math|\<mathe\>> is the program being typed, <math|C> is the
+  resulting constraint graph, <math|a> is the variable within the constraint
+  graph representing the type, and <math|\<Gamma\>> is the typing
+  environment.
+
+  Typing environments <math|\<Gamma\>> will map ...
+
+  <\equation*>
+    <around*|[|\<phi\><rsub|1>|]>a<rsub|1>\\C<rsub|1>
+    \<leqslant\><rsup|\<forall\>><around*|[|\<phi\><rsub|2>|]>a<rsub|2>\\C<rsub|2>
+    = dom<around*|(|\<phi\><rsub|1>|)>=dom<around*|(|\<phi\><rsub|2>|)>\<wedge\>
+  </equation*>
+
+  \;
+
+  <\equation*>
+    <tabular|<tformat|<cwith|1|7|1|1|cell-halign|c>|<cwith|1|7|1|2|cell-bsep|0.5cm>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><text|e>:b\\C|\<Gamma\>\<vdash\>\<lambda\><text|x.e>:a\<rightarrow\>b\\C>>|<cell|<text|<name|Abs>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:a\<rightarrow\>b\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:a\\C|\<Gamma\>\<vdash\><text|e><rsub|1><text|e><rsub|2>:b\\C>>|<cell|<text|<name|App>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a<rsub|1>\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:a<rsub|2>\\C<space|1cm>\<ldots\>|\<Gamma\>\<vdash\><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\\C>>|<cell|<text|<name|Struct-New>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e>:<around*|{|<tt|f>:a/b|}>\\C|\<Gamma\>\<vdash\><text|e>.<tt|f>:b\\C>>|<cell|<text|<name|Struct-Get>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:<around*|{|<tt|f>:a/b|}>\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:c\\C|\<Gamma\>\<vdash\><text|e><rsub|1>.<tt|f>\<assign\>
+    <text|e><rsub|2>:a\\C>>|<cell|<text|<name|Struct-Set>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:b\\C|\<Gamma\>\<vdash\>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C>>|<cell|<text|<name|Seq>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\>:a\\C<space|1cm><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a|}>\\C|)>\<leqslant\><rsup|\<forall\>><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a<rprime|'>|}>\\C<rprime|'>|)>|\<Gamma\>\<vdash\>\<mathe\>:a<rprime|'>\\C<rprime|'>>>|<cell|<text|<name|Sub>>>>>>>
+  </equation*>
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  \;
+
+  <\equation*>
+    <tabular|<tformat|<cwith|1|7|1|1|cell-halign|c>|<cwith|1|7|1|2|cell-bsep|0.5cm>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><rsup|i><text|e>:b\\C|\<Gamma\>\<vdash\><text|e>:a\<rightarrow\>b\\C>>|<cell|<text|<name|Abs>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:a\<rightarrow\>b\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:a\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1><text|e><rsub|2>:b\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|App>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a<rsub|1>\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:a<rsub|2>\\C<rsub|2><space|1cm>\<ldots\>|\<Gamma\>\<vdash\><rsup|i><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\\<big-around|\<oplus\>|C<rsub|i>>>>|<cell|<text|<name|Struct-New>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e>:<around*|{|<tt|f>:a/b|}>\\C|\<Gamma\>\<vdash\><rsup|i><text|e>.<tt|f>:b\\C>>|<cell|<text|<name|Struct-Get>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:<around*|{|<tt|f>:a/b|}>\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:c\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>.<tt|f>\<assign\>
+    <text|e><rsub|2>:a\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Struct-Set>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:b\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Seq>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\>:a\\C<space|1cm><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a|}>\\C|)>\<leqslant\><rsup|\<forall\>><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a<rprime|'>|}>\\C<rprime|'>|)>|\<Gamma\>\<vdash\><rsup|i>\<mathe\>:a<rprime|'>\\C<rprime|'>>>|<cell|<text|<name|Sub>>>>|<row|<cell|<frac|<tabular|<tformat|<cwith|1|1|1|1|cell-halign|c>|<table|<row|<cell|\<phi\><text|
+    a fresh renaming of >dom<rsub|\<lambda\>><around*|(|\<Gamma\>|)>>>|<row|<cell|\<phi\><around*|(|\<Gamma\>|)>\<vdash\><rsup|i>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>+<around*|(|<wide|\<b-x\>|^>\<mapsto\><around*|[|\<phi\>|]>a\\C<rsub|1>|)>\<vdash\>\<mathe\><rsub|2>:b\\C<rsub|2>>>>>>|\<Gamma\>\<vdash\>let
+    <wide|\<b-x\>|^>=\<mathe\><rsub|1> in
+    \<mathe\><rsub|2>:b\\C<rsub|2>>>|<cell|<text|<name|Let>>>>|<row|<cell|<frac|\<Gamma\><around*|(|<wide|\<b-x\>|^>|)>=<around*|[|\<phi\>|]>a\\C|\<Gamma\>\<vdash\><wide|\<b-x\>|^>:>>|<cell|<text|<name|Let-Var>>>>>>>
+  </equation*>
+
   <\with|par-mode|left>
+    \;
+
     <\bibliography|bib|plain|/home/stephen/papers/papers.bib>
       <\bib-list|10>
         <bibitem*|1><label|bib-hopcroftmin>A.<nbsp>V. Aho, J.<nbsp>E.
@@ -3584,14 +3750,15 @@
     <associate|auto-65|<tuple|7.2|22>>
     <associate|auto-66|<tuple|7.2.1|23>>
     <associate|auto-67|<tuple|7.2.2|23>>
-    <associate|auto-68|<tuple|7.3|24>>
-    <associate|auto-69|<tuple|7.4|24>>
+    <associate|auto-68|<tuple|7.2.3|24>>
+    <associate|auto-69|<tuple|7.3|24>>
     <associate|auto-7|<tuple|1.1.4|3>>
-    <associate|auto-70|<tuple|7.5|24>>
-    <associate|auto-71|<tuple|8|24>>
-    <associate|auto-72|<tuple|A|24>>
-    <associate|auto-73|<tuple|B|24>>
+    <associate|auto-70|<tuple|7.4|24>>
+    <associate|auto-71|<tuple|7.5|24>>
+    <associate|auto-72|<tuple|8|24>>
+    <associate|auto-73|<tuple|A|24>>
     <associate|auto-74|<tuple|B|57>>
+    <associate|auto-75|<tuple|B|?>>
     <associate|auto-8|<tuple|1.2|3>>
     <associate|auto-9|<tuple|1.3|3>>
     <associate|bib-abstracttypes|<tuple|3|25>>
