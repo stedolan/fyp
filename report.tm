@@ -266,35 +266,39 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-67>>
 
-    7.3<space|2spc>Implementation of structures
+    <with|par-left|1.5fn|7.2.3<space|2spc>Aside: Arrows
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-68>
+    <no-break><pageref|auto-68>>
 
-    7.4<space|2spc>Implementation of closures
+    7.3<space|2spc>Implementation of structures
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-69>
 
-    7.5<space|2spc>A typechecker from an interpreter
+    7.4<space|2spc>Implementation of closures
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-70>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|8<space|2spc>Future
-    work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-71><vspace|0.5fn>
+    7.5<space|2spc>A typechecker from an interpreter
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-71>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|8<space|2spc>Conclusions
+    and future work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-72><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     A<space|2spc>BNF grammar for the syntax of
     <with|font-shape|small-caps|Brick>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-72><vspace|0.5fn>
+    <no-break><pageref|auto-73><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     B<space|2spc>Detailed typing rules for
     <with|font-shape|small-caps|Brick>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-73><vspace|0.5fn>
+    <no-break><pageref|auto-74><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-74><vspace|0.5fn>
+    <no-break><pageref|auto-75><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -1093,8 +1097,7 @@
   Firstly, a <dfn|variance> is either <with|font-shape|italic|positive> (or
   <with|font-shape|italic|covariant>) or <with|font-shape|italic|negative>
   (or <with|font-shape|italic|contravariant>), which are represented as
-  <math|+> and <math|-> respectively. The set <math|<around*|{|+,-|}>> will
-  be denoted <math|\<bbb-V\>>.
+  <math|+> and <math|-> respectively.
 
   A <dfn|constructor lattice> consists of:
 
@@ -1108,8 +1111,8 @@
     <item>A mapping <math|\<bbb-C\>\<rightarrow\>\<cal-P\><around*|(|\<bbb-L\>|)>>,
     called the arity of a constructor
 
-    <item>A mapping <math|\<bbb-L\>\<rightarrow\>\<bbb-V\>>, called the
-    variance of a label
+    <item>A mapping <math|\<bbb-L\>\<rightarrow\><around*|{|+,-|}>>, called
+    the variance of a label
 
     <item>An ordering <math|\<leqslant\>> defined on <math|\<bbb-C\>>, known
     as constructor subtyping
@@ -1129,9 +1132,9 @@
   constructors, a label must have the same variance for each constructor in
   which it appears.\ 
 
-  One more note on variances: the set <math|\<bbb-V\>> forms a monoid: the
-  monoid of two elements, with <rigid|identity <rigid|<math|+>.>> Thus, we
-  have an operation for combining variances:
+  One more note on variances: the set <math|<around*|{|+,-|}>> forms a
+  monoid: the monoid of two elements, with <rigid|identity <rigid|<math|+>.>>
+  Thus, we have an operation for combining variances:
 
   <\eqnarray>
     <tformat|<table|<row|<cell|+\<cdot\>+>|<cell|=>|<cell|+>>|<row|<cell|+\<cdot\>->|<cell|=>|<cell|->>|<row|<cell|-\<cdot\>+>|<cell|=>|<cell|->>|<row|<cell|-\<cdot\>->|<cell|=>|<cell|+>>>>
@@ -1180,6 +1183,17 @@
   side's constructor.
 
   <chapter|The type inference engine>
+
+  In this chapter, we'll describe how the constraints representing a program
+  are resolved to yield a type or a type error. We also describe how the
+  constraint set is <with|font-shape|italic|optimised>: a constraint set
+  describing an entire program can quickly become unweildy, and techniques
+  are needed to reduce it to a manageable size.
+
+  Two invariants are proposed: the small terms invariant, which requires that
+  each constraint have only a single level of structure (similar to
+  three-address code in a compiler), and the mono-polarity invariant, which
+  allows us to distinguish between variables used as upper and lower bounds.
 
   <section|The small terms invariant>
 
@@ -1270,68 +1284,41 @@
   must introduce polarities of terms and variables and the mono-polarity
   invariant.
 
-  <section|The mono-polarity invariant>
+  <section|The mono-polarity invariant and garbage collection>
 
   Before we can describe the optimised representation of constraint sets, we
   must draw a distinction between <dfn|positive> and <dfn|negative> type
-  variables and constructed types. A type variable or constructed type
-  ``appears positively'' (resp. negatively) if it is on the right-hand side
-  (resp. left-hand side) of a <math|\<leqslant\>>-constraint. Variables or
-  types appear positively in upper bounds, and negatively in lower bounds.
+  variables and constructed types.\ 
 
-  This notion is extended naturally to variables appearing in the parameters
-  of a small constructed type: if a variable appears in a covariant parameter
-  of a type appearing positively (or in a contravariant parameter of a type
-  appearing negatively), then it is said to appear positively. Conversely, in
-  the other two cases a variable would be said to appear negatively. That is,
-  in the constraint
+  The type inferred for a particular term is a lower bound: the term may be
+  used with any supertype of the inferred type. We say that the type
+  ``appears positively''. If a constructed type appears positively, then its
+  parameters appear positively when covariant and negatively when
+  contravariant (and vice versa for negative appearances). If a variable
+  appears positively, then the left-hand side of any constraint whose
+  right-hand side consists of that variable appears positively, and similarly
+  for negative appearances. For example, if the type of a term is <math|a>,
+  with the constraint graph:
 
-  <\equation*>
-    a\<rightarrow\>b\<leqslant\>c\<rightarrow\>d
-  </equation*>
+  <\eqnarray>
+    <tformat|<table|<row|<cell|b\<rightarrow\>c>|<cell|\<leqslant\>>|<cell|a>>|<row|<cell|d\<rightarrow\>e>|<cell|\<leqslant\>>|<cell|b>>|<row|<cell|c>|<cell|\<leqslant\>>|<cell|f>>>>
+  </eqnarray>
 
-  the small constructed type <math|a\<rightarrow\>b> appears negatively,
-  while <math|c\<rightarrow\>d> appears positively. The variables <math|a>
-  and <math|d> appear positively, while the variables <math|b> and <math|c>
-  appear negatively. More formally, consider a variable appearing in a
-  parameter of variance <math|v<rsub|1>> to a constructed type appearing in a
-  constraint with polarity <math|v<rsub|2>>, where the variance
-  <math|v<rsub|1>> and the polarity <math|v<rsub|2>> are both considered to
-  be drawn from the same set <math|\<bbb-V\>>. The variable will then be said
-  to appear with polarity <math|v<rsub|1>v<rsub|2>>, which is
-  <math|v<rsub|1>> and <math|v<rsub|2>> combined via the monoid operation
-  defined in ###.
+  <math|b\<rightarrow\>c> appears positively, as a lower bound of <math|a>
+  (assumed positive, as it is the root of the type). Then, decomposing this
+  constructed type, <math|c> appears positively and <math|b> appears
+  negatively. Following on, <math|e> appears positively and <math|d> appears
+  negatively, while <math|f> appears negatively.
 
-  \;
+  The mono-polarity invariant is this: no variable appears both positively
+  and negatively.
 
-  \;
+  This is quite simply enforced: if we have a constraint set in which we
+  would like to have a variable appear with both polarities, we can simply
+  remove the offending variable and replace it with a pair of variables, one
+  positive and one negative, with a constraint between them.
 
-  \;
-
-  \;
-
-  Again, postive types or variables correspond to outputs:\ 
-
-  \;
-
-  ##ref### It turns out to be very useful to separate those variables which
-  are used as upper bounds (those which appear on the right-hand side of a
-  <math|\<leqslant\>>-constraint from those variables which are used as lower
-  bounds (which appear on the left-hand side of a
-  <math|\<leqslant\>>-constraint).
-
-  We shall call the variables used as upper bounds
-  <with|font-shape|italic|positive>, and represent them as
-  <math|a<rsup|+>,b<rsup|+>,\<ldots\>>. Similarly, variables used as lower
-  bounds will be called <with|font-shape|italic|negative> and represented as
-  <math|a<rsup|->,b<rsup|->, \<ldots\>>. Restricting the constraint system so
-  that each variable is only\ 
-
-  \;
-
-  \;
-
-  \;
+  <subsection|Small constructed types>
 
   Having established that no variable may be both positive and negative, we
   may now give a proper definition of variables and small constructed types.
@@ -1348,8 +1335,8 @@
   negative ones are <math|\<tau\><rsub|1><rsup|->,\<tau\><rsup|-><rsub|2>>.
   We will occasionally abstract over the polarity of a term or variable and
   write <math|a<rsup|v>> or <math|\<tau\><rsup|v>> to mean a term of polarity
-  <math|v\<in\>\<bbb-V\>>. Similarly, <math|\<box\><rsup|v>> will be used to
-  abstract over <math|\<sqcup\>> and <math|\<sqcap\>>, where
+  <math|v\<in\><around*|{|+,-|}>>. Similarly, <math|\<box\><rsup|v>> will be
+  used to abstract over <math|\<sqcup\>> and <math|\<sqcap\>>, where
   <math|\<box\><rsup|+>=\<sqcup\>> and <math|\<box\><rsup|->=\<sqcap\>>.
 
   A small constructed term is defined as:
@@ -1372,55 +1359,43 @@
   <math|\<sqcup\>> into a single small constructed term, while any set of
   negative small constructed terms can be merged via <math|\<sqcap\>>.
 
-  \;
+  <subsection|Garbage collection of constraint sets>
 
-  ### formal def. merge
+  If a variable appears neither positively or negatively in the constraint
+  graph, it may be removed. This is the principle of
+  <with|font-shape|italic|garbage collection>, described fully in
+  <cite|subconst|pottierphd>. This is only tangentially related to garbage
+  collection of heap values in a running program: it refers to the removal of
+  redundant parts of a constraint set.
 
-  <section|Garbage collection>
-
-  A constraint set constructed from a program will include many redundant
-  constraints. Since we are only interested in checking the satisfiability of
-  the constraint graph, we can safely delete any constraint which can't
-  possibly cause a failure in the closure algorithm. That is, we can safely
-  delete any constraint which doesn't actually constrain the set of accepted
-  programs.
-
-  The most obvious candidates for deletion are the ``unreachable''
-  constraints. Suppose we have the rc type\ 
+  For instance, suppose we have the rc type:
 
   <\equation*>
-    a\<rightarrow\>b\\a\<leqslant\>b,c\<leqslant\>d\<rightarrow\>e
+    a\<rightarrow\>b\\a\<leqslant\>b,b\<leqslant\>d\<rightarrow\>e
   </equation*>
 
-  The type variables <math|c>, <math|d> and <math|e> clearly do not constrain
-  the type at all. We can generalise this idea a little by defining a
-  preliminary notion of <dfn|reachability> of type variables: a type variable
-  is reachable if it is present in the type part of the rc type (left of the
-  <math|\\>), or if it is present in a constraint with one or more reachable
-  variables. This notion, similar to the standard notion of garbage
-  collection of data structures, allows us to delete the variables <math|c>,
-  <math|d> and <math|e> and the constraints in which they appear.
+  Since the type <math|a\<rightarrow\>b> appears positively, <math|b> is
+  positive. <math|d\<rightarrow\>e> appears only as an upper bound for a
+  positive variable, and hence <math|d> and <math|e> appear neither
+  positively nor negatively. As shown by Smith and Trifonov in
+  <cite|subconst> and Pottier in <cite|pottierphd>, we can safely remove this
+  constraint.
 
-  \;
+  As well as this, we can safely remove any constraints between variables if
+  one is not reachable. In general, the only constraints which we need to
+  actually keep in our constraint graph are ones of the form:
 
-  \;
+  <\eqnarray>
+    <tformat|<table|<row|<cell|positive constructed type
+    >|<cell|\<leqslant\>>|<cell|positive variable>>|<row|<cell|negative
+    variable>|<cell|\<leqslant\>>|<cell|negative constructed
+    type>>|<row|<cell|negative variable>|<cell|\<leqslant\>>|<cell|positive
+    variable>>>>
+  </eqnarray>
 
-  For a somewhat more interesting example, consider the type
-
-  <\equation*>
-    a\<rightarrow\>b\\a\<leqslant\>b,a\<leqslant\>c,b\<leqslant\>c
-  </equation*>
-
-  By our previous definition of reachability, the variables <math|a>,
-  <math|b> and <math|c> are all reachable. However, the constraints
-  <math|a\<leqslant\>c> and <math|b\<leqslant\>c> do not in fact constrain
-  the solution space at all.\ 
-
-  \;
-
-  \;
-
-  \;
+  This allows us to define an optimised constraint graph representation and
+  incremental closure algorithm which avoid storing the data which would be
+  removed by the garbage collection algorithms of the cited papers.
 
   <section|Representing the constraint set>
 
@@ -1464,7 +1439,7 @@
   This causes the Haskell garbage collector to collect a variable and destroy
   weak references to it when it becomes unreachable except through weak
   references. So, this type simplification is performed automatically by the
-  system garbage collector.
+  system's garbage collector.
 
   <section|The incremental closure algorithm>
 
@@ -1574,10 +1549,10 @@
 
   Thus, <math|S<rsup|v>> represents a merging of the constraints present
   about each <math|a<rsup|v>\<in\>S>. Then, each set of merged variables with
-  more than two elements appearing in a constructed term may be removed and
-  replaced with the singleton set <math|<around*|{|S<rsup|v>|}>>, thus
-  removing all instances of <math|\<sqcap\>> and <math|\<sqcup\>> from the
-  graph.
+  more than two elements appearing as a parameter to a constructed term may
+  be removed and replaced with the singleton set
+  <math|<around*|{|S<rsup|v>|}>>, thus removing all instances of
+  <math|\<sqcap\>> and <math|\<sqcup\>> from the graph.
 
   Of course, the actual implementation canonisation algorithm does not create
   all of the variables <math|S<rsup|+>,S<rsup|->>. Instead, the new variables
@@ -3263,8 +3238,6 @@
   However, it is still important to keep the harder case efficient, where we
   don't know anything about the struct.
 
-  \;
-
   Structs are layed out as a series of pointer-width words.<\footnote>
     In the current implementation, there are no unboxed types so every value
     is represented as a pointer. In a future implementation, this constraint
@@ -3273,15 +3246,27 @@
   layout of the rest of the structure. The ``type table'' must map string
   keys to offsets within the structure efficiently.
 
-  This problem is related to the problems of minimal perfect hashing and the
-  Java interface lookup problem (###).
+  The trivial (and initially implemented) solution is simply to do a linear
+  scan of the type table on each lookp, but more efficient solutions are
+  possible. We propose a simple hashing scheme. This problem is related to
+  the problems of storing sparse tables<cite|sparsetables>.
 
   To avoid performing string comparisons, field names are hashed at compile
   time. To correctly handle hash collisions, each field is associated with a
-  ### globals, unique addresses, linker, freshness ###
+  global variable with the same name. The system linker disambiguates
+  globals, so we can rely on uniqueness and identify names with pointers to
+  these globals variables.
 
-  The actual lookup is a simple hashing scheme ### hashcodes, collisions,
-  length-2, branches ###.
+  The actual lookup scheme involves taking bitfields out of a precomputed
+  hash value and using it to index into a table. Collisions are resolved by
+  the global variable addresses. At the expense of some compilation time, we
+  found it was generally possible to ensure (by searching the parameter
+  space) that there are no more than 2 collisions for a given key, and so the
+  lookup function could be implemented without branching.
+
+  Since LLVM is used to generate object code, we can rely on its optimisation
+  passes to make changes like hoisting structure index operations out of
+  loops.
 
   <section|Implementation of closures>
 
@@ -3567,103 +3552,111 @@
         <newblock>Happy: The parser generator for Haskell.
         <newblock><with|font-shape|italic|University of Glasgow>, 1995.
 
-        <bibitem*|10><label|bib-imperativefunc>S.L.P. Jones and
+        <bibitem*|10><label|bib-arrows>J.<nbsp>Hughes. <newblock>Generalising
+        monads to arrows. <newblock><with|font-shape|italic|Science of
+        computer programming>, 37(1-3):67--111, 2000.
+
+        <bibitem*|11><label|bib-imperativefunc>S.L.P. Jones and
         P.<nbsp>Wadler. <newblock>Imperative functional programming.
         <newblock>1993.
 
-        <bibitem*|11><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
+        <bibitem*|12><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
         S.<nbsp>Weirich, and M.<nbsp>Shields. <newblock>Practical type
         inference for arbitrary-rank types.
         <newblock><with|font-shape|italic|Journal of Functional Programming>,
         17(01):1--82, 2007.
 
-        <bibitem*|12><label|bib-kaesinference>Stefan Kaes. <newblock>Type
+        <bibitem*|13><label|bib-kaesinference>Stefan Kaes. <newblock>Type
         inference in the presence of overloading, subtyping and recursive
         types. <newblock>pages 193--204, 1992.
 
-        <bibitem*|13><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
+        <bibitem*|14><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
         Michael<nbsp>I. Schwartzbach. <newblock>Efficient recursive
         subtyping. <newblock>pages 419--428, 1993.
 
-        <bibitem*|14><label|bib-llvm>Chris Lattner and Vikram Adve.
+        <bibitem*|15><label|bib-llvm>Chris Lattner and Vikram Adve.
         <newblock>LLVM: A Compilation Framework for Lifelong Program Analysis
         & Transformation. <newblock>Mar 2004.
 
-        <bibitem*|15><label|bib-leroypoly>X.<nbsp>Leroy.
+        <bibitem*|16><label|bib-leroypoly>X.<nbsp>Leroy.
         <newblock>Polymorphism by name for references and continuations.
         <newblock>In <with|font-shape|italic|Proceedings of the 20th ACM
         SIGPLAN-SIGACT Symposium on Principles of Programming Languages>,
         pages 220--231. ACM, 1993.
 
-        <bibitem*|16><label|bib-unitynomstruct>D.<nbsp>Malayeri and
+        <bibitem*|17><label|bib-unitynomstruct>D.<nbsp>Malayeri and
         J.<nbsp>Aldrich. <newblock>Integrating nominal and structural
         subtyping. <newblock><with|font-shape|italic|ECOOP
         2008--Object-Oriented Programming>, pages 260--284, 2008.
 
-        <bibitem*|17><label|bib-moggimonads>E.<nbsp>Moggi and University
+        <bibitem*|18><label|bib-moggimonads>E.<nbsp>Moggi and University
         of<nbsp>Edinburgh. Laboratory for Foundation<nbsp>of
         Computer<nbsp>Science. <newblock><with|font-shape|italic|An abstract
         view of programming languages>. <newblock>University of Edinburgh,
         Laboratory for Foundation of Computer Science, 1990.
 
-        <bibitem*|18><label|bib-regulartypes>P.<nbsp>Morris,
+        <bibitem*|19><label|bib-regulartypes>P.<nbsp>Morris,
         T.<nbsp>Altenkirch, and C.<nbsp>McBride. <newblock>Exploring the
         regular tree types. <newblock><with|font-shape|italic|Types for
         Proofs and Programs>, pages 252--267, 2006.
 
-        <bibitem*|19><label|bib-constrainedtypes>J.<nbsp>Palsberg and
+        <bibitem*|20><label|bib-constrainedtypes>J.<nbsp>Palsberg and
         S.<nbsp>Smith. <newblock>Constrained types and their expressiveness.
         <newblock><with|font-shape|italic|ACM Transactions on Programming
         Languages and Systems (TOPLAS)>, 18(5):519--527, 1996.
 
-        <bibitem*|20><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
+        <bibitem*|21><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
         <newblock>A type system equivalent to flow analysis.
         <newblock><with|font-shape|italic|ACM Trans. Program. Lang. Syst.>,
         17(4):576--599, 1995.
 
-        <bibitem*|21><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
+        <bibitem*|22><label|bib-arrowcomp>R.<nbsp>Paterson. <newblock>Arrows
+        and computation. <newblock><with|font-shape|italic|The Fun of
+        Programming>, pages 201--222, 2003.
+
+        <bibitem*|23><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
         S.<nbsp>Marlow, and C.<nbsp>Elliott. <newblock>Stretching the storage
         manager: weak pointers and stable names in Haskell.
         <newblock><with|font-shape|italic|Implementation of Functional
         Languages>, pages 37--58, 2000.
 
-        <bibitem*|22><label|bib-pottiersimplifying>F.<nbsp>Pottier.
+        <bibitem*|24><label|bib-pottiersimplifying>F.<nbsp>Pottier.
         <newblock>Simplifying subtyping constraints. <newblock>In
         <with|font-shape|italic|Proceedings of the first ACM SIGPLAN
         international conference on Functional programming>, pages 122--133.
         ACM, 1996.
 
-        <bibitem*|23><label|bib-pottierphd>François Pottier. <newblock>Type
+        <bibitem*|25><label|bib-pottierphd>François Pottier. <newblock>Type
         inference in the presence of subtyping: from theory to practice.
         <newblock>Research Report RR-3483, INRIA, 1998.
 
-        <bibitem*|24><label|bib-pottierframework>François Pottier.
+        <bibitem*|26><label|bib-pottierframework>François Pottier.
         <newblock>A framework for type inference with subtyping.
         <newblock><with|font-shape|italic|SIGPLAN Not.>, 34(1):228--238,
         1999.
 
-        <bibitem*|25><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
+        <bibitem*|27><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
         <newblock>QML: explicit first-class polymorphism for ML.
         <newblock>pages 3--14, 2009.
 
-        <bibitem*|26><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
+        <bibitem*|28><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
         inference for polymorphic references.
         <newblock><with|font-shape|italic|Information and computation>,
         89(1):1--34, 1990.
 
-        <bibitem*|27><label|bib-subconst>Valery Trifonov and Scott Smith.
+        <bibitem*|29><label|bib-subconst>Valery Trifonov and Scott Smith.
         <newblock>Subtyping constrained types. <newblock>1145:349--365, 1996.
         <newblock>10.1007/3-540-61739-6<rsub|5>2.
 
-        <bibitem*|28><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
+        <bibitem*|30><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
         for functional programming. <newblock><with|font-shape|italic|Advanced
         Functional Programming>, pages 24--52, 1995.
 
-        <bibitem*|29><label|bib-valuerestriction>A.K. Wright.
+        <bibitem*|31><label|bib-valuerestriction>A.K. Wright.
         <newblock>Polymorphism for imperative languages without imperative
         types. <newblock>1993.
 
-        <bibitem*|30><label|bib-valuerestriction2>A.K. Wright.
+        <bibitem*|32><label|bib-valuerestriction2>A.K. Wright.
         <newblock>Simple imperative polymorphism.
         <newblock><with|font-shape|italic|Lisp and symbolic computation>,
         8(4):343--355, 1995.
@@ -3686,112 +3679,116 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|?|1>>
-    <associate|auto-10|<tuple|1.3.1|3>>
-    <associate|auto-11|<tuple|1.3.2|3>>
-    <associate|auto-12|<tuple|1.3.3|4>>
-    <associate|auto-13|<tuple|1.4|4>>
-    <associate|auto-14|<tuple|2|4>>
-    <associate|auto-15|<tuple|2.1|4>>
-    <associate|auto-16|<tuple|2.1.1|5>>
-    <associate|auto-17|<tuple|2.2|5>>
-    <associate|auto-18|<tuple|2.2.1|6>>
-    <associate|auto-19|<tuple|2.2.2|6>>
-    <associate|auto-2|<tuple|1|1>>
-    <associate|auto-20|<tuple|2.3|6>>
-    <associate|auto-21|<tuple|2.3.1|6>>
-    <associate|auto-22|<tuple|2.3.2|7>>
-    <associate|auto-23|<tuple|2.4|7>>
-    <associate|auto-24|<tuple|2.5|7>>
-    <associate|auto-25|<tuple|2.5.1|8>>
-    <associate|auto-26|<tuple|2.6|8>>
-    <associate|auto-27|<tuple|3|8>>
-    <associate|auto-28|<tuple|3.1|8>>
-    <associate|auto-29|<tuple|3.2|9>>
-    <associate|auto-3|<tuple|1.1|1>>
-    <associate|auto-30|<tuple|3.3|9>>
-    <associate|auto-31|<tuple|3.4|10>>
-    <associate|auto-32|<tuple|3.5|10>>
-    <associate|auto-33|<tuple|3.5.1|10>>
-    <associate|auto-34|<tuple|3.6|10>>
-    <associate|auto-35|<tuple|3.7|11>>
-    <associate|auto-36|<tuple|3.7.1|11>>
-    <associate|auto-37|<tuple|3.7.2|12>>
-    <associate|auto-38|<tuple|3.8|12>>
-    <associate|auto-39|<tuple|3.8.1|13>>
-    <associate|auto-4|<tuple|1.1.1|2>>
-    <associate|auto-40|<tuple|3.8.2|13>>
-    <associate|auto-41|<tuple|3.9|14>>
-    <associate|auto-42|<tuple|4|14>>
-    <associate|auto-43|<tuple|4.1|14>>
-    <associate|auto-44|<tuple|4.1.1|14>>
-    <associate|auto-45|<tuple|4.2|15>>
-    <associate|auto-46|<tuple|4.2.1|16>>
-    <associate|auto-47|<tuple|4.2.2|16>>
-    <associate|auto-48|<tuple|4.2.3|17>>
-    <associate|auto-49|<tuple|4.2.4|18>>
-    <associate|auto-5|<tuple|1.1.2|2>>
-    <associate|auto-50|<tuple|4.2.4.1|18>>
-    <associate|auto-51|<tuple|5|18>>
-    <associate|auto-52|<tuple|5.1|18>>
-    <associate|auto-53|<tuple|5.1.1|18>>
-    <associate|auto-54|<tuple|5.1.2|19>>
-    <associate|auto-55|<tuple|5.2|19>>
-    <associate|auto-56|<tuple|5.3|20>>
-    <associate|auto-57|<tuple|5.3.1|20>>
-    <associate|auto-58|<tuple|6|20>>
-    <associate|auto-59|<tuple|6.1|21>>
-    <associate|auto-6|<tuple|1.1.3|2>>
-    <associate|auto-60|<tuple|6.2|21>>
-    <associate|auto-61|<tuple|6.3|21>>
-    <associate|auto-62|<tuple|6.4|21>>
-    <associate|auto-63|<tuple|7|22>>
-    <associate|auto-64|<tuple|7.1|22>>
-    <associate|auto-65|<tuple|7.2|22>>
-    <associate|auto-66|<tuple|7.2.1|23>>
-    <associate|auto-67|<tuple|7.2.2|23>>
-    <associate|auto-68|<tuple|7.2.3|24>>
-    <associate|auto-69|<tuple|7.3|24>>
-    <associate|auto-7|<tuple|1.1.4|3>>
-    <associate|auto-70|<tuple|7.4|24>>
-    <associate|auto-71|<tuple|7.5|24>>
-    <associate|auto-72|<tuple|8|24>>
-    <associate|auto-73|<tuple|A|24>>
-    <associate|auto-74|<tuple|B|57>>
-    <associate|auto-75|<tuple|B|?>>
-    <associate|auto-8|<tuple|1.2|3>>
-    <associate|auto-9|<tuple|1.3|3>>
-    <associate|bib-abstracttypes|<tuple|3|25>>
-    <associate|bib-alex|<tuple|4|25>>
-    <associate|bib-constrainedtypes|<tuple|19|25>>
-    <associate|bib-flowtypes|<tuple|20|25>>
-    <associate|bib-happy|<tuple|9|25>>
-    <associate|bib-haskellweak|<tuple|21|25>>
-    <associate|bib-hopcroftmin|<tuple|1|24>>
-    <associate|bib-imperativefunc|<tuple|10|25>>
-    <associate|bib-isoopinference|<tuple|6|25>>
-    <associate|bib-kaesinference|<tuple|12|25>>
-    <associate|bib-leroypoly|<tuple|15|25>>
-    <associate|bib-llvm|<tuple|14|25>>
-    <associate|bib-moggimonads|<tuple|17|25>>
+    <associate|auto-1|<tuple|?|3>>
+    <associate|auto-10|<tuple|1.3.1|9>>
+    <associate|auto-11|<tuple|1.3.2|10>>
+    <associate|auto-12|<tuple|1.3.3|10>>
+    <associate|auto-13|<tuple|1.4|11>>
+    <associate|auto-14|<tuple|2|13>>
+    <associate|auto-15|<tuple|2.1|13>>
+    <associate|auto-16|<tuple|2.1.1|14>>
+    <associate|auto-17|<tuple|2.2|14>>
+    <associate|auto-18|<tuple|2.2.1|15>>
+    <associate|auto-19|<tuple|2.2.2|15>>
+    <associate|auto-2|<tuple|1|7>>
+    <associate|auto-20|<tuple|2.3|16>>
+    <associate|auto-21|<tuple|2.3.1|16>>
+    <associate|auto-22|<tuple|2.3.2|17>>
+    <associate|auto-23|<tuple|2.4|17>>
+    <associate|auto-24|<tuple|2.5|17>>
+    <associate|auto-25|<tuple|2.5.1|18>>
+    <associate|auto-26|<tuple|2.6|19>>
+    <associate|auto-27|<tuple|3|21>>
+    <associate|auto-28|<tuple|3.1|21>>
+    <associate|auto-29|<tuple|3.2|21>>
+    <associate|auto-3|<tuple|1.1|7>>
+    <associate|auto-30|<tuple|3.3|22>>
+    <associate|auto-31|<tuple|3.3.1|23>>
+    <associate|auto-32|<tuple|3.3.2|23>>
+    <associate|auto-33|<tuple|3.4|24>>
+    <associate|auto-34|<tuple|3.4.1|24>>
+    <associate|auto-35|<tuple|3.5|24>>
+    <associate|auto-36|<tuple|3.6|25>>
+    <associate|auto-37|<tuple|3.6.1|26>>
+    <associate|auto-38|<tuple|3.6.2|27>>
+    <associate|auto-39|<tuple|3.7|28>>
+    <associate|auto-4|<tuple|1.1.1|7>>
+    <associate|auto-40|<tuple|3.7.1|28>>
+    <associate|auto-41|<tuple|3.7.2|29>>
+    <associate|auto-42|<tuple|3.8|31>>
+    <associate|auto-43|<tuple|4|31>>
+    <associate|auto-44|<tuple|4.1|31>>
+    <associate|auto-45|<tuple|4.1.1|32>>
+    <associate|auto-46|<tuple|4.2|33>>
+    <associate|auto-47|<tuple|4.2.1|34>>
+    <associate|auto-48|<tuple|4.2.2|35>>
+    <associate|auto-49|<tuple|4.2.3|35>>
+    <associate|auto-5|<tuple|1.1.2|8>>
+    <associate|auto-50|<tuple|4.2.4|37>>
+    <associate|auto-51|<tuple|4.2.4.1|39>>
+    <associate|auto-52|<tuple|5|39>>
+    <associate|auto-53|<tuple|5.1|39>>
+    <associate|auto-54|<tuple|5.1.1|39>>
+    <associate|auto-55|<tuple|5.1.2|41>>
+    <associate|auto-56|<tuple|5.2|41>>
+    <associate|auto-57|<tuple|5.3|41>>
+    <associate|auto-58|<tuple|5.3.1|43>>
+    <associate|auto-59|<tuple|6|43>>
+    <associate|auto-6|<tuple|1.1.3|8>>
+    <associate|auto-60|<tuple|6.1|43>>
+    <associate|auto-61|<tuple|6.2|44>>
+    <associate|auto-62|<tuple|6.3|44>>
+    <associate|auto-63|<tuple|6.4|47>>
+    <associate|auto-64|<tuple|7|47>>
+    <associate|auto-65|<tuple|7.1|47>>
+    <associate|auto-66|<tuple|7.2|48>>
+    <associate|auto-67|<tuple|7.2.1|49>>
+    <associate|auto-68|<tuple|7.2.2|49>>
+    <associate|auto-69|<tuple|7.2.3|50>>
+    <associate|auto-7|<tuple|1.1.4|8>>
+    <associate|auto-70|<tuple|7.3|50>>
+    <associate|auto-71|<tuple|7.4|51>>
+    <associate|auto-72|<tuple|7.5|53>>
+    <associate|auto-73|<tuple|8|55>>
+    <associate|auto-74|<tuple|A|57>>
+    <associate|auto-75|<tuple|B|59>>
+    <associate|auto-76|<tuple|B|?>>
+    <associate|auto-77|<tuple|B|?>>
+    <associate|auto-8|<tuple|1.2|9>>
+    <associate|auto-9|<tuple|1.3|9>>
+    <associate|bib-abstracttypes|<tuple|3|59>>
+    <associate|bib-alex|<tuple|4|59>>
+    <associate|bib-arrowcomp|<tuple|22|?>>
+    <associate|bib-arrows|<tuple|10|?>>
+    <associate|bib-constrainedtypes|<tuple|20|59>>
+    <associate|bib-flowtypes|<tuple|21|59>>
+    <associate|bib-happy|<tuple|9|59>>
+    <associate|bib-haskellweak|<tuple|23|59>>
+    <associate|bib-hopcroftmin|<tuple|1|59>>
+    <associate|bib-imperativefunc|<tuple|11|59>>
+    <associate|bib-isoopinference|<tuple|6|59>>
+    <associate|bib-kaesinference|<tuple|13|59>>
+    <associate|bib-leroypoly|<tuple|16|59>>
+    <associate|bib-llvm|<tuple|15|59>>
+    <associate|bib-moggimonads|<tuple|18|59>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|7|25>>
-    <associate|bib-pottierframework|<tuple|24|25>>
-    <associate|bib-pottierphd|<tuple|23|25>>
-    <associate|bib-pottiersimplifying|<tuple|22|25>>
-    <associate|bib-ranknhaskell|<tuple|11|25>>
-    <associate|bib-ranknml|<tuple|25|25>>
-    <associate|bib-regulartypes|<tuple|18|25>>
-    <associate|bib-scalastructural|<tuple|5|25>>
-    <associate|bib-subconst|<tuple|27|25>>
-    <associate|bib-subrec|<tuple|2|24>>
-    <associate|bib-subrecfast|<tuple|13|25>>
-    <associate|bib-toftepoly|<tuple|26|25>>
-    <associate|bib-unitynomstruct|<tuple|16|25>>
-    <associate|bib-valuerestriction|<tuple|29|25>>
-    <associate|bib-valuerestriction2|<tuple|30|25>>
-    <associate|bib-wadlermonads|<tuple|28|25>>
-    <associate|bib-whiteoak|<tuple|8|25>>
+    <associate|bib-ooprectypes|<tuple|7|59>>
+    <associate|bib-pottierframework|<tuple|26|59>>
+    <associate|bib-pottierphd|<tuple|25|59>>
+    <associate|bib-pottiersimplifying|<tuple|24|59>>
+    <associate|bib-ranknhaskell|<tuple|12|59>>
+    <associate|bib-ranknml|<tuple|27|59>>
+    <associate|bib-regulartypes|<tuple|19|59>>
+    <associate|bib-scalastructural|<tuple|5|59>>
+    <associate|bib-subconst|<tuple|29|60>>
+    <associate|bib-subrec|<tuple|2|59>>
+    <associate|bib-subrecfast|<tuple|14|59>>
+    <associate|bib-toftepoly|<tuple|28|60>>
+    <associate|bib-unitynomstruct|<tuple|17|59>>
+    <associate|bib-valuerestriction|<tuple|31|60>>
+    <associate|bib-valuerestriction2|<tuple|32|60>>
+    <associate|bib-wadlermonads|<tuple|30|60>>
+    <associate|bib-whiteoak|<tuple|8|59>>
     <associate|footnote-1|<tuple|1|2>>
     <associate|footnote-1.1|<tuple|1.1|8>>
     <associate|footnote-1.2|<tuple|1.2|?>>
@@ -3810,25 +3807,25 @@
     <associate|footnote-15|<tuple|15|23>>
     <associate|footnote-16|<tuple|16|24>>
     <associate|footnote-2|<tuple|2|5>>
-    <associate|footnote-2.1|<tuple|2.1|13>>
-    <associate|footnote-2.2|<tuple|2.2|16>>
+    <associate|footnote-2.1|<tuple|2.1|15>>
+    <associate|footnote-2.2|<tuple|2.2|18>>
     <associate|footnote-2.3|<tuple|2.3|?>>
     <associate|footnote-2.4|<tuple|2.4|?>>
     <associate|footnote-3|<tuple|3|7>>
-    <associate|footnote-3.1|<tuple|3.1|19>>
-    <associate|footnote-3.2|<tuple|3.2|20>>
+    <associate|footnote-3.1|<tuple|3.1|21>>
+    <associate|footnote-3.2|<tuple|3.2|22>>
     <associate|footnote-3.3|<tuple|3.3|?>>
     <associate|footnote-3.4|<tuple|3.4|?>>
     <associate|footnote-4|<tuple|4|8>>
-    <associate|footnote-4.1|<tuple|4.1|29>>
-    <associate|footnote-4.2|<tuple|4.2|29>>
-    <associate|footnote-4.3|<tuple|4.3|30>>
-    <associate|footnote-4.4|<tuple|4.4|33>>
-    <associate|footnote-4.5|<tuple|4.5|34>>
-    <associate|footnote-4.6|<tuple|4.6|35>>
+    <associate|footnote-4.1|<tuple|4.1|31>>
+    <associate|footnote-4.2|<tuple|4.2|31>>
+    <associate|footnote-4.3|<tuple|4.3|32>>
+    <associate|footnote-4.4|<tuple|4.4|35>>
+    <associate|footnote-4.5|<tuple|4.5|36>>
+    <associate|footnote-4.6|<tuple|4.6|37>>
     <associate|footnote-5|<tuple|5|9>>
-    <associate|footnote-5.1|<tuple|5.1|37>>
-    <associate|footnote-5.2|<tuple|5.2|37>>
+    <associate|footnote-5.1|<tuple|5.1|39>>
+    <associate|footnote-5.2|<tuple|5.2|39>>
     <associate|footnote-5.3|<tuple|5.3|28>>
     <associate|footnote-5.4|<tuple|5.4|31>>
     <associate|footnote-5.5|<tuple|5.5|32>>
@@ -3837,9 +3834,9 @@
     <associate|footnote-6.1|<tuple|6.1|35>>
     <associate|footnote-6.2|<tuple|6.2|35>>
     <associate|footnote-7|<tuple|7|14>>
-    <associate|footnote-7.1|<tuple|7.1|46>>
-    <associate|footnote-7.2|<tuple|7.2|48>>
-    <associate|footnote-7.3|<tuple|7.3|48>>
+    <associate|footnote-7.1|<tuple|7.1|48>>
+    <associate|footnote-7.2|<tuple|7.2|50>>
+    <associate|footnote-7.3|<tuple|7.3|51>>
     <associate|footnote-8|<tuple|8|15>>
     <associate|footnote-8.1|<tuple|8.1|44>>
     <associate|footnote-8.2|<tuple|8.2|46>>
@@ -3863,25 +3860,25 @@
     <associate|footnr-15|<tuple|15|23>>
     <associate|footnr-16|<tuple|16|24>>
     <associate|footnr-2|<tuple|2|5>>
-    <associate|footnr-2.1|<tuple|2.1|13>>
-    <associate|footnr-2.2|<tuple|2.2|16>>
+    <associate|footnr-2.1|<tuple|2.1|15>>
+    <associate|footnr-2.2|<tuple|2.2|18>>
     <associate|footnr-2.3|<tuple|2.3|?>>
     <associate|footnr-2.4|<tuple|2.4|?>>
     <associate|footnr-3|<tuple|3|7>>
-    <associate|footnr-3.1|<tuple|3.1|19>>
-    <associate|footnr-3.2|<tuple|3.2|20>>
+    <associate|footnr-3.1|<tuple|3.1|21>>
+    <associate|footnr-3.2|<tuple|3.2|22>>
     <associate|footnr-3.3|<tuple|3.3|?>>
     <associate|footnr-3.4|<tuple|3.4|?>>
     <associate|footnr-4|<tuple|4|8>>
-    <associate|footnr-4.1|<tuple|4.1|29>>
-    <associate|footnr-4.2|<tuple|4.2|29>>
-    <associate|footnr-4.3|<tuple|4.3|30>>
-    <associate|footnr-4.4|<tuple|4.4|33>>
-    <associate|footnr-4.5|<tuple|4.5|34>>
-    <associate|footnr-4.6|<tuple|4.6|35>>
+    <associate|footnr-4.1|<tuple|4.1|31>>
+    <associate|footnr-4.2|<tuple|4.2|31>>
+    <associate|footnr-4.3|<tuple|4.3|32>>
+    <associate|footnr-4.4|<tuple|4.4|35>>
+    <associate|footnr-4.5|<tuple|4.5|36>>
+    <associate|footnr-4.6|<tuple|4.6|37>>
     <associate|footnr-5|<tuple|5|9>>
-    <associate|footnr-5.1|<tuple|5.1|37>>
-    <associate|footnr-5.2|<tuple|5.2|37>>
+    <associate|footnr-5.1|<tuple|5.1|39>>
+    <associate|footnr-5.2|<tuple|5.2|39>>
     <associate|footnr-5.3|<tuple|5.3|28>>
     <associate|footnr-5.4|<tuple|5.4|31>>
     <associate|footnr-5.5|<tuple|5.5|32>>
@@ -3890,9 +3887,9 @@
     <associate|footnr-6.1|<tuple|6.1|35>>
     <associate|footnr-6.2|<tuple|6.2|35>>
     <associate|footnr-7|<tuple|7|14>>
-    <associate|footnr-7.1|<tuple|7.1|46>>
-    <associate|footnr-7.2|<tuple|7.2|48>>
-    <associate|footnr-7.3|<tuple|7.3|48>>
+    <associate|footnr-7.1|<tuple|7.1|48>>
+    <associate|footnr-7.2|<tuple|7.2|50>>
+    <associate|footnr-7.3|<tuple|7.3|51>>
     <associate|footnr-8|<tuple|8|15>>
     <associate|footnr-8.1|<tuple|8.1|44>>
     <associate|footnr-8.2|<tuple|8.2|46>>
@@ -4035,6 +4032,10 @@
       alex
 
       llvm
+
+      arrowcomp
+
+      arrows
 
       abstracttypes
     </associate>
@@ -4297,37 +4298,41 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-67>>
 
-      7.3<space|2spc>Implementation of structures
+      <with|par-left|<quote|1.5fn>|7.2.3<space|2spc>Aside: Arrows
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-68>
+      <no-break><pageref|auto-68>>
 
-      7.4<space|2spc>Implementation of closures
+      7.3<space|2spc>Implementation of structures
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-69>
 
-      7.5<space|2spc>A typechecker from an interpreter
+      7.4<space|2spc>Implementation of closures
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-70>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|8<space|2spc>Future
-      work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-71><vspace|0.5fn>
+      7.5<space|2spc>A typechecker from an interpreter
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-71>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|8<space|2spc>Conclusions
+      and future work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-72><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|2spc>BNF grammar for the syntax of
       <with|font-shape|<quote|small-caps>|Brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-72><vspace|0.5fn>
+      <no-break><pageref|auto-73><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       B<space|2spc>Detailed typing rules for
       <with|font-shape|<quote|small-caps>|Brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-73><vspace|0.5fn>
+      <no-break><pageref|auto-74><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-74><vspace|0.5fn>
+      <no-break><pageref|auto-75><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
