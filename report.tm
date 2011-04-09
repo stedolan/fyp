@@ -52,253 +52,297 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-11>>
 
-    <with|par-left|1.5fn|1.3.3<space|2spc>The type system and inference
-    engine <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <with|par-left|1.5fn|1.3.3<space|2spc>Integrating nominative and
+    structural typing <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-12>>
+
+    <with|par-left|1.5fn|1.3.4<space|2spc>The type system and inference
+    engine <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-13>>
 
     1.4<space|2spc>Language implementation
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-13>
+    <no-break><pageref|auto-14>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>Type
     inference as constraint solving> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-14><vspace|0.5fn>
+    <no-break><pageref|auto-15><vspace|0.5fn>
 
     2.1<space|2spc>Constructors and Variance
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-15>
+    <no-break><pageref|auto-16>
 
     <with|par-left|1.5fn|2.1.1<space|2spc><with|mode|math|\<top\>> and
     <with|mode|math|\<bot\>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-16>>
+    <no-break><pageref|auto-17>>
 
     2.2<space|2spc>Ground types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-17>
+    <no-break><pageref|auto-18>
 
     <with|par-left|1.5fn|2.2.1<space|2spc>Equirecursive and isorecursive data
     types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-18>>
+    <no-break><pageref|auto-19>>
 
     <with|par-left|1.5fn|2.2.2<space|2spc>Subtyping between ground types
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-19>>
+    <no-break><pageref|auto-20>>
 
     2.3<space|2spc>rc types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-20>
+    <no-break><pageref|auto-21>
 
     <with|par-left|1.5fn|2.3.1<space|2spc>Denotation of an rc type
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-21>>
+    <no-break><pageref|auto-22>>
 
     <with|par-left|1.5fn|2.3.2<space|2spc>Subsumption
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-22>>
+    <no-break><pageref|auto-23>>
 
     2.4<space|2spc>Constraints and well-typedness
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-23>
+    <no-break><pageref|auto-24>
 
     2.5<space|2spc>Structural decomposition
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-24>
+    <no-break><pageref|auto-25>
 
     <with|par-left|1.5fn|2.5.1<space|2spc>Formal definition of constructor
     lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-25>>
+    <no-break><pageref|auto-26>>
 
     2.6<space|2spc>Closure <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-26>
+    <no-break><pageref|auto-27>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|3<space|2spc>The
     type inference engine> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-27><vspace|0.5fn>
+    <no-break><pageref|auto-28><vspace|0.5fn>
 
     3.1<space|2spc>The small terms invariant
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-28>
-
-    3.2<space|2spc>Merging constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-29>
 
-    3.3<space|2spc>The mono-polarity invariant
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    3.2<space|2spc>Merging constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-30>
 
-    3.4<space|2spc>Garbage collection <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    3.3<space|2spc>The mono-polarity invariant and garbage collection
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-31>
 
-    3.5<space|2spc>Representing the constraint set
+    <with|par-left|1.5fn|3.3.1<space|2spc>Small constructed types
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-32>
+    <no-break><pageref|auto-32>>
 
-    <with|par-left|1.5fn|3.5.1<space|2spc>Implementation detail
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <with|par-left|1.5fn|3.3.2<space|2spc>Garbage collection of constraint
+    sets <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-33>>
 
-    3.6<space|2spc>The incremental closure algorithm
+    3.4<space|2spc>Representing the constraint set
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-34>
 
-    3.7<space|2spc>Type simplification and optimisation
+    <with|par-left|1.5fn|3.4.1<space|2spc>Implementation detail
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-35>
+    <no-break><pageref|auto-35>>
 
-    <with|par-left|1.5fn|3.7.1<space|2spc>Canonisation
+    3.5<space|2spc>The incremental closure algorithm
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-36>>
+    <no-break><pageref|auto-36>
 
-    <with|par-left|1.5fn|3.7.2<space|2spc>Minimisation
+    3.6<space|2spc>Type simplification and optimisation
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-37>>
+    <no-break><pageref|auto-37>
 
-    3.8<space|2spc>rc type subsumption <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-38>
+    <with|par-left|1.5fn|3.6.1<space|2spc>Canonisation
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-38>>
 
-    <with|par-left|1.5fn|3.8.1<space|2spc>Entailment
+    <with|par-left|1.5fn|3.6.2<space|2spc>Minimisation
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-39>>
 
-    <with|par-left|1.5fn|3.8.2<space|2spc>Subsumption
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-40>>
+    3.7<space|2spc>rc type subsumption <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-40>
 
-    3.9<space|2spc>Display <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-41>
-
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>...
-    (objects, nom/struct, constraintgen)>
+    <with|par-left|1.5fn|3.7.1<space|2spc>Subsumption
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-42><vspace|0.5fn>
+    <no-break><pageref|auto-41>>
 
-    4.1<space|2spc>Generalised and ungeneralised bindings
+    <with|par-left|1.5fn|3.7.2<space|2spc>Entailment
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-42>>
+
+    3.8<space|2spc>Display <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-43>
 
-    <with|par-left|1.5fn|4.1.1<space|2spc>The value restriction
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-44>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|4<space|2spc>Semantics
+    and object model> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-44><vspace|0.5fn>
 
-    4.2<space|2spc>Optional type annotations
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    4.1<space|2spc>Structures <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-45>
 
-    <with|par-left|1.5fn|4.2.1<space|2spc>Checking type annotations
+    <with|par-left|1.5fn|4.1.1<space|2spc>Mutability and typing
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-46>>
 
-    <with|par-left|1.5fn|4.2.2<space|2spc>A potential problem
+    4.2<space|2spc>Optional type annotations
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-47>>
+    <no-break><pageref|auto-47>
 
-    <with|par-left|1.5fn|4.2.3<space|2spc>Classes (partial description)
+    <with|par-left|1.5fn|4.2.1<space|2spc>Checking type annotations
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-48>>
 
-    <with|par-left|1.5fn|4.2.4<space|2spc>The object constructor lattice
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-49>>
+    4.3<space|2spc>Classes <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-49>
 
-    <with|par-left|3fn|4.2.4.1<space|2spc>Mutability
+    <with|par-left|1.5fn|4.3.1<space|2spc>Class members
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-50>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Implementation
-    tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-51><vspace|0.5fn>
-
-    5.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-52>
-
-    <with|par-left|1.5fn|5.1.1<space|2spc>Laziness
+    <with|par-left|1.5fn|4.3.2<space|2spc>Constructors
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-53>>
+    <no-break><pageref|auto-51>>
 
-    <with|par-left|1.5fn|5.1.2<space|2spc>Monads
+    <with|par-left|1.5fn|4.3.3<space|2spc>Future work
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-52>>
+
+    4.4<space|2spc>Generalised and ungeneralised bindings
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-53>
+
+    <with|par-left|1.5fn|4.4.1<space|2spc>The value restriction
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-54>>
 
-    5.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    4.5<space|2spc>Integration of nominative and structural typing
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-55>
 
-    5.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-56>
+    <with|par-left|1.5fn|4.5.1<space|2spc>A potential problem
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-56>>
 
-    <with|par-left|1.5fn|5.3.1<space|2spc>LLVM IR
+    <with|par-left|1.5fn|4.5.2<space|2spc>Formal model of classes
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-57>>
 
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Extending
-    an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-58><vspace|0.5fn>
-
-    6.1<space|2spc>Meta-circular interpreters
+    <with|par-left|1.5fn|4.5.3<space|2spc>The object constructor lattice
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-59>
+    <no-break><pageref|auto-58>>
 
-    6.2<space|2spc>Monadic interpreters <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-60>
+    <with|par-left|1.5fn|4.5.4<space|2spc>Interface intersection types
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-59>>
 
-    6.3<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
-    further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Implementation
+    tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-60><vspace|0.5fn>
+
+    5.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-61>
 
-    6.4<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
-    even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-62>
-
-    <vspace*|1fn><with|font-series|bold|math-font-series|bold|7<space|2spc>A
-    compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-63><vspace|0.5fn>
-
-    7.1<space|2spc>A code generation monad
+    <with|par-left|1.5fn|5.1.1<space|2spc>Laziness
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-62>>
+
+    <with|par-left|1.5fn|5.1.2<space|2spc>Monads
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-63>>
+
+    5.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-64>
 
-    7.2<space|2spc>Representing flow control
-    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    5.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-65>
 
-    <with|par-left|1.5fn|7.2.1<space|2spc>Coalescing
+    <with|par-left|1.5fn|5.3.1<space|2spc>LLVM IR
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-66>>
 
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|6<space|2spc>Extending
+    an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-67><vspace|0.5fn>
+
+    6.1<space|2spc>Meta-circular interpreters
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-68>
+
+    6.2<space|2spc>Monadic interpreters <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-69>
+
+    6.3<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
+    further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-70>
+
+    6.4<space|2spc>Generalising <with|font-family|tt|math-font-family|ttt|eval>
+    even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-71>
+
+    <vspace*|1fn><with|font-series|bold|math-font-series|bold|7<space|2spc>A
+    compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-72><vspace|0.5fn>
+
+    7.1<space|2spc>A code generation monad
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-73>
+
+    7.2<space|2spc>Representing flow control
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-74>
+
+    <with|par-left|1.5fn|7.2.1<space|2spc>Coalescing
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-75>>
+
     <with|par-left|1.5fn|7.2.2<space|2spc>Iteration
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-67>>
+    <no-break><pageref|auto-76>>
 
     <with|par-left|1.5fn|7.2.3<space|2spc>Aside: Arrows
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-68>>
+    <no-break><pageref|auto-77>>
 
     7.3<space|2spc>Implementation of structures
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-69>
+    <no-break><pageref|auto-78>
 
     7.4<space|2spc>Implementation of closures
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-70>
+    <no-break><pageref|auto-79>
 
     7.5<space|2spc>A typechecker from an interpreter
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-71>
+    <no-break><pageref|auto-80>
+
+    7.6<space|2spc>Primitive operations <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-81>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|8<space|2spc>Conclusions
     and future work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-72><vspace|0.5fn>
+    <no-break><pageref|auto-82><vspace|0.5fn>
+
+    8.1<space|2spc>Current state of the implementation
+    <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-83>
+
+    8.2<space|2spc>Future work <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+    <no-break><pageref|auto-84>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     A<space|2spc>BNF grammar for the syntax of
     <with|font-shape|small-caps|Brick>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-73><vspace|0.5fn>
+    <no-break><pageref|auto-85><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Appendix
     B<space|2spc>Detailed typing rules for
     <with|font-shape|small-caps|Brick>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-74><vspace|0.5fn>
+    <no-break><pageref|auto-86><vspace|0.5fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|Bibliography>
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-    <no-break><pageref|auto-75><vspace|0.5fn>
+    <no-break><pageref|auto-87><vspace|0.5fn>
   </table-of-contents>
 
   <chapter|Introduction>
@@ -360,9 +404,7 @@
   performed without reference to a particular set of inputs, and there are no
   implicit conversions between unrelated types. Where <brick> falls on the
   nominative-structural scale is a more interesting question, which will be
-  answered thoroughly in ###.
-
-  \;
+  answered thoroughly in section <reference|nomstruct>.
 
   <subsection|Subtyping and object-orientation>
 
@@ -489,7 +531,7 @@
   values>>|<row|<cell|end>>>>>>>
 
   Specific features of <brick> will be described in the following chapters,
-  and a BNF grammar is given in ###.
+  and a BNF grammar is given in appendix <reference|grammar>.
 
   <section|<brick>'s type system>
 
@@ -565,7 +607,33 @@
 
   A subtlety arises with parameters can which can be used as both inputs and
   outputs, such as the fields of a structure (which can be read or modified).
-  To see how this is resolved, see ###.
+  To see how this is resolved, see section <reference|mutability>.
+
+  <subsection|Integrating nominative and structural typing>
+
+  The language seeks to combine nominative and structural typing seamlessly,
+  and allow a programmer to mix-and-match the two styles.
+
+  <brick> is not the first language to seek to combine nominative and
+  structural typing for objects. Whiteoak<cite|whiteoak> is an extension of
+  the Java programming language with, amongst other features, structural
+  subtyping. Their implementation of structural subtyping is somewhat
+  complex, as it is necessary to shoehorn the new feature into the existing
+  nominatively-typed Java virtual machine. Since Java requires full type
+  annotations, this is done by detecting all points in the program where a
+  nominative type is converted to a structural type and generating code for
+  wrapper objects at rutime.
+
+  A similar effort was undertaken to add structural subtyping to the language
+  Scala<cite|scalastructural> which also runs on the Java virtual machine.
+  This included a more sophisticated implementation, combining techniques
+  based on runtime code generation and Java's reflection mechanism.
+
+  The Unity language<cite|unitynomstruct> combines nominative and structural
+  subtyping in a way somewhat closer to the technique used in <brick>, as
+  well as providing other features such as external dispatch (aka
+  multi-methods) and a full proof of soundness. It does not attempt to tackle
+  the problem of integrating type inference with this system.
 
   <subsection|The type system and inference engine>
 
@@ -575,9 +643,10 @@
   (although <math|\<rightarrow\>> and structure types will be used to
   illustrate examples). The abstract inference engine will work for any
   system of type constructors which satisfies certain properties, formalised
-  in ###. The following chapter will describe <brick>'s parameterisation of
-  this generic system, and how it encodes functions, classes and objects, and
-  how it combines the notions of structural and nominative types.
+  in <reference|constructorlattice>. The following chapter will describe
+  <brick>'s parameterisation of this generic system, and how it encodes
+  functions, classes and objects, and how it combines the notions of
+  structural and nominative types.
 
   The system is based originally on work defining a type system with
   subtyping and recursive types for the <math|\<lambda\>>-calculus by Amadio
@@ -648,7 +717,7 @@
     <item>The unit type (written <math|<around*|(||)>> in descriptions of the
     type system and <tt|void> in <brick> source)
 
-    <item>User-defined classes (see ###)
+    <item>User-defined classes (see section <reference|classes>)
 
     <item>The special types <math|\<top\>> and <math|\<bot\>> (<tt|any> and
     <tt|none> in source code)
@@ -656,8 +725,8 @@
 
   The type inference engine doesn't depend on the exact set of constructors.
   We leave the exact description of which type constructors are available and
-  what their semantics are for ###, and describe the type inference engine
-  generically.
+  what their semantics are for chapter <reference|chapsemantics>, and
+  describe the type inference engine generically.
 
   Each type constructor has zero or more parameters. The parameters each have
   a <with|font-shape|italic|variance>, indicating how the constructed type
@@ -694,11 +763,12 @@
   With just the type constructors <with|mode|math|\<top\>\<nocomma\>\<nocomma\>\<nocomma\>>,
   <math|\<nocomma\>\<rightarrow\> and \<bot\>>, the ordering is simply
   <math|\<bot\>\<leqslant\>\<rightarrow\>\<leqslant\>\<top\>>. The ordering
-  for the full set of type constructors is somewhat more complex (see ###).
+  for the full set of type constructors is somewhat more complex (see chapter
+  <reference|chapsemantics>, particularly section <reference|objectlattice>).
 
   As well as forming a lattice, there is one extra condition attached to the
   space of type constructors called <with|font-shape|italic|convexity of
-  arity>. It is explained fully in ###
+  arity>. It is explained fully in section <reference|constructorlattice>.
 
   <subsection|<math|\<top\>> and <math|\<bot\>>>
 
@@ -909,9 +979,9 @@
 
   Ground types are insufficient for denoting the ``type'' of an object in
   <brick>, since we do not necessarily know the exact ground type in use at
-  each point in the program. To draw an analogy with functional programming
-  languages such as ML and Haskell, ground types correspond roughly to
-  monomorphic types.
+  each point in the program. Ground types correspond roughly to the
+  monomorphic types of functional programming languages such as ML and
+  Haskell.
 
   The actual ``type'' of a term in <brick> may well contain free variables,
   which can be instantiated with any type. For instance, the identity
@@ -1084,7 +1154,8 @@
   constrained: as the bound of a constraint moves up the constructor lattice,
   labels will never disappear and then reappear.
 
-  <subsection|Formal definition of constructor lattice>
+  <subsection|Formal definition of constructor
+  lattice><label|constructorlattice>
 
   Having defined convexity of arity, we are now able to make a formal
   statement of the conditions that must hold on the space of constructors.
@@ -1147,9 +1218,10 @@
 
   Generally, a positive variance indicates an output, while a negative
   variance indicates an input. Terms that can be used as both outputs and
-  inputs (e.g. mutable variables) require special treatment (see ###).
+  inputs (e.g. mutable variables) require special treatment (see
+  <reference|mutability>).
 
-  <section|Closure>
+  <section|Closure><label|closure>
 
   A constraint set is <dfn|closed> if it contains all of the consequences of
   its constraints under transitive closure and structural decomposition. That
@@ -1166,13 +1238,9 @@
     then <math|subc<around*|(|\<tau\>\<leqslant\>\<tau\><rprime|'>|)>\<subseteq\>C>
   </itemize>
 
-  \;
-
   Any closed graph is satisfiable, and any satisfiable constraint set can be
-  closed<cite|pottierphd|isoopinference>. That is, satisfiability can be
-  checked by computing the closure of the constraint set and checking that
-  none of the calls to subc require decomposition of an unsatisfiable
-  constraint.
+  closed<cite|pottierphd|isoopinference>. So, satisfiability can be checked
+  by attempting to compute the closure of the constraint set.
 
   Closure computations form the core activity of the type inference engine.
   We maintain the constraint set in a compact form known as a constraint
@@ -1198,12 +1266,11 @@
   <section|The small terms invariant>
 
   When representing types inside the inference engine, we use Pottier's
-  <cite|pottierphd>,<cite|pottierframework> ``small-terms invariant''. That
-  is, we avoid representing complex nested types with multiple layers of
-  constructors and instead maintain the invariant that each type is either a
-  variable or has only a single layer of constructors. Complex types can be
-  reduced to this form by introducing fresh variables to link the parts of a
-  type.
+  ``small-terms invariant''<cite|pottierphd|pottierframework>. That is, we
+  avoid representing complex nested types with multiple layers of
+  constructors and instead ensure that each type is either a variable or has
+  only a single layer of constructors. Complex types can be reduced to this
+  form by introducing fresh variables to link the sub-parts of a type.
 
   For instance, if we have the type <math|<around*|(|a\<rightarrow\>b|)>\<rightarrow\><around*|(|c\<rightarrow\>d|)>>
   we would not represent it as a nested series of constructed types. Instead,
@@ -1326,8 +1393,10 @@
   <math|\<cal-V\><rsup|+>> (positive variables, denoted
   <math|a<rsup|+>,b<rsup|+>,\<ldots\>>) and <math|\<cal-V\><rsup|->>
   (negative variables, denoted <math|<around*|(|a<rsup|->, b<rsup|->,
-  \<ldots\>|)>>. The polarity signs are considered part of the name, there is
-  no implied relationship between <math|a<rsup|+>> and <math|a<rsup|->>.
+  \<ldots\>|)>><\footnote>
+    The polarity signs are considered part of the name, there is no implied
+    relationship between <math|a<rsup|+>> and <math|a<rsup|->>.
+  </footnote>.\ 
 
   Likewise, the <dfn|small constructed terms> are divided into two classes.
   Positive small constructed terms will be written
@@ -1355,9 +1424,9 @@
   <math|\<sqcap\>> in covariant positions and <math|\<sqcup\>> in
   contravariant positions.
 
-  These rules allow any set of positive small constructed terms to merged via
+  These rules allow any set of positive small constructed types to merged via
   <math|\<sqcup\>> into a single small constructed term, while any set of
-  negative small constructed terms can be merged via <math|\<sqcap\>>.
+  negative small constructed types can be merged via <math|\<sqcap\>>.
 
   <subsection|Garbage collection of constraint sets>
 
@@ -1404,8 +1473,8 @@
   for any positive variable <math|a<rsup|+>> we need only store constraints
   of the form <math|\<tau\><rsup|+>\<leqslant\>a<rsup|+>> and
   <math|a<rsup|->\<leqslant\>a<rsup|+>>. Since all of the constraints of the
-  first form can be merged into a single one via <math|\<sqcup\>>, all we
-  need to store is a single positive small constructed term (written
+  first form can be merged via <math|\<sqcup\>>, all we need to store is a
+  single positive small constructed term (written
   <math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>>) and a set of
   negative variables (written <math|\<Omega\><rsup|\<cal-V\>><around*|(|a<rsup|+>|)>>).
   We extend this to negative variables and end up with:
@@ -1418,12 +1487,12 @@
   <math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>=\<tau\><rsup|+>> would
   be represented as <math|C<rsup|\<uparrow\>><around*|(|a<rsup|+>|)>=\<tau\><rsup|+>>,
   while in <cite|subconst> it would be <math|\<tau\><rsup|+>\<leqslant\>a<rsup|+>\<in\>K>.
-  The advantage of this representation is that we can store half as many
+  The advantage of our representation is that we can store half as many
   bounds by entirely ignoring <math|C<rsup|\<downarrow\>><around*|(|a<rsup|+>|)>>,
   since the mono-polarity invariant ensures that it contains no information
   that would not be immediately removed by garbage collection. Thus, we only
   store lower bounds for positive variables, and only upper bounds for
-  negative variables.
+  negative variables. ### novel? ###
 
   <subsection|Implementation detail>
 
@@ -1445,9 +1514,9 @@
 
   When we want to add a constraint on existing variables to the constraint
   graph, we need to ensure that the resulting constraint graph is closed (as
-  definined in ###). Since our garbage collection techniques and the
-  simplification algorithms described later depend on the graph being closed,
-  we must compute the closure of the graph incrementally.
+  defined in section <reference|closure>). Since our garbage collection
+  techniques and the simplification algorithms described later depend on the
+  graph being closed, we must compute the closure of the graph incrementally.
 
   There are four types of constraint that our constraint generation rules may
   produce:
@@ -1489,25 +1558,25 @@
   program source, they can grow to be very large. Due to the decomposition of
   constraints in the incremental closure algorithm, the size of the rc type
   can actually grow faster than linearly in the program size. As well as
-  being unweildy and slow to manipulate, such large types are very difficult
-  to understand if an error occurs or if the programmer wants to display the
+  being unweildy and slow to manipulate, such large types are difficult to
+  understand if an error occurs or if the programmer wants to display the
   type of a function. Some method is needed for optimising them.
 
   Several methods for optimising rc types have appeared in the literature
   <cite|pottiersimplifying|kaesinference>. Many of these (such as the removal
   of cycles in <cite|pottiersimplifying>) are in fact unnecessary in this
-  system since they are subsumed by the garbage collection done implicitly in
-  the constraint graph. We use two other type optimisation methods,
-  canonisation and minimisation.
+  system since they are less powerful than the ``garbage collection'' done
+  implicitly in the constraint graph. We use two other type optimisation
+  methods: canonisation and minimisation.
 
   Canonisation is the removal of <math|\<sqcap\>> and <math|\<sqcup\>>-terms
   from small constucted terms in the constraint graph. As we shall see, any
   constraint graph is equivalent to a constraint graph (possibly with more
   variables) which does not include those two operations. A graph in this
-  form will be referred to as ``canonical''. The algorithm is somewhat
-  reminiscent of the algorithm to convert a non-deterministic finite state
-  automaton into a deterministic one, by adding new states to represent sets
-  of states in the original.
+  form will be referred to as ``canonical''. The algorithm is reminiscent of
+  the algorithm to convert a non-deterministic finite state automaton into a
+  deterministic one, by adding new states to represent sets of states in the
+  original.
 
   Minimisation is essentially a form of common subexpression elimination,
   applied to type terms to merge redundant variables. The algorithm itself is
@@ -1517,23 +1586,22 @@
 
   Smith and Trifonov <cite|subconst> defined canonisation, and Pottier
   <cite|pottierphd> defined canonisation and minimisation. Our implementation
-  is heavily based on Pottier's: the algorithms are identical, but the
-  justification for their validity is marginally different as our constraint
-  graphs have a simpler form.
+  is heavily based on Pottier's: the algorithms are fundamentally identical,
+  but their description is marginally different as our constraint graphs have
+  a simpler form.
 
   In <cite|pottierphd>, Pottier's garbage collection does not necessarily
   produce a closed output constraint graph given a closed input. He then
-  defines a weaker notion of closure known as <with|font-shape|italic|simple
-  closure> and proves that it is preserved by the canonisation and garbage
-  collection processes. In this presentation, due to application of the
-  mono-polarity invariant globally and integration of the garbage collection
-  algorithm with incremental closure, we know that all constraint graphs are
-  always closed.
+  defines a weaker closure-like property and proves that it is preserved by
+  the canonisation and garbage collection processes. In this presentation,
+  due to application of the mono-polarity invariant globally and integration
+  of the garbage collection algorithm with incremental closure, we know that
+  all constraint graphs are always closed.
 
   All of our constraint graphs are maintained in the simple form referred to
   in <cite|pottierphd> as ``perfect'', and hence the results therein about
-  the validity of the various optimisations (garbage collection,
-  canonisation, minimisation) still hold for this system.
+  the validity of the various optimisations (garbage collection, canonisation
+  and minimisation) still hold for this system.
 
   <subsection|Canonisation>
 
@@ -1561,7 +1629,7 @@
 
   It would seem that canonisation always increases the number of terms in the
   constraint graph by adding more variables. This is not necessarily the case
-  as the algorithm, while adding new variables, may cause more variables to
+  as the algorithm, while adding new variables, may cause other variables to
   become garbage and be removed from the constraint graph.
 
   For instance, consider the following function:
@@ -1576,7 +1644,7 @@
   As each operation in the function introduces new constraints into the
   constraint graph, after inference has processed this function there will
   likely be two copies of the constraints which indicate that <tt|x> must
-  include a <tt|doSomething> method. These constraints will be merged into a
+  have a <tt|doSomething> method. These constraints will be merged into a
   single constraint, but that constraint will include a <math|\<sqcap\>>
   term.
 
@@ -1603,7 +1671,7 @@
   removes the original <math|c<rsup|->,d<rsup|->,e<rsup|+>,g<rsup|+>,f<rsup|->>
   and <math|h<rsup|->> variables.
 
-  <subsection|Minimisation>
+  <subsection|Minimisation><label|minimisation>
 
   The minimisation algorithm in <cite|pottierphd> grew out of other work by
   the same author <cite|pottiersimplifying> and others based on finding
@@ -1658,7 +1726,10 @@
   to become garbage and be removed.
 
   As an example, consider the following function which operates on
-  singly-linked lists:
+  singly-linked lists<\footnote>
+    The condition on the ``if'' is simply <tt|true> to avoid introducing
+    boolean types; the types are independent of the execution path.
+  </footnote>:
 
   <\center>
     <\verbatim>
@@ -1670,17 +1741,15 @@
     </verbatim>
   </center>
 
-  The condition on the ``if'' is simply <tt|true> to avoid introducing
-  boolean types; the types are independent of the execution path. The point
-  of this example is that the branches of the if statement combine
-  <tt|x.next> and <tt|x.next.next>, thus indicating that <tt|x> has a
-  recursive type. The <tt|x.next.next> expression will lead to a complex
-  nested type, which must be merged with the rest of the information gleaned
-  from the program structure about <tt|x>.
+  \ The branches of the if statement combine <tt|x.next> and
+  <tt|x.next.next>, thus indicating that <tt|x> has a recursive type. The
+  <tt|x.next.next> expression will lead to a complex nested type, which must
+  be merged with the rest of the information gleaned from the program
+  structure about <tt|x>.
 
-  So, the <brick> type inferencer generates a type with many redundancies
-  when given this function. The actual type generated, after canonisation but
-  before minimisation has run, is:
+  So, the <brick> type inference engine generates a type with many
+  redundancies for this function. The actual type generated, after
+  canonisation but before minimisation, is:
 
   <\eqnarray>
     <tformat|<table|<row|<cell|a<rsup|->\<rightarrow\>b<rsup|+>>|<cell|\\>|<cell|a<rsup|->\<leqslant\>b<rsup|+>\<nocomma\>,a<rsup|->\<leqslant\><around*|{|<tt|next>:c<rsup|->|}>\<nocomma\>,c<rsup|->\<leqslant\>b<rsup|+>,c<rsup|->\<leqslant\><around*|{|<tt|next>:d<rsup|->|}>,d<rsup|->\<leqslant\>b<rsup|+>,d<rsup|->\<leqslant\><around*|{|<tt|next>:e<rsup|->|}>>>|<row|<cell|>|<cell|>|<cell|e<rsup|->\<leqslant\>b<rsup|+>\<nocomma\>,e<rsup|->\<leqslant\><around*|{|<tt|next>:f<rsup|->|}>,f<rsup|->\<leqslant\>b<rsup|+>\<nocomma\>,f<rsup|->\<leqslant\><around*|{|<tt|next>:g<rsup|->|}>,g<rsup|->\<leqslant\>b<rsup|+>,g<rsup|->\<leqslant\><around*|{|<tt|next>:g<rsup|->|}>>>>>
@@ -1697,8 +1766,8 @@
   </eqnarray>
 
   This constraint graph is the optimal representation. For display to the
-  user, using the techniques in ###, this type would be rendered simply as
-  <math|a\<rightarrow\>a\\a\<leqslant\><around*|{|<tt|next>:a|}>>.
+  user, using the techniques in <reference|display>, this type would be
+  rendered simply as <math|a\<rightarrow\>a\\a\<leqslant\><around*|{|<tt|next>:a|}>>.
 
   <section|rc type subsumption>
 
@@ -1725,6 +1794,38 @@
   interface type to fit the implementation, but simply to verify that the
   implementation type corresponds to the interface as it is written.
 
+  \;
+
+  <subsection|Subsumption>
+
+  In order to check user type annotations for polymorphic defitions such as
+  functions, we need to be able to calculate whether one type with free
+  variables (the inferred type) is a subtype of another type with free
+  variables (the declared type).
+
+  This is the subsumption relation <math|\<leqslant\><rsup|\<forall\>>>. No
+  efficient algorithm is known, but efficiently decidable approximations have
+  been defined<cite|pottierphd|subconst>. The algorithm answers queries of
+  the form <math|a<rsup|+>\<leqslant\>b<rsup|+>> (or
+  <math|c<rsup|->\<leqslant\>d<rsup|->>). Essentially, the question being
+  answered by the algorithm is if the (disjoint) constraint sets of <math|a>
+  and <math|b> were combined, would the resulting constraint graph be more
+  restrictive than that of <math|b> on its own?
+
+  This question is answered using the following algorithm: we perform the
+  incremental closure algorithm to combine the constraint sets. However, when
+  we are to add a constraint purely defined on the variables in <math|b>'s
+  graph (or <math|c>'s graph, in the negative case), then rather than add it
+  to the graph by incremental closure, we use the
+  <with|font-shape|italic|entailment> algorithm to prove that it doesn't need
+  to be added. Essentially, entailment tells us that a constraint is
+  ``already present'' in the constraint graph, or that it is implied by what
+  is already there.
+
+  If this succeeds, it implies that we can combine <math|a>'s and <math|b>'s
+  constraint graphs and end up with a constraint graph no more restrictive
+  than that of <math|b>, and hence <math|a\<leqslant\><rsup|\<forall\>>b>.
+
   <subsection|Entailment>
 
   A constraint graph <math|C> entails a constraint
@@ -1740,23 +1841,17 @@
   then in any solution <math|a\<leqslant\>b>, even though this constraint is
   not present in the set.
 
-  Incremental closure is used to add a constraint to the constraint graph,
-  whereas entailment is used to ask whether a constraint is ``already
-  there''. Entailment is used to check user-specified type signatures: the
-  code matches the type signatures if inferred constraint set entails the
-  user-specified constraints.
-
-  Entailment is not known to be efficiently decidable. However, there are a
-  number of sound, but incomplete entailment algortithms. A very simple one
-  would be to check whether the constraint was literally present in the
-  constraint set, but this would fail to prove too many entailments to be
-  useful.
+  Like subsumption, entailment is not known to be efficiently decidable.
+  However, there are a number of sound, but incomplete entailment
+  algortithms. A very simple one would be to check whether the constraint was
+  literally present in the constraint set, but this would fail to prove too
+  many entailments to be useful.
 
   Instead, we use a powerful approximation to entailment based on an
   axiomatisation of provable entailment from <cite|pottierphd>. The algorithm
   will answer queries of the form <math|a<rsup|+>\<leqslant\>b<rsup|->> and
   will return a boolean result. If the algorithm returns true, the constraint
-  is entailed by the constraint graph and adding it to the graph will not
+  is entailed by the constraint graph and adding it to the graph would not
   shrink the set of solutions.
 
   <center|<verbatim|<tabular|<tformat|<table|<row|<cell|HIST :=
@@ -1771,42 +1866,15 @@
 
   <tt|HIST> denotes the set of entailments previously proven or previously
   added as hypotheses in the current proof. As explained in
-  <cite|pottierphd>, it is valid to add hypotheses to <tt|HIST> as proving an
-  entaiment in terms of such hypotheses implies the existence of an infinite
-  regular proof.
+  <cite|pottierphd>, it is valid to add hypotheses to <tt|HIST> before the
+  hypothesis is fully proven as proving an entailment recursively in terms of
+  such hypotheses demonstrates the existence of an infinite regular proof.
 
   The algorithm is similar to the algorithm in <cite|subrecfast> for
   efficiently deciding the subtype relation between two ground types
   expressed as regular trees.
 
-  <subsection|Subsumption>
-
-  In order to check user type annotations for polymorphic defitions such as
-  functions, we need to be able to calculate whether one type with free
-  variables (the inferred type) is a subtype of another type with free
-  variables (the declared type).
-
-  This is the subsumption relation <math|\<leqslant\><rsup|\<forall\>>>. Like
-  entailment, no efficient algorithm is known, but efficiently decidable
-  approximations have been defined<cite|pottierphd|subconst>. The algorithm
-  answers queries of the form <math|a<rsup|+>\<leqslant\>b<rsup|+>> (or
-  <math|c<rsup|->\<leqslant\>d<rsup|->>). Essentially, the question being
-  answered by the algorithm is if the (disjoint) constraint sets of <math|a>
-  and <math|b> were combined, would the resulting constraint graph be more
-  restrictive than <math|b> on its own?
-
-  This question is answered using the entailment algorithm: we perform the
-  incremental closure algorithm to combine the constraint sets. However, when
-  we are to add a constraint purely defined on the variables in <math|b>'s
-  graph (or <math|c>'s graph, in the negative case), then rather than add it
-  to the graph by incremental closure, we use the entailment algorithm to
-  prove that it doesn't need to be added.\ 
-
-  If this succeeds, it implies that we can combine <math|a>'s and <math|b>'s
-  constraint graphs and end up with a constraint graph no more restrictive
-  than that of <math|b>, and hence <math|a\<leqslant\><rsup|\<forall\>>b>.
-
-  <section|Display>
+  <section|Display><label|display>
 
   The representation of constraint graphs internal to the typechecker is
   designed for efficiency and ease of implementation. This representation is,
@@ -1898,9 +1966,232 @@
     a\<rightarrow\>a
   </equation*>
 
-  <chapter|... (objects, nom/struct, constraintgen)>
+  <chapter|Semantics and object model><label|chapsemantics>
 
-  <section|Generalised and ungeneralised bindings>
+  In this chapter, the main features of the <brick> language and how they
+  integrate with the type inference system will be discussed, including the
+  interaction of structures and classes and how polymorphic functions are
+  handled.
+
+  <section|Structures>
+
+  Structures are a mapping from field names to values. The set of fields of a
+  structure is immutable after the structure is created, but the values can
+  be read and written.\ 
+
+  The subtyping rule for structures is that a structure type <math|S<rsub|1>>
+  is a subtype of <math|S<rsub|2>> if <math|S<rsub|1>> has a superset of the
+  fields and the field types are compatible. Exactly what is meant by
+  ``compatible'' will be deferred for a moment, and answered in the section
+  describing how mutability is integrated into the type system.
+
+  Structures are created with a syntax like
+  <math|<around*|{|<tt|x>=42\<nocomma\>,<tt|y>=17|}>>. Fields are accessed as
+  <math|<tt|s.field>> and assigned as <tt|s.field = val>. The subtyping rule
+  means you can safely pass a structure to a function expecting a structure
+  with arbitrary subset of the fields present. This is vital to correctly
+  inferring types for bodies of code which use structures, as it means that a
+  function need not reference all of the fields to be compatible with a
+  structure.
+
+  <subsection|Mutability and typing><label|mutability>
+
+  Should mutable type constructors (e.g. array, structure) be co- or
+  contra-variant? Neither seems to work in the presence of mutability. For
+  example, Java chose arrays to be covariant, allowing the following code:\ 
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|void f1(Mammal[]
+  animals){>>|<row|<cell| \ mammals[0].eat();>>|<row|<cell|}>>|<row|<cell|...>>|<row|<cell|Dog[]
+  dogs;>>|<row|<cell|f(dogs);>>>>>>>
+
+  We can safely pass an array of <with|font-family|tt|Dog>s to a function
+  expecting an array of <with|font-family|tt|Mammal>s. Now consider this
+  example:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|void f2(Mammal[]
+  mammals){>>|<row|<cell| \ mammals[0] = new
+  Cat();>>|<row|<cell|}>>|<row|<cell|...>>|<row|<cell|Dog[]
+  dogs;>>|<row|<cell|f(dogs);>>>>>>>
+
+  This is a type error! (It will in fact be accepted by the Java compiler but
+  will lead to an <verbatim|ArrayStoreException> at runtime). An array of
+  <with|font-family|tt|Dog>s cannot be considered to be an array of
+  <with|font-family|tt|Mammal>s when it is being stored into: you cannot
+  store just any mammal into an array of dogs.
+
+  The solution to this adopted by many languages is to introduce
+  <em|invariant> type constructors. That is, there will be type constructors
+  <with|font-family|tt|C[t]> where <with|font-family|tt|C[t1]> and
+  <with|font-family|tt|C[t2]> are never related by subtyping unless
+  <with|font-family|tt|t1> and <with|font-family|tt|t2> are exactly the same
+  type. This is the solution adopted by Java's generics.
+
+  This is a little problematic for us: Firstly, <with|font-family|tt|f1> was
+  an entirely sensible piece of code and it would be better to allow it, and
+  secondly adding invariant type construtors would violate the assumption in
+  the type system that all type constructors are co- or contra-variant.
+
+  The problem arises from the type parameter being used as covariant during
+  ``read'' operations (as in <with|font-family|tt|f1>), and contravariant
+  during ``write'' operations (as in <with|font-family|tt|f2>). To solve this
+  problem, we use an elegant trick described in <cite|pottierphd>, attributed
+  to Luca Cardelli, and Smith and Trifonov (independantly): we introduce
+  <with|font-shape|italic|two> type parameters, one contravariant and one
+  covariant.
+
+  Thus, in the array above, the argument to <tt|f1> will have type
+  <math|array<around*|(|\<bot\>,<tt|Mammal>|)>>. The contravariant type is
+  unconstrained, and therefore remains as <math|\<bot\>>. The array being
+  passed, <math|array<around*|(|<tt|Dog>,<tt|Dog>|)>>, is a subtype of this
+  type and thus correct to pass. The argument to <tt|f2> will have type
+  <math|array<around*|(|<tt|Mammal>,\<top\>|)>> since it only uses the
+  parameter contravariantly. This is not a subtype of
+  <math|array<around*|(|<tt|Dog>,<tt|Dog>|)>>, so the function is correctly
+  rejected. <math|array<around*|(|<tt|Animal>,<tt|Animal>|)>> is, however, so
+  it would be type-correct (and make sense!) to pass such an array to
+  <tt|f2>.
+
+  This technique of typing mutable objects with a pair of type variables is
+  used to type structure fields as well. So, a fully-specified structure type
+  might look like <math|<around*|{|<tt|f1>:a/b|}>>, where <math|a> is the
+  (contravariant) type used for assignments to the field, while <math|b> is
+  the (covariant) type used for reading from it. The type system will ensure
+  that <math|a\<leqslant\>b>, so anything written can be read back out.
+
+  <section|Optional type annotations>
+
+  Due to the type inference system, <brick> programs need not provide
+  explicit type annotations. Generally, this is an improvement over
+  fully-annotated code as the signal-to-noise ratio increases and less of the
+  code consists of repetitive type declarations.
+
+  However, often it is valuable to be able to provide some annotations, as a
+  form of machine-checked documentation. This is common practice in the
+  Haskell programming language (which also supports global type inference),
+  where annotations are commonly placed on top-level functions as
+  documentation of the interface provided.
+
+  Annotations may also be used to voluntarily restrict a piece of code with a
+  very general type to a specific subtype. A programmer, after writing a
+  program fragment with a particular type <math|t>, may want to explicitly
+  limit the uses of that fragment as though it had type <math|t<rprime|'>>,
+  where <math|t\<leqslant\>t<rprime|'>>. This could be done to clarify the
+  programmer's intentions and to indicate the function of the code to a user.
+
+  As an example, consider a program which uses the type
+  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>> to represent
+  points on a 2-D plane. The programmer writes a function <tt|get_x> to
+  extract the <tt|x> co-ordinate of a point<\footnote>
+    Ignoring for a moment that <tt|get_x> is actually
+    <with|font-shape|italic|longer> than the expression it abstracts!
+  </footnote>:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def get_x(point)
+  do>>|<row|<cell| \ return point.x>>|<row|<cell|end>>>>>>>
+
+  This will be given the type <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a> by
+  inference. However, the programmer wishes to indicate that this function is
+  to be used only with points, and not with just any structure which declares
+  an <math|x> coordinate. So, the function can be rewritten to include
+  specific annotations:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def
+  get_x(point:{x:float,y:float}):float do>>|<row|<cell| \ return
+  point.x>>|<row|<cell|end>>>>>>>
+
+  In this case, the function has type <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>,
+  which better indicates the programmer's intentions. Since
+  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>
+  is a supertype of <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a>, the
+  annotation is valid.
+
+  <subsection|Checking type annotations>
+
+  To verify that a type annotation is correct, we must check that the
+  declared type of a term is some supertype of the inferred type. That is,
+  the type the programmer uses to declare a term must be equal or less
+  specific than the type inferred from the body: he cannot claim the code
+  does something it can't.
+
+  Annotations for generalised and ungeneralised terms are checked somewhat
+  differently, since the former may contain free variables and is therefore
+  more complicated. Ungeneralised terms are checked using the entailment
+  algorithm: if the programmer writes <tt|x:int>, we check that adding the
+  constraint <math|x\<leqslant\><tt|int>> does not restrict the set of
+  solutions (alternatively, that this constraint is implied by the
+  constraints inferred).
+
+  If an annotation is placed on a generalised term, for instance if the
+  programmer defines an identity function <tt|id> and writes <rigid|<tt|id:a
+  =\<gtr\> a forall a>>, we must use the subsumption algorithm in order to
+  cover all of the possible instantiations of the free variable <math|a>.
+
+  <section|Classes><label|classes>
+
+  Classes are built atop the structure functionality: each class is a subtype
+  of the structure type with the same set of members. This facilitates the
+  integration of nominative and structural types: an object of nominative
+  type (an instance of a class) can be passed to a function expecting a
+  structural type, and the subtyping rules ensure that it will work. There
+  are many subtleties with this relationship between the structure types and
+  the class types, see section <reference|nomstruct>.
+
+  One additional difficulty is that the inference algorithm requires that the
+  types form a lattice, which most nominative type systems fail to do (this
+  restriction allows the existence of a fast closure algorithm for
+  typechecking; without it the inference problem is
+  PSPACE-hard<cite|decidablesub>). While seeming to form an additional
+  difficulty, this restriction actually leads to a more elegant system and
+  allows the system to be more expressive than most nominatively typed
+  languages.
+
+  <subsection|Class members>
+
+  Classes also impose constraints on the types of their members. For
+  instance, suppose a class Point is defined with two integer fields <tt|x>
+  and <tt|y>, and the following function is written:
+
+  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def get_x(pt:Point)
+  do>>|<row|<cell| \ return pt.x>>|<row|<cell|end>>>>>>>
+
+  It should be possible to infer that the return type is <tt|int>. This is
+  done quite simply: when a class name appears in a typing constraint the
+  system will not only add a constraint based on the object type constructor
+  (section <reference|objectlattice>), but will also add a constraint for
+  each field defined by the class.
+
+  When a subclass is derived from a class, it must be ensured that the
+  subclass is in fact a subtype. This is performed by the polymorphic
+  subsumption algorithm (<math|\<leqslant\><rsup|\<forall\>>>) described
+  previously.
+
+  <subsection|Constructors>
+
+  Constructors for a class present an interesting problem. A subclass
+  constructor must be able to call its parent class' constructor to
+  initialise the parts of the object for which the parent is responsible. We
+  must ensure that the constructor of the parent class is run before the
+  child class performs any initialisation.
+
+  This is done in Java by syntactic restrictions: a call to <tt|super()> must
+  be the very first thing in the constructor's body. In <brick> we adopt a
+  slightly different approach: the call to the superclass's constructor is
+  what actually returns the new object, and so it cannot be accessed before
+  then by virtue of simply having no name (<tt|self> is not in scope in a
+  constructor).
+
+  <subsection|Future work>
+
+  It is intended that multiple conflicting definitions of a method (the
+  standard problem of systems supporting multiple inheritance) be resolved
+  using the C3 class linearisation algorithm first defined for the Dylan
+  programming language; it is described fully in <cite|c3dylan>.
+
+  One other thing missing from the current model is a notion of data hiding:
+  the members of an object are equally visible inside and outside the class's
+  definition.
+
+  <section|Generalised and ungeneralised bindings><label|generalised>
 
   A binding of a name may be <with|font-shape|italic|generalised>. This
   allows it to be used with multiple different incompatible types at
@@ -1935,9 +2226,9 @@
   different ways at different points in the program. Unfortuneatly, we can't
   generalise everything: type inference with first-class generalised bindings
   is undecidable<\footnote>
-    By requiring type annotations in situations requiring first-class
-    generalised bindings, the typing problem can be made tractable, see
-    <cite|ranknml|ranknhaskell> for examples.
+    Although, by requiring type annotations in situations requiring
+    first-class generalised bindings, the typing problem can be made
+    tractable. See <cite|ranknml|ranknhaskell> for examples.
   </footnote>. The variables bound as function arguments must therefore be
   ungeneralised, and as we'll see in the next section, due to imperative
   constructs some other classes of binding must be ungeneralised.
@@ -1948,7 +2239,7 @@
 
   In languages like Haskell, every <with|font-family|tt|let>-bound and all
   toplevel bindings are generalised<\footnote>
-    Generalised bindings are \ known as <with|font-family|tt|let>-bindings in
+    Generalised bindings are known as <with|font-family|tt|let>-bindings in
     functional languages.
   </footnote>. This poses a well-known problem<cite|valuerestriction|valurestriction2>
   in the presence of mutable references and side-effects. Consider this
@@ -2006,137 +2297,19 @@
   function bindings (those of the form ``<tt|def f(x)>'') and classes are
   generalised.
 
-  <section|Optional type annotations>
-
-  Due to the type inference system, <brick> programs need not provide
-  explicit type annotations. Generally, this is an improvement over
-  fully-annotated code as the signal-to-noise ratio increases and less of the
-  code consists of repetitive type declarations.
-
-  However, often it is valuable to be able to provide some annotations, as a
-  form of machine-checked documentation. This is common practice in the
-  Haskell programming language (which also supports global type inference),
-  where annotations are commonly placed on top-level functions as
-  documentation of the interface provided.
-
-  Annotations may also be used to voluntarily restrict a piece of code with a
-  very general type to a specific subtype. By the behavioural subtyping rule,
-  a term with a given type can also be considered to have any supertype of
-  that type. A programmer, after writing a program fragment with a particular
-  type <math|t>, may want to explicitly limit the uses of that fragment as
-  though it in fact had type <math|t<rprime|'>>, where
-  <math|t\<leqslant\>t<rprime|'>>. This could be done to make it more clear
-  what the programmer's intentions were and to indicate to a user what the
-  function's purpose is.
-
-  As an example, consider a program which uses the type
-  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>> to represent
-  points on a 2-D plane. The programmer writes a function <tt|get_x> to
-  extract the <tt|x> co-ordinate of a point<\footnote>
-    Ignoring for a moment that <tt|get_x> is actually
-    <with|font-shape|italic|longer> than the expression it abstracts!
-  </footnote>:
-
-  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def get_x(point)
-  do>>|<row|<cell| \ return point.x>>|<row|<cell|end>>>>>>>
-
-  This will be given the type <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a> by
-  inference. However, the programmer wishes to indicate that this function is
-  to be used only with points, and not with merely any structure which
-  declares an <math|x> coordinate. So, the function can be rewritten to
-  include specific annotations:
-
-  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|def
-  get_x(point:{x:float,y:float}):float do>>|<row|<cell| \ return
-  point.x>>|<row|<cell|end>>>>>>>
-
-  In this case, the function has type <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>,
-  which better indicates the programmer's intentions. Since
-  <math|<around*|{|<tt|x>:<tt|float>,<tt|y>:<tt|float>|}>\<rightarrow\><tt|float>>
-  is a supertype of <math|<around*|{|<tt|x>:a|}>\<rightarrow\>a>, the
-  annotation is valid.
-
-  <subsection|Checking type annotations>
-
-  To verify that a type annotation is correct, we must check that the
-  declared type of a term is some supertype of the inferred type. That is,
-  the type the programmer uses to declare a term must be equal or less
-  specific than the type inferred from the body: he cannot claim the code
-  does something it can't.
-
-  Annotations for generalised and ungeneralised terms are checked somewhat
-  differently, since the former may contain free variables and is therefore
-  more complicated. Ungeneralised terms are checked using the entailment
-  algorithm: if the programmer writes <tt|x:int>, we check that adding the
-  constraint <math|x\<leqslant\><tt|int>> does not restrict the set of
-  solutions (alternatively, that this constraint is implied by the
-  constraints inferred).
-
-  If an annotation is placed on a generalised term, for instance if the
-  programmer defines an identity function <tt|id> and writes <rigid|<tt|id:a
-  =\<gtr\> a forall a>>, we must use the subsumption algorithm in order to
-  cover all of the possilble instantiations of the free variable <math|a>.
-
   \;
 
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
+  <section|Integration of nominative and structural typing><label|nomstruct>
 
   For reasons outlined in the introduction, it was a design goal to support
   both structural and nominative typing.
 
-  <brick> is not the first language to seek to combine nominative and
-  structural typing for objects. Whiteoak<cite|whiteoak> is an extension of
-  the Java programming language with, amongst other features, structural
-  subtyping. Their implementation of structural subtyping is somewhat
-  complex, as it is necessary to shoehorn the new feature into the existing
-  nominatively-typed Java virtual machine. Since Java requires full type
-  annotations, this is done by detecting all points in the program where a
-  nominative type is converted to a structural type and generating code for
-  wrapper objects at rutime.
-
-  A similar effort was undertaken to add structural subtyping to the language
-  Scala<cite|scalastructural> which also runs on the Java virtual machine.
-  This included a more sophisticated implementation, combining techniques
-  based on runtime code generation and Java's reflection mechanism.
-
-  The Unity language<cite|unitynomstruct> combines nominative and structural
-  subtyping in a way somewhat closer to the technique used in <brick>, as
-  well as providing other features such as external dispatch (aka
-  multi-methods) and a full proof of soundness. It does not attempt to tackle
-  the problem of integrating type inference with this system.
-
-  Here is a concrete example: Suppose we have class
-  <with|font-family|tt|Cowboy> and class <with|font-family|tt|Shape>. Both of
-  these have a method <with|font-family|tt|draw>, with very different
-  meanings. Class <with|font-family|tt|Square> is a subtype of
-  <with|font-family|tt|Shape>, implementing the <with|font-family|tt|draw>
-  defined by shapes.
+  Here is a concrete example of the problems that arise from this: Suppose we
+  have class <with|font-family|tt|Cowboy> and class
+  <with|font-family|tt|Shape>. Both of these have a method
+  <with|font-family|tt|draw>, with very different meanings. Class
+  <with|font-family|tt|Square> is a subtype of <with|font-family|tt|Shape>,
+  implementing the <with|font-family|tt|draw> defined by shapes.
 
   Now suppose we define three functions:
 
@@ -2167,8 +2340,6 @@
   have <with|font-family|tt|Shape> and <with|font-family|tt|Cowboy> be
   subtypes of <with|font-family|tt|{draw}> (i.e. the structural type
   ``containing a draw field''), but unrelated to each other.
-
-  \;
 
   <subsection|A potential problem>
 
@@ -2214,21 +2385,14 @@
   constraint graph requires such an impossible object and consider it in
   error.\ 
 
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
+  <subsection|Formal model of classes>
 
   Having given an intuitive explanation for how we would like nominative and
   structural types to interoperate, it remains to fit it into the formal
-  model of constructor lattices defined in section ###. If this can be done,
-  then we will know that the type inference algorithms will support inference
-  and annotation-checking of code using these types.
+  model of constructor lattices defined in section
+  <reference|constructorlattice>. If this can be done, then we will know that
+  the type inference algorithms will support inference and
+  annotation-checking of code using these types.
 
   So, we would like to add <dfn|object types> to our constructor lattice.
   These types must support an arbitrary set of fields, and must support
@@ -2239,8 +2403,6 @@
   into a subtype relation merely by having the same set of fields. However,
   those two classes must both be subtypes of the structural type defining
   their common fields.
-
-  <subsection|Classes (partial description)>
 
   We may consider a class, therefore, as consisting of a set of classes that
   it directly extends and a set of members that it defines (as specified by
@@ -2259,7 +2421,7 @@
   The directed graph formed by the <math|<with|math-font-series|bold|extends>>
   relation is acyclic, and so its reflexive transitive closure forms a
   partial order, which we will refer to as <dfn|subclassing><\footnote>
-    Not that, under this definition, each class is a subclass of itself.
+    Note that, under this definition, each class is a subclass of itself.
   </footnote>. <math|<with|math-font-series|bold|superclasses><around*|(|<with|math-font-series|bold|C>|)>>
   will denote the set of classes of which
   <math|<with|math-font-series|bold|C>> is a subclass.
@@ -2302,7 +2464,7 @@
   tries to use objects of both these types (say, a function that passes its
   argument to both <tt|brandish> and <tt|render>) is ill-typed.
 
-  <subsection|The object constructor lattice>
+  <subsection|The object constructor lattice><label|objectlattice>
 
   An <dfn|object type constructor> <math|\<b-O\>> consists of a set of
   classes <math|<with|math-font-series|bold|classes><around*|(|<with|math-font-series|bold|O>|)>>
@@ -2336,7 +2498,7 @@
   object type constructors, as well as a bottom element
   <math|\<bot\><rsub|\<bbb-o\>>>. For the type inference engine to
   successfully check programs, it must be proven that <math|\<bbb-O\>> forms
-  a type constructor lattice (as defined in ###).
+  a type constructor lattice (as defined in <reference|constructorlattice>).
 
   <\itemize>
     <item>The set of constructors is <math|\<bbb-O\>>.
@@ -2371,7 +2533,7 @@
   and so the convexity condition trivially holds.
 
   It remains to show that this structure forms a lattice. Rather than prove
-  this directly (which would be somewhat messy), we prove it by ###.
+  this directly (which would be somewhat messy), we prove it by construction.
 
   First, a few well-known lattice constructions:
 
@@ -2436,30 +2598,37 @@
     and so <math|a\<in\>L<rprime|'>>. Thus, <math|\<sqcup\>> is well-defined
     on <math|L<rprime|'>>.
 
-    Let <math|b\<in\>L=x\<sqcap\><rsub|L>y>.
+    Let <math|b\<in\>L=x\<sqcap\><rsub|L>y>. If <math|b\<nleqslant\>s>, then
+    <math|b\<in\>L<rprime|'>>. Otherwise, since <math|b> was the greatest
+    lower bound, all lower bounds of <math|x> and <math|y> are
+    <math|\<leqslant\>s>. Thus, none of them (except <math|\<bot\>>) appear
+    in <math|L<rprime|'>> and <math|\<bot\>> is the g.l.b. of <math|x> and
+    <math|y> in <math|L<rprime|'>>. Thus, in either case, <math|\<sqcap\>> is
+    well-defined on <math|L<rprime|'>>.
   </proof>
 
   <math|erase<rsub|s><around|(|L|)>> can be thought of as a new lattice with
   all elements below <math|s> removed. We can now restate the object type
-  structure in terms of lattices: Define the full class-lattice as the
-  upwards-closed subsets of the set of classes under the subclassing
-  relation<\footnote>
-    where the subclassing relation is the reflexive transitive closure of the
-    relation given each classes' listed parent classes, that is it represents
-    ``indirect subclassing''
-  </footnote>. Define the class-lattice as the full class-lattice with each
-  pair of incompatible classes removed via <math|erase<rsub|s>>
+  structure in terms of lattices: We take the space of upwards-closed sets of
+  classes (which forms a lattice, see above), and the space of arbitrary sets
+  of fields (which forms a lattice, see above). We take the space of pairs of
+  these lattices (again, this forms a lattice), and we remove via
+  <math|erase<rsub|s>> all of those points which include incompatible
+  classes. Finally, we remove those points where the condition
+  <math|><with|mode|math|<with|math-font-series|bold|members><around*|(|<with|math-font-series|bold|C>|)>\<subseteq\><with|math-font-series|bold|fields><around*|(|<with|math-font-series|bold|O>|)>>.
+  Since this condition preserves l.u.b. and g.l.b (it holds for <math|a> and
+  <math|b> if and only if it holds for <math|a\<sqcap\>b> and
+  <math|a\<sqcup\>b>), the structure remains a lattice.
 
-  ######
+  So, we have managed to reconstruct <math|\<bbb-O\>> in a way which is
+  guaranteed to yield a lattice, hence <math|\<bbb-O\>> is a lattice.
 
-  \;
-
-  \;
+  <subsection|Interface intersection types>
 
   The requirement that our types form a lattice led to the inclusion of a few
   extra types (to ``fill in the blanks'' by giving every pair of types a glb
   and lub), some of which turn out to be independantly useful. In particular,
-  we gain intersection types: for any two classes or interfaces
+  we gain interface intersection types: for any two classes or interfaces
   <math|C<rsub|1>> and <math|C<rsub|2>>, it is possible to define a function
   which takes arguments of type <math|C<rsub|1>\<sqcap\>C<rsub|2>>###,
   demanding that the parameter implement both of these interfaces. This is a
@@ -2470,79 +2639,6 @@
     modified to explicitly implement it, something which may not be possible
     if the interfaces are from different packages.
   </footnote>.
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  <subsubsection|Mutability>
-
-  Should mutable type constructors (e.g. array, structure) be co- or
-  contra-variant? Neither seems to work in the presence of mutability. For
-  example, Java chose arrays to be covariant, allowing the following code:\ 
-
-  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|void f1(Mammal[]
-  animals){>>|<row|<cell| \ mammals[0].eat();>>|<row|<cell|}>>|<row|<cell|...>>|<row|<cell|Dog[]
-  dogs;>>|<row|<cell|f(dogs);>>>>>>>
-
-  We can safely pass an array of <with|font-family|tt|Dog>s to a function
-  expecting an array of <with|font-family|tt|Mammal>s. Now consider this
-  example:
-
-  <center|<verbatim|<tabular|<tformat|<table|<row|<cell|void f2(Mammal[]
-  mammals){>>|<row|<cell| \ mammals[0] = new
-  Cat();>>|<row|<cell|}>>|<row|<cell|...>>|<row|<cell|Dog[]
-  dogs;>>|<row|<cell|f(dogs);>>>>>>>
-
-  This is a type error! (It will in fact be accepted by the Java compiler but
-  will lead to an <verbatim|ArrayStoreException> at runtime). An array of
-  <with|font-family|tt|Dog>s cannot be considered to be an array of
-  <with|font-family|tt|Mammal>s when it is being stored into: you cannot
-  store just any mammal into an array of dogs.
-
-  The solution to this adopted by many languages is to introduce
-  <em|invariant> type constructors. That is, there will be type constructors
-  <with|font-family|tt|C[t]> where <with|font-family|tt|C[t1]> and
-  <with|font-family|tt|C[t2]> are never related by subtyping unless
-  <with|font-family|tt|t1> and <with|font-family|tt|t2> are exactly the same
-  type. This is the solution adopted by Java's generics.
-
-  This is a little problematic for us: Firstly, <with|font-family|tt|f1> was
-  an entirely sensible piece of code and it would be better to allow it, and
-  secondly adding invariant type construtors would violate the assumption in
-  the type system that all type constructors are co- or contra-variant.
-
-  The problem arises from the type parameter being used as covariant during
-  ``read'' operations (as in <with|font-family|tt|f1>), and contravariant
-  during ``write'' operations (as in <with|font-family|tt|f2>). To solve this
-  problem, we use an elegant trick described in <cite|pottierphd>, attributed
-  to Luca Cardelli, and Smith and Trifonov (independantly): we introduce
-  <with|font-shape|italic|two> type parameters, one contravariant and one
-  covariant.
-
-  Thus, in the array above, the argument to <tt|f1> will have type
-  <math|array<around*|(|\<bot\>,<tt|Mammal>|)>>. The contravariant type is
-  unconstrained, and therefore remains as <math|\<bot\>>. The array being
-  passed, <math|array<around*|(|<tt|Dog>,<tt|Dog>|)>>, is a subtype of this
-  type and thus correct to pass. The argument to <tt|f2> will have type
-  <math|array<around*|(|<tt|Mammal>,\<top\>|)>> since it only uses the
-  parameter contravariantly. This is not a subtype of
-  <math|array<around*|(|<tt|Dog>,<tt|Dog>|)>>, so the function is correctly
-  rejected. <math|array<around*|(|<tt|Animal>,<tt|Animal>|)>> is, however, so
-  it would be type-correct (and make sense!) to pass such an array to
-  <tt|f2>.
-
-  ### ref cell types?
 
   <chapter|Implementation tools>
 
@@ -3327,8 +3423,6 @@
   </footnote>. Both closures refer to the same box, and all of them alias the
   same copy of v.
 
-  \;
-
   <section|A typechecker from an interpreter>
 
   So far, we've shown how a single semantics for a language parameterised
@@ -3387,13 +3481,89 @@
   Thus, with a single definition of <tt|eval>, as well as getting a compiler
   we also gain a typechecker.
 
+  <section|Primitive operations>
+
+  As a final description of the architecture of the implementation, this
+  section contains a list of the operations available to <tt|eval>. The
+  various components simply implement these primtives, and the common
+  language description in <tt|eval> hooks them together.
+
+  Before describing the operations themselves, it is worth pointing out a few
+  features conspicious by their absence:
+
+  <\description>
+    <item*|Control flow>There are no intraprocedure control flow operations
+    in the set of primitives, no if/then/else nor while nor return. Instead,
+    <tt|eval> implements such operations as though it were an interpreter
+    (for instance, <tt|break> and <tt|continue> are implemented by <tt|eval>
+    throwing and catching exceptions), and the various implementations of the
+    monad <math|\<cal-M\>> contrive to ensure that the program states are
+    correctly ordered.
+
+    <item*|Bindings and name resolution>The compiler, typechecker and
+    interpreter core need not deal <with|font-shape|italic|at all> with
+    variable names. The symbol table is entirely managed by the <tt|eval>
+    code. Primitives are provided for generating new variables (<tt|varNew>),
+    and it is up to <tt|eval> to ensure these are passed around correctly.
+
+    <item*|Closures>Functions that access objects from outside their local
+    scope are implemented transparently as Haskell closures. They are then
+    ``run'' in the monad <math|\<cal-M\>> to determine which items they
+    access. The effect of this is that no special effort need be made to pass
+    environment values to subfunctions in <tt|eval>.
+  </description>
+
+  In the description of the operations to follow,
+  <math|a\<rightarrowlim\><rsup|\<cal-M\>>b> is used to denote a function
+  from <math|a> to <math|b> also performing a monadic action. It corresponds
+  roughly to an action at the <brick> language level, and the type in Haskell
+  would be rendered <tt|a -\<gtr\> <math|\<cal-M\>> b>. Conversely,
+  <math|a\<mapsto\>b> denotes a Haskell function, and corresponds roughly to
+  an action taken during the compilation process.
+
+  As above, <math|\<cal-E\>> denotes the (abstract) type of <brick> values,
+  while <math|\<cal-V\>> denotes the abstract type of <brick> variables.
+  <tt|Field> denotes a field name of a structure, it is simply a string. Some
+  of these types do not correspond exactly to the Haskell types: these types
+  are presented ``uncurried'' for simplicity.\ 
+
+  <\equation*>
+    <tabular|<tformat|<cwith|1|12|1|4|cell-bsep|0.2cm>|<cwith|1|12|1|1|cell-halign|r>|<table|<row|<cell|<tt|litInt>>|<cell|\<colons\>>|<cell|<tt|Int>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Integer
+    literals>>>|<row|<cell|<tt|litBool>>|<cell|\<colons\>>|<cell|<tt|Bool>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|Boolean
+    literals>>|<row|<cell|<tt|voidValue>>|<cell|\<colons\>>|<cell|<around*|(||)>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|The
+    unique literal value ``<tt|void>''>>>|<row|<cell|<tt|cond>>|<cell|\<colons\>>|<cell|\<cal-E\>\<rightarrowlim\><rsup|\<cal-M\>><tt|Bool>>|<cell|<text|Evaluate
+    a condition>>>|<row|<cell|<tt|varNew>>|<cell|\<colons\>>|<cell|<around*|(||)>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-V\>>|<cell|<text|Create
+    a new variable>>>|<row|<cell|<tt|varGet>>|<cell|\<colons\>>|<cell|\<cal-V\>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Read
+    a variable>>>|<row|<cell|<tt|varSet>>|<cell|\<colons\>>|<cell|<around*|(|\<cal-V\>,\<cal-E\>|)>\<rightarrowlim\><rsup|\<cal-M\>><around*|(||)>>|<cell|<text|Write
+    a variable>>>|<row|<cell|<tt|structNew>>|<cell|\<colons\>>|<cell|<around*|[|<tt|Field>|]>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Create
+    a new structure>>>|<row|<cell|<tt|structGet>>|<cell|\<colons\>>|<cell|<around*|(|\<cal-E\>,<tt|Field>|)>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Read
+    a structure field>>>|<row|<cell|<tt|structSet>>|<cell|\<colons\>>|<cell|<around*|(|\<cal-E\>,<tt|Field>|)>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Write
+    a structure field>>>|<row|<cell|<tt|lambda>>|<cell|\<colons\>>|<cell|<around*|(|\<cal-E\>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>|)>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>>|<cell|<text|Create
+    a new function>>>|<row|<cell|<tt|apply>>|<cell|\<colons\>>|<cell|\<cal-E\>\<rightarrowlim\><rsup|\<cal-M\>><around*|(|\<cal-E\>\<rightarrowlim\><rsup|\<cal-M\>>\<cal-E\>|)>>|<cell|<text|Apply
+    a function>>>>>>
+  </equation*>
+
+  For simplicity, a couple of less-essential primitives have been omitted,
+  specifically <tt|letrec>, which is a list version of <tt|lambda> which
+  allows corecursive functions, <tt|typeNew> and <tt|typeConstrain> for
+  checking user type annotations (ignored by the compiler and interpreter)
+  and the primitives for describing and instantiating classes.
+
+  Any function which can be implemented in terms of these primitives can be
+  executed using the interpreter's definiton of those primitives, compiled
+  using the compiler's, or typechecked using the typechecker's. <brick>'s
+  parser, rather than produce a syntax tree, simply ``executes'' the program
+  in an arbitrary monad <math|\<cal-M\>>, which can then be evaluated in any
+  or all of the compiler components.
+
   <chapter|Conclusions and future work>
 
   \;
 
+  <section|Current state of the implementation>
+
   The interpreter and compiler can parse and run many programs, although some
-  of the more advanced object-oriented features have not fully been
-  implemented yet.
+  of the object-oriented features have not fully been implemented yet.
 
   The type checker has been implemented more-or-less fully, and can infer and
   simplify types for some quite complex expressions (including recognising
@@ -3409,6 +3579,8 @@
   yet support something as trivial as integer addition, and there is little
   support for input and output. These features are not complex to add, but
   time constraints during this project prevented their implementation.
+
+  <section|Future work>
 
   Besides finishing the implementation of the features already described,
   other interesting areas of future work include:
@@ -3431,17 +3603,16 @@
     optimisations such as the elision of name-based field lookups.
   </description>
 
-  <appendix|BNF grammar for the syntax of <brick>><appendix|Detailed typing
-  rules for <brick>>
+  <appendix|BNF grammar for the syntax of <brick>><label|grammar>
 
-  Subjred as abstract interpretation a la Cousot, fits with compiler
+  <appendix|Detailed typing rules for <brick>>
+
+  ###Subjred as abstract interpretation a la Cousot, fits with compiler
   implementation, easy to verify, don't have to throw it away each change ###
 
   \;
 
-  \;
-
-  In the discussion of the typing rules, we will use a simplified, more
+  In the description of the typing rules, we will use a simplified, more
   functional-looking syntax. Programs will be represented as:
 
   <\equation*>
@@ -3449,7 +3620,7 @@
     <around*|(|ungeneralised binding|)>>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>
     \<mathe\>>|<cell|<text|function application>>>|<row|<cell|>|<cell|<mid|\|>>|<cell|let
     \ <wide|\<b-x\>|^>= \<mathe\> in \<mathe\>>|<cell|let<text|-abstraction>
-    <around*|(|generalised binding|)>>>|<row|<cell|>|<cell|\|>|<cell|<around*|{|<tt|f1>:\<mathe\>,<tt|f2>:\<mathe\>|}>>|<cell|structure
+    <around*|(|generalised binding|)>>>|<row|<cell|>|<cell|\|>|<cell|<around*|{|<tt|f1>:\<mathe\>,<tt|f2>:\<mathe\>,\<ldots\>|}>>|<cell|structure
     creation>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>.<tt|f>>|<cell|structure
     field read>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>.<tt|f>\<assign\>\<mathe\>>|<cell|structure
     field write>>|<row|<cell|>|<cell|\|>|<cell|\<mathe\>;\<mathe\>>|<cell|sequential
@@ -3458,48 +3629,78 @@
 
   Bound names will be divided into two syntatically distinct classes:
   <math|<text|x>>, <text|y>, <text|z>, bound by <math|\<lambda\>>, and
-  <math|<wide|\<b-x\>|^>,<wide|\<b-y\>|^>,<wide|\<b-z\>|^>>, bound by let.
-  For a discussion of the distinction, see ###.
+  <math|<wide|\<b-x\>|^>,<wide|\<b-y\>|^>,<wide|\<b-z\>|^>>, bound by let
+  (for a discussion of the distinction, including restrictions on what can be
+  in the body of a let, see section <reference|generalised>). Mutable
+  variables are omitted entirely, their effect is the same as that of a
+  structure containing only one field.
 
-  Typing judgements will be of the form <math|\<Gamma\>\<vdash\>\<mathe\>:a\\C>,
+  Typing judgements will be of the form <math|\<Gamma\>\<vdash\>\<mathe\>:\<tau\>\\C>,
   where <math|\<mathe\>> is the program being typed, <math|C> is the
-  resulting constraint graph, <math|a> is the variable within the constraint
-  graph representing the type, and <math|\<Gamma\>> is the typing
-  environment.
+  resulting constraint graph, <math|\<tau\>> is the constructed type or
+  variable within the constraint graph representing the type, and
+  <math|\<Gamma\>> is the typing environment.
 
-  Typing environments <math|\<Gamma\>> will map ...
+  Typing environments <math|\<Gamma\>> will map names to types. For each
+  ungeneralised variable <math|<text|x>> (bound by <math|\<lambda\>>),
+  <math|\<Gamma\><around*|(|x|)>> will be a single type variable <math|a>
+  which is constrained by each use of x. For each generalised variable
+  <with|mode|math|<wide|\<b-x\>|^>> (bound by let),
+  <math|\<Gamma\><around*|(|<wide|\<b-x\>|^>|)>> will be an rc type
+  <math|a\\C>, allowing the binding to be used polymorphically by duplicating
+  constraints. The set of ungeneralised variables in <math|\<Gamma\>> is
+  <math|dom<rsub|\<lambda\>><around*|(|\<Gamma\>|)>>, and
+  <math|\<Gamma\>+<around*|(|v\<mapsto\>t|)>> denotes the environment
+  <math|\<Gamma\>> augmented with an extra mapping.
+
+  The subsumption relation on rc types is extended to include the typing
+  environment as:
 
   <\equation*>
-    <around*|[|\<phi\><rsub|1>|]>a<rsub|1>\\C<rsub|1>
-    \<leqslant\><rsup|\<forall\>><around*|[|\<phi\><rsub|2>|]>a<rsub|2>\\C<rsub|2>
-    = dom<around*|(|\<phi\><rsub|1>|)>=dom<around*|(|\<phi\><rsub|2>|)>\<wedge\>
+    a\\C\<leqslant\><rsub|\<Gamma\>><rsup|\<forall\>>a<rprime|'>\\C<rprime|'>
+  </equation*>
+
+  This statement is equivalent to ###<math|\<leqslant\><rsup|\<forall\>>;
+  dom<rsub|\<lambda\>><around*|(|\<Gamma\>|)>>###.
+
+  First, we present the <dfn|base typing rules> for <brick>:
+
+  \;
+
+  <\equation*>
+    <tabular|<tformat|<cwith|1|7|1|2|cell-bsep|0.5cm>|<cwith|1|10|1|1|cell-halign|c>|<cwith|1|10|1|1|cell-bsep|0.5cm>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><text|e>:b\\C|\<Gamma\>\<vdash\>\<lambda\><text|x.e>:a\<rightarrow\>b\\C>>|<cell|<text|<name|Lambda>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:a\<rightarrow\>b\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:a\\C|\<Gamma\>\<vdash\><text|e><rsub|1><text|e><rsub|2>:b\\C>>|<cell|<text|<name|Apply>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a<rsub|1>\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:a<rsub|2>\\C<space|1cm>\<ldots\>|\<Gamma\>\<vdash\><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\\C>>|<cell|<text|<name|Struct-New>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e>:<around*|{|<tt|f>:a/b|}>\\C|\<Gamma\>\<vdash\><text|e>.<tt|f>:b\\C>>|<cell|<text|<name|Struct-Get>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:<around*|{|<tt|f>:a/b|}>\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:c\\C|\<Gamma\>\<vdash\><text|e><rsub|1>.<tt|f>\<assign\>
+    <text|e><rsub|2>:a\\C>>|<cell|<text|<name|Struct-Set>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:b\\C|\<Gamma\>\<vdash\>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C>>|<cell|<text|<name|Seq>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\>:a\\C<space|1cm>a\\C\<leqslant\><rsub|\<Gamma\>><rsup|\<forall\>>a<rprime|'>\\C<rprime|'>|\<Gamma\>\<vdash\>\<mathe\>:a<rprime|'>\\C<rprime|'>>>|<cell|<text|<name|Sub>>>>|<row|<cell|<frac|\<Gamma\><around*|(|<text|x>|)>=v|\<Gamma\>\<vdash\><text|x>:v\\\<varnothing\>>>|<cell|<text|<name|Var>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>+<around*|(|<wide|\<b-x\>|^>\<mapsto\>a\\C<rsub|1>|)>\<vdash\>\<mathe\><rsub|2>:b\\C<rsub|2>|\<Gamma\>\<vdash\>let
+    <wide|\<b-x\>|^>=\<mathe\><rsub|1> in
+    \<mathe\><rsub|2>:b\\C<rsub|2>>>|<cell|<text|<name|Let>>>>|<row|<cell|<frac|\<Gamma\><around*|(|<wide|\<b-x\>|^>|)>=a\\C
+    |\<Gamma\>\<vdash\><wide|\<b-x\>|^>:a\\C>>|<cell|<text|<name|Let-Var>>>>>>>
   </equation*>
 
   \;
 
+  \;
+
+  These typing rules, sadly, do not describe an algorithm. The rule
+  <name|Sub> may be applied at any time, and since <math|C> appears twice in
+  the context for some rules it can't be easily calculated.
+
+  We now present the <dfn|inference rules> for <brick>. They are believed to
+  be equivalent to the base typing rules, but no rigourous proof of this is
+  provided.
+
+  In order to ensure that these rules are syntax-directed, we need to
+  eliminate all uses of the rule <name|Sub>. There are two\ 
+
+  \;
+
+  \;
+
   <\equation*>
-    <tabular|<tformat|<cwith|1|7|1|1|cell-halign|c>|<cwith|1|7|1|2|cell-bsep|0.5cm>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><text|e>:b\\C|\<Gamma\>\<vdash\>\<lambda\><text|x.e>:a\<rightarrow\>b\\C>>|<cell|<text|<name|Abs>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:a\<rightarrow\>b\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:a\\C|\<Gamma\>\<vdash\><text|e><rsub|1><text|e><rsub|2>:b\\C>>|<cell|<text|<name|App>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a<rsub|1>\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:a<rsub|2>\\C<space|1cm>\<ldots\>|\<Gamma\>\<vdash\><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\\C>>|<cell|<text|<name|Struct-New>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e>:<around*|{|<tt|f>:a/b|}>\\C|\<Gamma\>\<vdash\><text|e>.<tt|f>:b\\C>>|<cell|<text|<name|Struct-Get>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><text|e><rsub|1>:<around*|{|<tt|f>:a/b|}>\\C<space|1cm>\<Gamma\>\<vdash\><text|e><rsub|2>:c\\C|\<Gamma\>\<vdash\><text|e><rsub|1>.<tt|f>\<assign\>
-    <text|e><rsub|2>:a\\C>>|<cell|<text|<name|Struct-Set>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\><rsub|1>:a\\C<space|1cm>\<Gamma\>\<vdash\>\<mathe\><rsub|2>:b\\C|\<Gamma\>\<vdash\>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C>>|<cell|<text|<name|Seq>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\>\<mathe\>:a\\C<space|1cm><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a|}>\\C|)>\<leqslant\><rsup|\<forall\>><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a<rprime|'>|}>\\C<rprime|'>|)>|\<Gamma\>\<vdash\>\<mathe\>:a<rprime|'>\\C<rprime|'>>>|<cell|<text|<name|Sub>>>>>>>
-  </equation*>
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  \;
-
-  <\equation*>
-    <tabular|<tformat|<cwith|1|7|1|1|cell-halign|c>|<cwith|1|7|1|2|cell-bsep|0.5cm>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><rsup|i><text|e>:b\\C|\<Gamma\>\<vdash\><text|e>:a\<rightarrow\>b\\C>>|<cell|<text|<name|Abs>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:a\<rightarrow\>b\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:a\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1><text|e><rsub|2>:b\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|App>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a<rsub|1>\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:a<rsub|2>\\C<rsub|2><space|1cm>\<ldots\>|\<Gamma\>\<vdash\><rsup|i><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\\<big-around|\<oplus\>|C<rsub|i>>>>|<cell|<text|<name|Struct-New>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e>:<around*|{|<tt|f>:a/b|}>\\C|\<Gamma\>\<vdash\><rsup|i><text|e>.<tt|f>:b\\C>>|<cell|<text|<name|Struct-Get>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:<around*|{|<tt|f>:a/b|}>\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:c\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>.<tt|f>\<assign\>
-    <text|e><rsub|2>:a\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Struct-Set>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:b\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Seq>>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\>:a\\C<space|1cm><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a|}>\\C|)>\<leqslant\><rsup|\<forall\>><around*|(|rng<rsub|\<lambda\>><around*|(|\<Gamma\>|)>\<cup\><around*|{|a<rprime|'>|}>\\C<rprime|'>|)>|\<Gamma\>\<vdash\><rsup|i>\<mathe\>:a<rprime|'>\\C<rprime|'>>>|<cell|<text|<name|Sub>>>>|<row|<cell|<frac|<tabular|<tformat|<cwith|1|1|1|1|cell-halign|c>|<table|<row|<cell|\<phi\><text|
+    <tabular|<tformat|<cwith|1|8|1|2|cell-bsep|0.5cm>|<cwith|1|9|1|1|cell-halign|c>|<table|<row|<cell|<frac|\<Gamma\>+<around*|(|<text|x>\<mapsto\>a|)>\<vdash\><rsup|i><text|e>:b\\C|\<Gamma\>\<vdash\><text|e>:f\\C\<oplus\><around*|{|a\<rightarrow\>b\<leqslant\>f|}>>>|<cell|<text|<name|Lambda>><rsup|i>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:f\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:a\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1><text|e><rsub|2>:b\\C<rsub|1>\<oplus\><around*|{|f\<leqslant\>a\<rightarrow\>b|}>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Apply>><rsup|i>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a<rsub|1>\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:a<rsub|2>\\C<rsub|2><space|1cm>\<ldots\>|\<Gamma\>\<vdash\><rsup|i><around*|{|<tt|f1>:\<mathe\><rsub|1>,<tt|f2>:\<mathe\><rsub|2>,\<ldots\>|}>:t\\<around*|{|<around*|{|<tt|f1>:a<rsub|1>/a<rsub|1>,<tt|f2>:a<rsub|2>/a<rsub|2>,\<ldots\>|}>\<leqslant\>t|}>\<oplus\><big-around|\<oplus\>|<rsub|i>C<rsub|i>>>>|<cell|<text|<name|Struct-New>><rsup|i>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e>:t\\C|\<Gamma\>\<vdash\><rsup|i><text|e>.<tt|f>:b\\<around*|{|t\<leqslant\><around*|{|<tt|f>:a/b|}>|}>\<oplus\>C>>|<cell|<text|<name|Struct-Get>><rsup|i>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>:t\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i><text|e><rsub|2>:c\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i><text|e><rsub|1>.<tt|f>\<assign\>
+    <text|e><rsub|2>:a\\<around*|{|t\<leqslant\><around*|{|<tt|f>:a/b|}>|}>C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Struct-Set>><rsup|i>>>|<row|<cell|<frac|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|2>:b\\C<rsub|2>|\<Gamma\>\<vdash\><rsup|i>\<mathe\><rsub|1>;\<mathe\><rsub|2>:b\\C<rsub|1>\<oplus\>C<rsub|2>>>|<cell|<text|<name|Seq>><rsup|i>>>|<row|<cell|<frac|\<Gamma\><around*|(|<text|x>|)>=v|\<Gamma\>\<vdash\><rsup|i><text|x>:v\\\<varnothing\>>>|<cell|<text|<name|Var>><rsup|i>>>|<row|<cell|<frac|<tabular|<tformat|<cwith|1|1|1|1|cell-halign|c>|<table|<row|<cell|\<phi\><text|
     a fresh renaming of >dom<rsub|\<lambda\>><around*|(|\<Gamma\>|)>>>|<row|<cell|\<phi\><around*|(|\<Gamma\>|)>\<vdash\><rsup|i>\<mathe\><rsub|1>:a\\C<rsub|1><space|1cm>\<Gamma\>+<around*|(|<wide|\<b-x\>|^>\<mapsto\><around*|[|\<phi\>|]>a\\C<rsub|1>|)>\<vdash\>\<mathe\><rsub|2>:b\\C<rsub|2>>>>>>|\<Gamma\>\<vdash\>let
     <wide|\<b-x\>|^>=\<mathe\><rsub|1> in
-    \<mathe\><rsub|2>:b\\C<rsub|2>>>|<cell|<text|<name|Let>>>>|<row|<cell|<frac|\<Gamma\><around*|(|<wide|\<b-x\>|^>|)>=<around*|[|\<phi\>|]>a\\C|\<Gamma\>\<vdash\><wide|\<b-x\>|^>:>>|<cell|<text|<name|Let-Var>>>>>>>
+    \<mathe\><rsub|2>:b\\C<rsub|2>>>|<cell|<text|<name|Let>><rsup|i>>>|<row|<cell|<frac|\<Gamma\><around*|(|<wide|\<b-x\>|^>|)>=<around*|[|\<phi\>|]>a\\C<space|1cm>\<rho\><text|
+    a fresh renaming> |\<Gamma\>\<vdash\><wide|\<b-x\>|^>:\<rho\><around*|(|a|)>\\\<rho\><around*|(|C|)>\<oplus\><around*|{|v\<leqslant\>\<rho\><around*|(|\<phi\><around*|(|v|)>|)>\|v\<in\>dom<rsub|\<lambda\>><around*|(|\<phi\>|)>|}>>>|<cell|<text|<name|Let-Var>><rsup|i>>>>>>
   </equation*>
 
   <\with|par-mode|left>
@@ -3517,25 +3718,36 @@
         <newblock><with|font-shape|italic|ACM Trans. Program. Lang. Syst.>,
         15(4):575--631, 1993.
 
-        <bibitem*|3><label|bib-abstracttypes>P.<nbsp>Cousot. <newblock>Types
-        as abstract interpretations. <newblock>pages 316--331, 1997.
+        <bibitem*|3><label|bib-c3dylan>K.<nbsp>Barrett, B.<nbsp>Cassels,
+        P.<nbsp>Haahr, D.A. Moon, K.<nbsp>Playford, and P.T. Withington.
+        <newblock>A monotonic superclass linearization for Dylan.
+        <newblock>pages 69--82, 1996.
 
-        <bibitem*|4><label|bib-alex>C.<nbsp>Dornan, I.<nbsp>Jones, and
+        <bibitem*|4><label|bib-abstracttypes>P.<nbsp>Cousot. <newblock>Types
+        as abstract interpretations. <newblock>In
+        <with|font-shape|italic|Proceedings of the 24th ACM SIGPLAN-SIGACT
+        symposium on Principles of programming languages>, pages 316--331.
+        ACM, 1997.
+
+        <bibitem*|5><label|bib-alex>C.<nbsp>Dornan, I.<nbsp>Jones, and
         S.<nbsp>Marlow. <newblock>Alex: A lexical analyser generator for
         Haskell. <newblock><with|font-shape|italic|University of Glasgow>,
         1995.
 
-        <bibitem*|5><label|bib-scalastructural>G.<nbsp>Dubochet and
+        <bibitem*|6><label|bib-scalastructural>G.<nbsp>Dubochet and
         M.<nbsp>Odersky. <newblock>Compiling structural types on the JVM: a
         comparison of reflective and generative techniques from Scala's
-        perspective. <newblock>pages 34--41, 2009.
+        perspective. <newblock>In <with|font-shape|italic|Proceedings of the
+        4th workshop on the Implementation, Compilation, Optimization of
+        Object-Oriented Languages and Programming Systems>, pages 34--41.
+        ACM, 2009.
 
-        <bibitem*|6><label|bib-isoopinference>J.<nbsp>Eifrig, S.<nbsp>Smith,
+        <bibitem*|7><label|bib-isoopinference>J.<nbsp>Eifrig, S.<nbsp>Smith,
         and V.<nbsp>Trifonov. <newblock>Sound polymorphic type inference for
         objects. <newblock><with|font-shape|italic|ACM SIGPLAN Notices>,
         30(10):169--184, 1995.
 
-        <bibitem*|7><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
+        <bibitem*|8><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
         Valery Trifonov. <newblock>Type Inference for Recursively Constrained
         Types and its Application to OOP.
         <newblock><with|font-shape|italic|Electronic Notes in Theoretical
@@ -3543,120 +3755,139 @@
         Mathematical Foundations of Programming Semantics, Eleventh Annual
         Conference.
 
-        <bibitem*|8><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
+        <bibitem*|9><label|bib-decidablesub>Alexandre Frey.
+        <newblock>Satisfying subtype inequalities in polynomial space.
+        <newblock><with|font-shape|italic|Static Analysis>, 1302:265--277,
+        1997. <newblock>10.1007/BFb0032747.
+
+        <bibitem*|10><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
         <newblock>Whiteoak: introducing structural typing into java.
         <newblock><with|font-shape|italic|ACM SIGPLAN Notices>,
         43(10):73--90, 2008.
 
-        <bibitem*|9><label|bib-happy>A.<nbsp>Gill and S.<nbsp>Marlow.
+        <bibitem*|11><label|bib-happy>A.<nbsp>Gill and S.<nbsp>Marlow.
         <newblock>Happy: The parser generator for Haskell.
         <newblock><with|font-shape|italic|University of Glasgow>, 1995.
 
-        <bibitem*|10><label|bib-arrows>J.<nbsp>Hughes. <newblock>Generalising
+        <bibitem*|12><label|bib-arrows>J.<nbsp>Hughes. <newblock>Generalising
         monads to arrows. <newblock><with|font-shape|italic|Science of
         computer programming>, 37(1-3):67--111, 2000.
 
-        <bibitem*|11><label|bib-imperativefunc>S.L.P. Jones and
+        <bibitem*|13><label|bib-imperativefunc>S.L.P. Jones and
         P.<nbsp>Wadler. <newblock>Imperative functional programming.
         <newblock>1993.
 
-        <bibitem*|12><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
+        <bibitem*|14><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
         S.<nbsp>Weirich, and M.<nbsp>Shields. <newblock>Practical type
         inference for arbitrary-rank types.
         <newblock><with|font-shape|italic|Journal of Functional Programming>,
         17(01):1--82, 2007.
 
-        <bibitem*|13><label|bib-kaesinference>Stefan Kaes. <newblock>Type
+        <bibitem*|15><label|bib-kaesinference>Stefan Kaes. <newblock>Type
         inference in the presence of overloading, subtyping and recursive
-        types. <newblock>pages 193--204, 1992.
+        types. <newblock>In <with|font-shape|italic|LFP '92: Proceedings of
+        the 1992 ACM conference on LISP and functional programming>, pages
+        193--204, New York, NY, USA, 1992. ACM.
 
-        <bibitem*|14><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
+        <bibitem*|16><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
         Michael<nbsp>I. Schwartzbach. <newblock>Efficient recursive
-        subtyping. <newblock>pages 419--428, 1993.
+        subtyping. <newblock>In <with|font-shape|italic|POPL '93: Proceedings
+        of the 20th ACM SIGPLAN-SIGACT symposium on Principles of programming
+        languages>, pages 419--428, New York, NY, USA, 1993. ACM.
 
-        <bibitem*|15><label|bib-llvm>Chris Lattner and Vikram Adve.
+        <bibitem*|17><label|bib-llvm>Chris Lattner and Vikram Adve.
         <newblock>LLVM: A Compilation Framework for Lifelong Program Analysis
-        & Transformation. <newblock>Mar 2004.
+        & Transformation. <newblock>In <with|font-shape|italic|Proceedings of
+        the 2004 International Symposium on Code Generation and Optimization
+        (CGO'04)>, Palo Alto, California, Mar 2004.
 
-        <bibitem*|16><label|bib-leroypoly>X.<nbsp>Leroy.
+        <bibitem*|18><label|bib-leroypoly>X.<nbsp>Leroy.
         <newblock>Polymorphism by name for references and continuations.
         <newblock>In <with|font-shape|italic|Proceedings of the 20th ACM
         SIGPLAN-SIGACT Symposium on Principles of Programming Languages>,
         pages 220--231. ACM, 1993.
 
-        <bibitem*|17><label|bib-unitynomstruct>D.<nbsp>Malayeri and
+        <bibitem*|19><label|bib-unitynomstruct>D.<nbsp>Malayeri and
         J.<nbsp>Aldrich. <newblock>Integrating nominal and structural
         subtyping. <newblock><with|font-shape|italic|ECOOP
         2008--Object-Oriented Programming>, pages 260--284, 2008.
 
-        <bibitem*|18><label|bib-moggimonads>E.<nbsp>Moggi and University
+        <bibitem*|20><label|bib-moggimonads>E.<nbsp>Moggi and University
         of<nbsp>Edinburgh. Laboratory for Foundation<nbsp>of
         Computer<nbsp>Science. <newblock><with|font-shape|italic|An abstract
         view of programming languages>. <newblock>University of Edinburgh,
         Laboratory for Foundation of Computer Science, 1990.
 
-        <bibitem*|19><label|bib-regulartypes>P.<nbsp>Morris,
+        <bibitem*|21><label|bib-regulartypes>P.<nbsp>Morris,
         T.<nbsp>Altenkirch, and C.<nbsp>McBride. <newblock>Exploring the
         regular tree types. <newblock><with|font-shape|italic|Types for
         Proofs and Programs>, pages 252--267, 2006.
 
-        <bibitem*|20><label|bib-constrainedtypes>J.<nbsp>Palsberg and
+        <bibitem*|22><label|bib-constrainedtypes>J.<nbsp>Palsberg and
         S.<nbsp>Smith. <newblock>Constrained types and their expressiveness.
         <newblock><with|font-shape|italic|ACM Transactions on Programming
         Languages and Systems (TOPLAS)>, 18(5):519--527, 1996.
 
-        <bibitem*|21><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
+        <bibitem*|23><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
         <newblock>A type system equivalent to flow analysis.
         <newblock><with|font-shape|italic|ACM Trans. Program. Lang. Syst.>,
         17(4):576--599, 1995.
 
-        <bibitem*|22><label|bib-arrowcomp>R.<nbsp>Paterson. <newblock>Arrows
+        <bibitem*|24><label|bib-arrowcomp>R.<nbsp>Paterson. <newblock>Arrows
         and computation. <newblock><with|font-shape|italic|The Fun of
         Programming>, pages 201--222, 2003.
 
-        <bibitem*|23><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
+        <bibitem*|25><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
         S.<nbsp>Marlow, and C.<nbsp>Elliott. <newblock>Stretching the storage
         manager: weak pointers and stable names in Haskell.
         <newblock><with|font-shape|italic|Implementation of Functional
         Languages>, pages 37--58, 2000.
 
-        <bibitem*|24><label|bib-pottiersimplifying>F.<nbsp>Pottier.
+        <bibitem*|26><label|bib-pottiersimplifying>F.<nbsp>Pottier.
         <newblock>Simplifying subtyping constraints. <newblock>In
         <with|font-shape|italic|Proceedings of the first ACM SIGPLAN
         international conference on Functional programming>, pages 122--133.
         ACM, 1996.
 
-        <bibitem*|25><label|bib-pottierphd>François Pottier. <newblock>Type
+        <bibitem*|27><label|bib-pottierphd>François Pottier. <newblock>Type
         inference in the presence of subtyping: from theory to practice.
-        <newblock>Research Report RR-3483, INRIA, 1998.
+        <newblock>PhD Thesis, INRIA, 1998.
 
-        <bibitem*|26><label|bib-pottierframework>François Pottier.
+        <bibitem*|28><label|bib-pottierframework>François Pottier.
         <newblock>A framework for type inference with subtyping.
         <newblock><with|font-shape|italic|SIGPLAN Not.>, 34(1):228--238,
         1999.
 
-        <bibitem*|27><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
-        <newblock>QML: explicit first-class polymorphism for ML.
-        <newblock>pages 3--14, 2009.
+        <bibitem*|29><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
+        <newblock>QML: explicit first-class polymorphism for ML. <newblock>In
+        <with|font-shape|italic|Proceedings of the 2009 ACM SIGPLAN workshop
+        on ML>, pages 3--14. ACM, 2009.
 
-        <bibitem*|28><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
+        <bibitem*|30><label|bib-sparsetables>R.E. Tarjan and A.C.C. Yao.
+        <newblock>Storing a sparse table.
+        <newblock><with|font-shape|italic|Communications of the ACM>,
+        22(11):606--611, 1979.
+
+        <bibitem*|31><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
         inference for polymorphic references.
         <newblock><with|font-shape|italic|Information and computation>,
         89(1):1--34, 1990.
 
-        <bibitem*|29><label|bib-subconst>Valery Trifonov and Scott Smith.
-        <newblock>Subtyping constrained types. <newblock>1145:349--365, 1996.
-        <newblock>10.1007/3-540-61739-6<rsub|5>2.
+        <bibitem*|32><label|bib-subconst>Valery Trifonov and Scott Smith.
+        <newblock>Subtyping constrained types.
+        <newblock><with|font-shape|italic|Static Analysis>, 1145:349--365,
+        1996.
 
-        <bibitem*|30><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
+        <bibitem*|33><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
         for functional programming. <newblock><with|font-shape|italic|Advanced
         Functional Programming>, pages 24--52, 1995.
 
-        <bibitem*|31><label|bib-valuerestriction>A.K. Wright.
+        <bibitem*|34><label|bib-valuerestriction>A.K. Wright.
         <newblock>Polymorphism for imperative languages without imperative
-        types. <newblock>1993.
+        types. <newblock>Technical report, Rice University Dept. of Computer
+        Science, 1993.
 
-        <bibitem*|32><label|bib-valuerestriction2>A.K. Wright.
+        <bibitem*|35><label|bib-valuerestriction2>A.K. Wright.
         <newblock>Simple imperative polymorphism.
         <newblock><with|font-shape|italic|Lisp and symbolic computation>,
         8(4):343--355, 1995.
@@ -3683,112 +3914,131 @@
     <associate|auto-10|<tuple|1.3.1|9>>
     <associate|auto-11|<tuple|1.3.2|10>>
     <associate|auto-12|<tuple|1.3.3|10>>
-    <associate|auto-13|<tuple|1.4|11>>
-    <associate|auto-14|<tuple|2|13>>
-    <associate|auto-15|<tuple|2.1|13>>
-    <associate|auto-16|<tuple|2.1.1|14>>
-    <associate|auto-17|<tuple|2.2|14>>
-    <associate|auto-18|<tuple|2.2.1|15>>
-    <associate|auto-19|<tuple|2.2.2|15>>
+    <associate|auto-13|<tuple|1.3.4|11>>
+    <associate|auto-14|<tuple|1.4|11>>
+    <associate|auto-15|<tuple|2|13>>
+    <associate|auto-16|<tuple|2.1|13>>
+    <associate|auto-17|<tuple|2.1.1|14>>
+    <associate|auto-18|<tuple|2.2|14>>
+    <associate|auto-19|<tuple|2.2.1|15>>
     <associate|auto-2|<tuple|1|7>>
-    <associate|auto-20|<tuple|2.3|16>>
-    <associate|auto-21|<tuple|2.3.1|16>>
-    <associate|auto-22|<tuple|2.3.2|17>>
-    <associate|auto-23|<tuple|2.4|17>>
-    <associate|auto-24|<tuple|2.5|17>>
-    <associate|auto-25|<tuple|2.5.1|18>>
-    <associate|auto-26|<tuple|2.6|19>>
-    <associate|auto-27|<tuple|3|21>>
-    <associate|auto-28|<tuple|3.1|21>>
-    <associate|auto-29|<tuple|3.2|21>>
+    <associate|auto-20|<tuple|2.2.2|15>>
+    <associate|auto-21|<tuple|2.3|16>>
+    <associate|auto-22|<tuple|2.3.1|16>>
+    <associate|auto-23|<tuple|2.3.2|17>>
+    <associate|auto-24|<tuple|2.4|17>>
+    <associate|auto-25|<tuple|2.5|17>>
+    <associate|auto-26|<tuple|2.5.1|18>>
+    <associate|auto-27|<tuple|2.6|19>>
+    <associate|auto-28|<tuple|3|21>>
+    <associate|auto-29|<tuple|3.1|21>>
     <associate|auto-3|<tuple|1.1|7>>
-    <associate|auto-30|<tuple|3.3|22>>
-    <associate|auto-31|<tuple|3.3.1|23>>
-    <associate|auto-32|<tuple|3.3.2|23>>
-    <associate|auto-33|<tuple|3.4|24>>
-    <associate|auto-34|<tuple|3.4.1|24>>
-    <associate|auto-35|<tuple|3.5|24>>
-    <associate|auto-36|<tuple|3.6|25>>
-    <associate|auto-37|<tuple|3.6.1|26>>
-    <associate|auto-38|<tuple|3.6.2|27>>
-    <associate|auto-39|<tuple|3.7|28>>
+    <associate|auto-30|<tuple|3.2|21>>
+    <associate|auto-31|<tuple|3.3|22>>
+    <associate|auto-32|<tuple|3.3.1|22>>
+    <associate|auto-33|<tuple|3.3.2|23>>
+    <associate|auto-34|<tuple|3.4|23>>
+    <associate|auto-35|<tuple|3.4.1|24>>
+    <associate|auto-36|<tuple|3.5|24>>
+    <associate|auto-37|<tuple|3.6|24>>
+    <associate|auto-38|<tuple|3.6.1|25>>
+    <associate|auto-39|<tuple|3.6.2|26>>
     <associate|auto-4|<tuple|1.1.1|7>>
-    <associate|auto-40|<tuple|3.7.1|28>>
-    <associate|auto-41|<tuple|3.7.2|29>>
-    <associate|auto-42|<tuple|3.8|31>>
-    <associate|auto-43|<tuple|4|31>>
-    <associate|auto-44|<tuple|4.1|31>>
-    <associate|auto-45|<tuple|4.1.1|32>>
-    <associate|auto-46|<tuple|4.2|33>>
-    <associate|auto-47|<tuple|4.2.1|34>>
-    <associate|auto-48|<tuple|4.2.2|35>>
-    <associate|auto-49|<tuple|4.2.3|35>>
+    <associate|auto-40|<tuple|3.7|27>>
+    <associate|auto-41|<tuple|3.7.1|28>>
+    <associate|auto-42|<tuple|3.7.2|28>>
+    <associate|auto-43|<tuple|3.8|29>>
+    <associate|auto-44|<tuple|4|31>>
+    <associate|auto-45|<tuple|4.1|31>>
+    <associate|auto-46|<tuple|4.1.1|31>>
+    <associate|auto-47|<tuple|4.2|32>>
+    <associate|auto-48|<tuple|4.2.1|32>>
+    <associate|auto-49|<tuple|4.3|33>>
     <associate|auto-5|<tuple|1.1.2|8>>
-    <associate|auto-50|<tuple|4.2.4|37>>
-    <associate|auto-51|<tuple|4.2.4.1|39>>
-    <associate|auto-52|<tuple|5|39>>
-    <associate|auto-53|<tuple|5.1|39>>
-    <associate|auto-54|<tuple|5.1.1|39>>
-    <associate|auto-55|<tuple|5.1.2|41>>
-    <associate|auto-56|<tuple|5.2|41>>
-    <associate|auto-57|<tuple|5.3|41>>
-    <associate|auto-58|<tuple|5.3.1|43>>
-    <associate|auto-59|<tuple|6|43>>
+    <associate|auto-50|<tuple|4.3.1|33>>
+    <associate|auto-51|<tuple|4.3.2|33>>
+    <associate|auto-52|<tuple|4.3.3|33>>
+    <associate|auto-53|<tuple|4.4|34>>
+    <associate|auto-54|<tuple|4.4.1|34>>
+    <associate|auto-55|<tuple|4.5|35>>
+    <associate|auto-56|<tuple|4.5.1|35>>
+    <associate|auto-57|<tuple|4.5.2|36>>
+    <associate|auto-58|<tuple|4.5.3|37>>
+    <associate|auto-59|<tuple|4.5.4|38>>
     <associate|auto-6|<tuple|1.1.3|8>>
-    <associate|auto-60|<tuple|6.1|43>>
-    <associate|auto-61|<tuple|6.2|44>>
-    <associate|auto-62|<tuple|6.3|44>>
-    <associate|auto-63|<tuple|6.4|47>>
-    <associate|auto-64|<tuple|7|47>>
-    <associate|auto-65|<tuple|7.1|47>>
-    <associate|auto-66|<tuple|7.2|48>>
-    <associate|auto-67|<tuple|7.2.1|49>>
-    <associate|auto-68|<tuple|7.2.2|49>>
-    <associate|auto-69|<tuple|7.2.3|50>>
+    <associate|auto-60|<tuple|5|39>>
+    <associate|auto-61|<tuple|5.1|39>>
+    <associate|auto-62|<tuple|5.1.1|39>>
+    <associate|auto-63|<tuple|5.1.2|39>>
+    <associate|auto-64|<tuple|5.2|41>>
+    <associate|auto-65|<tuple|5.3|41>>
+    <associate|auto-66|<tuple|5.3.1|41>>
+    <associate|auto-67|<tuple|6|43>>
+    <associate|auto-68|<tuple|6.1|43>>
+    <associate|auto-69|<tuple|6.2|43>>
     <associate|auto-7|<tuple|1.1.4|8>>
-    <associate|auto-70|<tuple|7.3|50>>
-    <associate|auto-71|<tuple|7.4|51>>
-    <associate|auto-72|<tuple|7.5|53>>
-    <associate|auto-73|<tuple|8|55>>
-    <associate|auto-74|<tuple|A|57>>
-    <associate|auto-75|<tuple|B|59>>
-    <associate|auto-76|<tuple|B|?>>
-    <associate|auto-77|<tuple|B|?>>
+    <associate|auto-70|<tuple|6.3|44>>
+    <associate|auto-71|<tuple|6.4|44>>
+    <associate|auto-72|<tuple|7|47>>
+    <associate|auto-73|<tuple|7.1|47>>
+    <associate|auto-74|<tuple|7.2|47>>
+    <associate|auto-75|<tuple|7.2.1|48>>
+    <associate|auto-76|<tuple|7.2.2|49>>
+    <associate|auto-77|<tuple|7.2.3|49>>
+    <associate|auto-78|<tuple|7.3|50>>
+    <associate|auto-79|<tuple|7.4|51>>
     <associate|auto-8|<tuple|1.2|9>>
+    <associate|auto-80|<tuple|7.5|51>>
+    <associate|auto-81|<tuple|7.6|52>>
+    <associate|auto-82|<tuple|8|55>>
+    <associate|auto-83|<tuple|8.1|55>>
+    <associate|auto-84|<tuple|8.2|55>>
+    <associate|auto-85|<tuple|A|57>>
+    <associate|auto-86|<tuple|B|59>>
+    <associate|auto-87|<tuple|B|61>>
+    <associate|auto-88|<tuple|B|?>>
     <associate|auto-9|<tuple|1.3|9>>
-    <associate|bib-abstracttypes|<tuple|3|59>>
-    <associate|bib-alex|<tuple|4|59>>
-    <associate|bib-arrowcomp|<tuple|22|?>>
-    <associate|bib-arrows|<tuple|10|?>>
-    <associate|bib-constrainedtypes|<tuple|20|59>>
-    <associate|bib-flowtypes|<tuple|21|59>>
-    <associate|bib-happy|<tuple|9|59>>
-    <associate|bib-haskellweak|<tuple|23|59>>
-    <associate|bib-hopcroftmin|<tuple|1|59>>
-    <associate|bib-imperativefunc|<tuple|11|59>>
-    <associate|bib-isoopinference|<tuple|6|59>>
-    <associate|bib-kaesinference|<tuple|13|59>>
-    <associate|bib-leroypoly|<tuple|16|59>>
-    <associate|bib-llvm|<tuple|15|59>>
-    <associate|bib-moggimonads|<tuple|18|59>>
+    <associate|bib-abstracttypes|<tuple|4|61>>
+    <associate|bib-alex|<tuple|5|61>>
+    <associate|bib-arrowcomp|<tuple|24|61>>
+    <associate|bib-arrows|<tuple|12|61>>
+    <associate|bib-c3dylan|<tuple|3|?>>
+    <associate|bib-constrainedtypes|<tuple|22|61>>
+    <associate|bib-decidablesub|<tuple|9|61>>
+    <associate|bib-flowtypes|<tuple|23|61>>
+    <associate|bib-happy|<tuple|11|61>>
+    <associate|bib-haskellweak|<tuple|25|61>>
+    <associate|bib-hopcroftmin|<tuple|1|61>>
+    <associate|bib-imperativefunc|<tuple|13|61>>
+    <associate|bib-isoopinference|<tuple|7|61>>
+    <associate|bib-kaesinference|<tuple|15|61>>
+    <associate|bib-leroypoly|<tuple|18|61>>
+    <associate|bib-llvm|<tuple|17|61>>
+    <associate|bib-moggimonads|<tuple|20|61>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|7|59>>
-    <associate|bib-pottierframework|<tuple|26|59>>
-    <associate|bib-pottierphd|<tuple|25|59>>
-    <associate|bib-pottiersimplifying|<tuple|24|59>>
-    <associate|bib-ranknhaskell|<tuple|12|59>>
-    <associate|bib-ranknml|<tuple|27|59>>
-    <associate|bib-regulartypes|<tuple|19|59>>
-    <associate|bib-scalastructural|<tuple|5|59>>
-    <associate|bib-subconst|<tuple|29|60>>
-    <associate|bib-subrec|<tuple|2|59>>
-    <associate|bib-subrecfast|<tuple|14|59>>
-    <associate|bib-toftepoly|<tuple|28|60>>
-    <associate|bib-unitynomstruct|<tuple|17|59>>
-    <associate|bib-valuerestriction|<tuple|31|60>>
-    <associate|bib-valuerestriction2|<tuple|32|60>>
-    <associate|bib-wadlermonads|<tuple|30|60>>
-    <associate|bib-whiteoak|<tuple|8|59>>
+    <associate|bib-ooprectypes|<tuple|8|61>>
+    <associate|bib-pottierframework|<tuple|28|62>>
+    <associate|bib-pottierphd|<tuple|27|62>>
+    <associate|bib-pottiersimplifying|<tuple|26|61>>
+    <associate|bib-ranknhaskell|<tuple|14|61>>
+    <associate|bib-ranknml|<tuple|29|62>>
+    <associate|bib-regulartypes|<tuple|21|61>>
+    <associate|bib-scalastructural|<tuple|6|61>>
+    <associate|bib-sparsetables|<tuple|30|62>>
+    <associate|bib-subconst|<tuple|32|62>>
+    <associate|bib-subrec|<tuple|2|61>>
+    <associate|bib-subrecfast|<tuple|16|61>>
+    <associate|bib-toftepoly|<tuple|31|62>>
+    <associate|bib-unitynomstruct|<tuple|19|61>>
+    <associate|bib-valuerestriction|<tuple|34|62>>
+    <associate|bib-valuerestriction2|<tuple|35|62>>
+    <associate|bib-wadlermonads|<tuple|33|62>>
+    <associate|bib-whiteoak|<tuple|10|61>>
+    <associate|chapsemantics|<tuple|4|?>>
+    <associate|classes|<tuple|4.3|?>>
+    <associate|closure|<tuple|2.6|?>>
+    <associate|constructorlattice|<tuple|2.5.1|?>>
+    <associate|display|<tuple|3.8|?>>
     <associate|footnote-1|<tuple|1|2>>
     <associate|footnote-1.1|<tuple|1.1|8>>
     <associate|footnote-1.2|<tuple|1.2|?>>
@@ -3817,11 +4067,11 @@
     <associate|footnote-3.3|<tuple|3.3|?>>
     <associate|footnote-3.4|<tuple|3.4|?>>
     <associate|footnote-4|<tuple|4|8>>
-    <associate|footnote-4.1|<tuple|4.1|31>>
-    <associate|footnote-4.2|<tuple|4.2|31>>
-    <associate|footnote-4.3|<tuple|4.3|32>>
-    <associate|footnote-4.4|<tuple|4.4|35>>
-    <associate|footnote-4.5|<tuple|4.5|36>>
+    <associate|footnote-4.1|<tuple|4.1|32>>
+    <associate|footnote-4.2|<tuple|4.2|34>>
+    <associate|footnote-4.3|<tuple|4.3|34>>
+    <associate|footnote-4.4|<tuple|4.4|36>>
+    <associate|footnote-4.5|<tuple|4.5|38>>
     <associate|footnote-4.6|<tuple|4.6|37>>
     <associate|footnote-5|<tuple|5|9>>
     <associate|footnote-5.1|<tuple|5.1|39>>
@@ -3870,11 +4120,11 @@
     <associate|footnr-3.3|<tuple|3.3|?>>
     <associate|footnr-3.4|<tuple|3.4|?>>
     <associate|footnr-4|<tuple|4|8>>
-    <associate|footnr-4.1|<tuple|4.1|31>>
-    <associate|footnr-4.2|<tuple|4.2|31>>
-    <associate|footnr-4.3|<tuple|4.3|32>>
-    <associate|footnr-4.4|<tuple|4.4|35>>
-    <associate|footnr-4.5|<tuple|4.5|36>>
+    <associate|footnr-4.1|<tuple|4.1|32>>
+    <associate|footnr-4.2|<tuple|4.2|34>>
+    <associate|footnr-4.3|<tuple|4.3|34>>
+    <associate|footnr-4.4|<tuple|4.4|36>>
+    <associate|footnr-4.5|<tuple|4.5|38>>
     <associate|footnr-4.6|<tuple|4.6|37>>
     <associate|footnr-5|<tuple|5|9>>
     <associate|footnr-5.1|<tuple|5.1|39>>
@@ -3895,12 +4145,24 @@
     <associate|footnr-8.2|<tuple|8.2|46>>
     <associate|footnr-8.3|<tuple|8.3|46>>
     <associate|footnr-9|<tuple|9|16>>
+    <associate|generalised|<tuple|4.4|?>>
+    <associate|grammar|<tuple|A|?>>
+    <associate|minimisation|<tuple|3.6.2|?>>
+    <associate|mutability|<tuple|4.1.1|?>>
+    <associate|nomstruct|<tuple|4.5|?>>
+    <associate|objectlattice|<tuple|4.5.3|?>>
   </collection>
 </references>
 
 <\auxiliary>
   <\collection>
     <\associate|bib>
+      whiteoak
+
+      scalastructural
+
+      unitynomstruct
+
       subrec
 
       subrecfast
@@ -3955,6 +4217,14 @@
 
       pottierphd
 
+      subconst
+
+      pottierphd
+
+      subconst
+
+      pottierphd
+
       pottierphd
 
       pottierframework
@@ -3989,13 +4259,19 @@
 
       pottierphd
 
+      subconst
+
+      pottierphd
+
       pottierphd
 
       subrecfast
 
       pottierphd
 
-      subconst
+      decidablesub
+
+      c3dylan
 
       ranknml
 
@@ -4013,14 +4289,6 @@
 
       valuerestriction2
 
-      whiteoak
-
-      scalastructural
-
-      unitynomstruct
-
-      pottierphd
-
       wadlermonads
 
       moggimonads
@@ -4036,6 +4304,8 @@
       arrowcomp
 
       arrows
+
+      sparsetables
 
       abstracttypes
     </associate>
@@ -4082,257 +4352,302 @@
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-11>>
 
-      <with|par-left|<quote|1.5fn>|1.3.3<space|2spc>The type system and
-      inference engine <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <with|par-left|<quote|1.5fn>|1.3.3<space|2spc>Integrating nominative
+      and structural typing <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-12>>
+
+      <with|par-left|<quote|1.5fn>|1.3.4<space|2spc>The type system and
+      inference engine <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-13>>
 
       1.4<space|2spc>Language implementation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-13>
+      <no-break><pageref|auto-14>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>Type
       inference as constraint solving> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-14><vspace|0.5fn>
+      <no-break><pageref|auto-15><vspace|0.5fn>
 
       2.1<space|2spc>Constructors and Variance
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-15>
+      <no-break><pageref|auto-16>
 
       <with|par-left|<quote|1.5fn>|2.1.1<space|2spc><with|mode|<quote|math>|\<top\>>
       and <with|mode|<quote|math>|\<bot\>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-16>>
+      <no-break><pageref|auto-17>>
 
       2.2<space|2spc>Ground types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-17>
+      <no-break><pageref|auto-18>
 
       <with|par-left|<quote|1.5fn>|2.2.1<space|2spc>Equirecursive and
       isorecursive data types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-18>>
+      <no-break><pageref|auto-19>>
 
       <with|par-left|<quote|1.5fn>|2.2.2<space|2spc>Subtyping between ground
       types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-19>>
+      <no-break><pageref|auto-20>>
 
       2.3<space|2spc>rc types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-20>
+      <no-break><pageref|auto-21>
 
       <with|par-left|<quote|1.5fn>|2.3.1<space|2spc>Denotation of an rc type
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-21>>
+      <no-break><pageref|auto-22>>
 
       <with|par-left|<quote|1.5fn>|2.3.2<space|2spc>Subsumption
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-22>>
+      <no-break><pageref|auto-23>>
 
       2.4<space|2spc>Constraints and well-typedness
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-23>
+      <no-break><pageref|auto-24>
 
       2.5<space|2spc>Structural decomposition
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-24>
+      <no-break><pageref|auto-25>
 
       <with|par-left|<quote|1.5fn>|2.5.1<space|2spc>Formal definition of
       constructor lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-25>>
+      <no-break><pageref|auto-26>>
 
       2.6<space|2spc>Closure <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-26>
+      <no-break><pageref|auto-27>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>The
       type inference engine> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-27><vspace|0.5fn>
+      <no-break><pageref|auto-28><vspace|0.5fn>
 
       3.1<space|2spc>The small terms invariant
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-28>
-
-      3.2<space|2spc>Merging constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-29>
 
-      3.3<space|2spc>The mono-polarity invariant
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      3.2<space|2spc>Merging constraints <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-30>
 
-      3.4<space|2spc>Garbage collection <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      3.3<space|2spc>The mono-polarity invariant and garbage collection
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-31>
 
-      3.5<space|2spc>Representing the constraint set
+      <with|par-left|<quote|1.5fn>|3.3.1<space|2spc>Small constructed types
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-32>
+      <no-break><pageref|auto-32>>
 
-      <with|par-left|<quote|1.5fn>|3.5.1<space|2spc>Implementation detail
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <with|par-left|<quote|1.5fn>|3.3.2<space|2spc>Garbage collection of
+      constraint sets <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-33>>
 
-      3.6<space|2spc>The incremental closure algorithm
+      3.4<space|2spc>Representing the constraint set
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-34>
 
-      3.7<space|2spc>Type simplification and optimisation
+      <with|par-left|<quote|1.5fn>|3.4.1<space|2spc>Implementation detail
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-35>
+      <no-break><pageref|auto-35>>
 
-      <with|par-left|<quote|1.5fn>|3.7.1<space|2spc>Canonisation
+      3.5<space|2spc>The incremental closure algorithm
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-36>>
+      <no-break><pageref|auto-36>
 
-      <with|par-left|<quote|1.5fn>|3.7.2<space|2spc>Minimisation
+      3.6<space|2spc>Type simplification and optimisation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-37>>
+      <no-break><pageref|auto-37>
 
-      3.8<space|2spc>rc type subsumption <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-38>
+      <with|par-left|<quote|1.5fn>|3.6.1<space|2spc>Canonisation
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-38>>
 
-      <with|par-left|<quote|1.5fn>|3.8.1<space|2spc>Entailment
+      <with|par-left|<quote|1.5fn>|3.6.2<space|2spc>Minimisation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-39>>
 
-      <with|par-left|<quote|1.5fn>|3.8.2<space|2spc>Subsumption
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-40>>
+      3.7<space|2spc>rc type subsumption <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-40>
 
-      3.9<space|2spc>Display <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-41>
-
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>...
-      (objects, nom/struct, constraintgen)>
+      <with|par-left|<quote|1.5fn>|3.7.1<space|2spc>Subsumption
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-42><vspace|0.5fn>
+      <no-break><pageref|auto-41>>
 
-      4.1<space|2spc>Generalised and ungeneralised bindings
+      <with|par-left|<quote|1.5fn>|3.7.2<space|2spc>Entailment
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-42>>
+
+      3.8<space|2spc>Display <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-43>
 
-      <with|par-left|<quote|1.5fn>|4.1.1<space|2spc>The value restriction
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-44>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Semantics
+      and object model> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-44><vspace|0.5fn>
 
-      4.2<space|2spc>Optional type annotations
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      4.1<space|2spc>Structures <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-45>
 
-      <with|par-left|<quote|1.5fn>|4.2.1<space|2spc>Checking type annotations
+      <with|par-left|<quote|1.5fn>|4.1.1<space|2spc>Mutability and typing
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-46>>
 
-      <with|par-left|<quote|1.5fn>|4.2.2<space|2spc>A potential problem
+      4.2<space|2spc>Optional type annotations
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-47>>
+      <no-break><pageref|auto-47>
 
-      <with|par-left|<quote|1.5fn>|4.2.3<space|2spc>Classes (partial
-      description) <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <with|par-left|<quote|1.5fn>|4.2.1<space|2spc>Checking type annotations
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-48>>
 
-      <with|par-left|<quote|1.5fn>|4.2.4<space|2spc>The object constructor
-      lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-49>>
+      4.3<space|2spc>Classes <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-49>
 
-      <with|par-left|<quote|3fn>|4.2.4.1<space|2spc>Mutability
+      <with|par-left|<quote|1.5fn>|4.3.1<space|2spc>Class members
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-50>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Implementation
-      tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-51><vspace|0.5fn>
-
-      5.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-52>
-
-      <with|par-left|<quote|1.5fn>|5.1.1<space|2spc>Laziness
+      <with|par-left|<quote|1.5fn>|4.3.2<space|2spc>Constructors
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-53>>
+      <no-break><pageref|auto-51>>
 
-      <with|par-left|<quote|1.5fn>|5.1.2<space|2spc>Monads
+      <with|par-left|<quote|1.5fn>|4.3.3<space|2spc>Future work
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-52>>
+
+      4.4<space|2spc>Generalised and ungeneralised bindings
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-53>
+
+      <with|par-left|<quote|1.5fn>|4.4.1<space|2spc>The value restriction
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-54>>
 
-      5.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      4.5<space|2spc>Integration of nominative and structural typing
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-55>
 
-      5.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-56>
+      <with|par-left|<quote|1.5fn>|4.5.1<space|2spc>A potential problem
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-56>>
 
-      <with|par-left|<quote|1.5fn>|5.3.1<space|2spc>LLVM IR
+      <with|par-left|<quote|1.5fn>|4.5.2<space|2spc>Formal model of classes
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-57>>
 
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Extending
-      an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-58><vspace|0.5fn>
+      <with|par-left|<quote|1.5fn>|4.5.3<space|2spc>The object constructor
+      lattice <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-58>>
 
-      6.1<space|2spc>Meta-circular interpreters
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-59>
+      <with|par-left|<quote|1.5fn>|4.5.4<space|2spc>Interface intersection
+      types <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-59>>
 
-      6.2<space|2spc>Monadic interpreters
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-60>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|5<space|2spc>Implementation
+      tools> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-60><vspace|0.5fn>
 
-      6.3<space|2spc>Generalising <with|font-family|<quote|tt>|math-font-family|<quote|ttt>|eval>
-      further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      5.1<space|2spc>Haskell <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-61>
 
-      6.4<space|2spc>Generalising <with|font-family|<quote|tt>|math-font-family|<quote|ttt>|eval>
-      even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-62>
-
-      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|2spc>A
-      compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-63><vspace|0.5fn>
-
-      7.1<space|2spc>A code generation monad
+      <with|par-left|<quote|1.5fn>|5.1.1<space|2spc>Laziness
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-62>>
+
+      <with|par-left|<quote|1.5fn>|5.1.2<space|2spc>Monads
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-63>>
+
+      5.2<space|2spc>Happy and Alex <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-64>
 
-      7.2<space|2spc>Representing flow control
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      5.3<space|2spc>LLVM <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-65>
 
-      <with|par-left|<quote|1.5fn>|7.2.1<space|2spc>Coalescing
+      <with|par-left|<quote|1.5fn>|5.3.1<space|2spc>LLVM IR
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-66>>
 
-      <with|par-left|<quote|1.5fn>|7.2.2<space|2spc>Iteration
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-67>>
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|6<space|2spc>Extending
+      an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-67><vspace|0.5fn>
 
-      <with|par-left|<quote|1.5fn>|7.2.3<space|2spc>Aside: Arrows
+      6.1<space|2spc>Meta-circular interpreters
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-68>>
+      <no-break><pageref|auto-68>
 
-      7.3<space|2spc>Implementation of structures
+      6.2<space|2spc>Monadic interpreters
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-69>
 
+      6.3<space|2spc>Generalising <with|font-family|<quote|tt>|math-font-family|<quote|ttt>|eval>
+      further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-70>
+
+      6.4<space|2spc>Generalising <with|font-family|<quote|tt>|math-font-family|<quote|ttt>|eval>
+      even further <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-71>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|7<space|2spc>A
+      compiler from an interpreter> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-72><vspace|0.5fn>
+
+      7.1<space|2spc>A code generation monad
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-73>
+
+      7.2<space|2spc>Representing flow control
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-74>
+
+      <with|par-left|<quote|1.5fn>|7.2.1<space|2spc>Coalescing
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-75>>
+
+      <with|par-left|<quote|1.5fn>|7.2.2<space|2spc>Iteration
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-76>>
+
+      <with|par-left|<quote|1.5fn>|7.2.3<space|2spc>Aside: Arrows
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-77>>
+
+      7.3<space|2spc>Implementation of structures
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-78>
+
       7.4<space|2spc>Implementation of closures
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-70>
+      <no-break><pageref|auto-79>
 
       7.5<space|2spc>A typechecker from an interpreter
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-71>
+      <no-break><pageref|auto-80>
+
+      7.6<space|2spc>Primitive operations
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-81>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|8<space|2spc>Conclusions
       and future work> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-72><vspace|0.5fn>
+      <no-break><pageref|auto-82><vspace|0.5fn>
+
+      8.1<space|2spc>Current state of the implementation
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-83>
+
+      8.2<space|2spc>Future work <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-84>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       A<space|2spc>BNF grammar for the syntax of
       <with|font-shape|<quote|small-caps>|Brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-73><vspace|0.5fn>
+      <no-break><pageref|auto-85><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Appendix
       B<space|2spc>Detailed typing rules for
       <with|font-shape|<quote|small-caps>|Brick>>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-74><vspace|0.5fn>
+      <no-break><pageref|auto-86><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-75><vspace|0.5fn>
+      <no-break><pageref|auto-87><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
