@@ -24,7 +24,17 @@
   </macro>>
 
   <\abstract>
-    \;
+    We present <brick>, a new imperative programming language. <brick>
+    features static typing with full type inference, subtyping, and
+    object-oriented features. The type inference engine is based heavily on
+    previous work, but we present some new implementation techniques and a
+    novel method of integrating nominative classes with inference.
+
+    <brick> also has an interesting modular implementation which abstracts
+    over concepts like control flow and naming, removing redundancy present
+    in traditional langauge implementations. This enables a single
+    implementation to be re-used for interpretation, compilation and type
+    checking.
   </abstract>
 
   \;
@@ -86,12 +96,16 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-14>
 
-    <vspace*|2fn><with|font-series|bold|math-font-series|bold|font-size|1.19|I<space|2spc><\with|par-mode|center>
-      Language Design
+    <vspace*|2fn><\with|font-series|bold|math-font-series|bold|font-size|1.19>
+      <\with|par-mode|center>
+        Part I:
 
-      <with|font-shape|italic|<with|font-base-size|8|
-      \ \ <with|font-base-size|6|a sea of Greek letters>>>
-    </with>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+        Language Design
+
+        <with|font-shape|italic|<with|font-base-size|8|
+        \ \ <with|font-base-size|6|a sea of Greek letters>>>
+      </with>
+    </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-15><vspace|1fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|2<space|2spc>Type
@@ -266,12 +280,16 @@
     <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-60>>
 
-    <vspace*|2fn><with|font-series|bold|math-font-series|bold|font-size|1.19|II<space|2spc><\with|par-mode|center>
-      Language Implementation
+    <vspace*|2fn><\with|font-series|bold|math-font-series|bold|font-size|1.19>
+      <\with|par-mode|center>
+        Part II:
 
-      \ \ \ \ \ <with|font-shape|italic|<with|font-base-size|8|
-      \ \ <space|0.2cm><with|font-base-size|6|a kick in the monads>>>
-    </with>> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+        Language Implementation
+
+        \ \ \ \ \ <with|font-shape|italic|<with|font-base-size|8|
+        \ \ <space|0.2cm><with|font-base-size|6|a kick in the monads>>>
+      </with>
+    </with> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
     <no-break><pageref|auto-61><vspace|1fn>
 
     <vspace*|1fn><with|font-series|bold|math-font-series|bold|5<space|2spc>Implementation
@@ -739,7 +757,13 @@
   project such as this one. When a language feature requiring a new primitive
   operation is added, it can first be implemented in the interpreter and then
   most of that implementation can be re-used if it is decided to add support
-  to the compiler.###
+  to the compiler.
+
+  For instance, those parts of the implementation which deal with issues such
+  as high-level control flow constructs or resolving symbol names are only
+  implemented once, in an abstract fashion. This abstract implementation can
+  be transparently re-used by the various components of the
+  implementation.###
 
   <\part*>
     <\with|par-mode|center>
@@ -1155,9 +1179,7 @@
   prove that at least one solution exists, and then compile the program in
   such a way that it will work for any solution to the constraints.
 
-  <section|Structural decomposition>
-
-  ###notation (subc), failure of subc (unsatisfiable constraints)
+  <section|Structural decomposition><label|subc>
 
   A constraint between two constructed types can be decomposed into a set of
   constraints between their constituent parts. For instance, suppose we have
@@ -1208,18 +1230,11 @@
   in the decomposed set. This is the correct behaviour, as the given
   constraint does not in fact place any constraints upon the type <math|b>.
 
-  This ignoring of parameters that only appear on one side of the constraint
-  has the potential to cause problems. To remedy these, a further requirement
-  known as <dfn|convexity of arity> is placed on the structure of the
-  constructor lattice. For all constructors <math|c<rsub|1>>,
-  <math|c<rsub|2>> and <math|c<rsub|3>> with label sets
-  <math|L<around*|(|c<rsub|1>|)>>, <math|L<around*|(|c<rsub|2>|)>> and
-  <math|L<around*|(|c<rsub|3>|)>> such that
-  <math|c<rsub|1>\<leqslant\>c<rsub|2>\<leqslant\>c<rsub|3>>, it must be the
-  case that <math|L<around*|(|c<rsub|1>|)>\<cap\>L<around*|(|c<rsub|3>|)>\<subseteq\>L<around*|(|c<rsub|2>|)>>.
-  This means that it is impossible to ignore parameters which will later be
-  constrained: as the bound of a constraint moves up the constructor lattice,
-  labels will never disappear and then reappear.
+  This decomposition operation will be written
+  <math|subc<around*|(|\<tau\>\<leqslant\>\<tau\><rprime|'>|)>>. It is only
+  well defined when <math|c\<leqslant\>c<rprime|'>>, where <math|c> and
+  <math|c<rprime|'>> are the constructors of <math|\<tau\>> and
+  <math|\<tau\><rprime|'>> respectively.
 
   <subsection|Formal definition of constructor
   lattice><label|constructorlattice>
@@ -1265,6 +1280,13 @@
     that <math|c<rsub|1>\<leqslant\>c<rsub|2>\<leqslant\>c<rsub|3>>,
     <math|arity<around*|(|c<rsub|1>|)>\<cap\>arity<around*|(|c<rsub|3>|)>\<subseteq\>arity<around*|(|c<rsub|2>|)>>
   </itemize>
+
+  The second condition here is known as <dfn|convexity of arity>, and is
+  important to the workings of ``<math|subc>'' above. ``subc'' operates only
+  on the common parameters of the two constructors, and so this condition
+  means that it is impossible to ignore parameters which will later be
+  constrained: as the bound of a constraint moves up the constructor lattice,
+  labels will never disappear and then reappear.
 
   Also note that since variance is a property of labels rather than of
   constructors, a label must have the same variance for each constructor in
@@ -1628,6 +1650,12 @@
   := <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>\<sqcap\>\<Omega\><rsup|\<tau\>><around*|(|c<rsup|->|)>>>>|<row|<cell|>>|<row|<cell|
   \ for each constraint <math|e<rsup|+>\<leqslant\>f<rsup|->\<in\>subc<around*|(|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>\<leqslant\>\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>|)>>:>>|<row|<cell|
   \ \ \ \ addConstraint(<math|e<rsup|+>>,<math|f<rsup|->>)>>>>>>>
+
+  The invocation of ``subc'' above is not well-defined when the constructor
+  of <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|a<rsup|+>|)>> is not a
+  subtype of the constructor of <with|mode|math|\<Omega\><rsup|\<tau\>><around*|(|b<rsup|->|)>>
+  (see section <reference|subc>). If this occurs, the constraint is
+  unsatisfiable, and so closure fails giving a type error.
 
   <section|Type simplification and optimisation>
 
@@ -3647,24 +3675,40 @@
     a function>>>>>>
   </equation*>
 
-  For simplicity, a couple of less-essential primitives have been omitted,
-  specifically <tt|letrec>, which is a list version of <tt|lambda> which
-  allows corecursive functions, <tt|typeNew> and <tt|typeConstrain> for
-  checking user type annotations (ignored by the compiler and interpreter)
-  and the primitives for describing and instantiating classes.
+  For simplicity, some primitives have been omitted, including <tt|letrec>, a
+  list version of <tt|lambda> which allows corecursive functions,
+  <tt|typeNew> and <tt|typeConstrain> for checking user type annotations
+  (ignored by the compiler and interpreter) and the primitives for describing
+  and instantiating classes.
 
-  Any function which can be implemented in terms of these primitives can be
-  executed using the interpreter's definiton of those primitives, compiled
+  Any function which can be implemented in terms of the above primitives can
+  be executed using the interpreter's definiton of those primitives, compiled
   using the compiler's, or typechecked using the typechecker's. <brick>'s
   parser, rather than produce a syntax tree, simply ``executes'' the program
-  in an arbitrary monad <math|\<cal-M\>>, which can then be evaluated in any
-  or all of the compiler components.
+  in an arbitrary monad <math|\<cal-M\>> in terms of these primitives. The
+  result of this ``execution'' can then be evaluated in any or all of the
+  compiler components.
 
   <chapter|Conclusions and future work>
 
   <chapquote|I have seen the future and it doesn't work.|Robert Fulford>
 
-  ###
+  We have shown that a practical imperative language can be constructed using
+  the type inference engine described by Pottier and others, and that the
+  problems that arise with the introduction of object-oriented features such
+  as nominative classes and mutability are surmountable. We have also
+  demonstrated some new techniques for a high-performance implementation of
+  the type inference engine, and a novel means of combining the
+  software-engineering and robustness advantages of nominative types with the
+  quick-prototyping and flexibility advantages of structural types.
+
+  The implementation of <brick> has shown that the development costs
+  associated with a language implementation can be reduced by adopting a more
+  abstract approach. In particular, complexities arising from symbol table
+  lookup (or <math|\<alpha\>>-renaming), control flow management, closure
+  generation and others can be abstracted out into a single implementation
+  which fulfills the needs of a compiler, interpreter, typechecker and
+  possibly other as yet unimplemented phases.
 
   <section|Current state of the implementation>
 
@@ -3682,9 +3726,9 @@
   However, in the quest to implement the more advanced parts of <brick>'s
   type system, compiler framework and runtime, some of the more mundane parts
   of a programming language were neglected. For instance, <brick> does not
-  yet support something as trivial as integer addition, and there is little
-  support for input and output. These features are not complex to add, but
-  time constraints during this project prevented their implementation.
+  yet support something as trivial as integer subtraction, and there is
+  little support for input and output. These features are not complex to add,
+  but time constraints during this project prevented their implementation.
 
   <section|Future work>
 
@@ -3707,25 +3751,34 @@
     inference engine can pass typing data to the compiler. Were this to be
     implemented, the compiler would have a large scope for type-based
     optimisations such as the elision of name-based field lookups.
+
+    <item*|Foreign interface>To be able to perform most I/O tasks, it is
+    necessary that a language be able to integrate with the language of the
+    host system (generally C). A means of easily generating a <brick>
+    interface from a C interface would make the language infinitely more
+    useful.
   </description>
 
-  <appendix|BNF grammar for the syntax of <brick>><label|grammar>
+  <appendix|BNF grammar for the syntax of <brick>><\footnote>
+    Title of this section may be inaccurate, see <cite|getwellsoon>.
+  </footnote><label|grammar>
 
   <chapquote|This document describes the usage and input syntax of the Unix
   Vax-11 assembler <tt|as>. <tt|as> is designed for assembling code produced
-  by the "C" compiler; certain concessions have been made to handle code
+  by the ``C'' compiler; certain concessions have been made to handle code
   written directly by people, but in general little sympathy has been
   extended|Berkeley Vax/Unix Assembler Reference Manual>
 
-  <appendix|Detailed typing rules for <brick>>
+  <appendix|Detailed typing rules for <brick>><\footnote>
+    Title of this section may be inaccurate, see <cite|getwellsoon>.
+  </footnote>
 
   <chapquote|A chic type, a rough type, an odd type - but never a
   stereotype|Jean-Michel Jarre>
 
-  ###Subjred as abstract interpretation a la Cousot, fits with compiler
-  implementation, easy to verify, don't have to throw it away each change ###
-
-  \;
+  We now present a formal specification of a subset of the typing rules of
+  <brick>, to give a flavour of the internal workings of the constraint
+  generator.
 
   In the description of the typing rules, we will use a simplified, more
   functional-looking syntax. Programs will be represented as:
@@ -3804,7 +3857,7 @@
   be equivalent to the base typing rules, but no rigourous proof of this is
   provided.
 
-  In order to ensure that these rules are syntax-directed, we need to
+  In order to ensure that these new rules are syntax-directed, we need to
   eliminate all uses of the rule <name|Sub>. There are two\ 
 
   \;
@@ -3846,12 +3899,16 @@
         symposium on Principles of programming languages>, pages 316--331.
         ACM, 1997.
 
-        <bibitem*|5><label|bib-alex>C.<nbsp>Dornan, I.<nbsp>Jones, and
+        <bibitem*|5><label|bib-getwellsoon>R.<nbsp>Dolan, C.<nbsp>Dolan, and
+        K.<nbsp>Dolan. <newblock>Get well soon. <newblock>Card, 2011.
+        <newblock>after appendectomy.
+
+        <bibitem*|6><label|bib-alex>C.<nbsp>Dornan, I.<nbsp>Jones, and
         S.<nbsp>Marlow. <newblock>Alex: A lexical analyser generator for
         Haskell. <newblock><with|font-shape|italic|University of Glasgow>,
         1995.
 
-        <bibitem*|6><label|bib-scalastructural>G.<nbsp>Dubochet and
+        <bibitem*|7><label|bib-scalastructural>G.<nbsp>Dubochet and
         M.<nbsp>Odersky. <newblock>Compiling structural types on the JVM: a
         comparison of reflective and generative techniques from Scala's
         perspective. <newblock>In <with|font-shape|italic|Proceedings of the
@@ -3859,12 +3916,12 @@
         Object-Oriented Languages and Programming Systems>, pages 34--41.
         ACM, 2009.
 
-        <bibitem*|7><label|bib-isoopinference>J.<nbsp>Eifrig, S.<nbsp>Smith,
+        <bibitem*|8><label|bib-isoopinference>J.<nbsp>Eifrig, S.<nbsp>Smith,
         and V.<nbsp>Trifonov. <newblock>Sound polymorphic type inference for
         objects. <newblock><with|font-shape|italic|ACM SIGPLAN Notices>,
         30(10):169--184, 1995.
 
-        <bibitem*|8><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
+        <bibitem*|9><label|bib-ooprectypes>Jonathan Eifrig, Scott Smith, and
         Valery Trifonov. <newblock>Type Inference for Recursively Constrained
         Types and its Application to OOP.
         <newblock><with|font-shape|italic|Electronic Notes in Theoretical
@@ -3872,139 +3929,139 @@
         Mathematical Foundations of Programming Semantics, Eleventh Annual
         Conference.
 
-        <bibitem*|9><label|bib-decidablesub>Alexandre Frey.
+        <bibitem*|10><label|bib-decidablesub>Alexandre Frey.
         <newblock>Satisfying subtype inequalities in polynomial space.
         <newblock><with|font-shape|italic|Static Analysis>, 1302:265--277,
         1997. <newblock>10.1007/BFb0032747.
 
-        <bibitem*|10><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
+        <bibitem*|11><label|bib-whiteoak>J.<nbsp>Gil and I.<nbsp>Maman.
         <newblock>Whiteoak: introducing structural typing into java.
         <newblock><with|font-shape|italic|ACM SIGPLAN Notices>,
         43(10):73--90, 2008.
 
-        <bibitem*|11><label|bib-happy>A.<nbsp>Gill and S.<nbsp>Marlow.
+        <bibitem*|12><label|bib-happy>A.<nbsp>Gill and S.<nbsp>Marlow.
         <newblock>Happy: The parser generator for Haskell.
         <newblock><with|font-shape|italic|University of Glasgow>, 1995.
 
-        <bibitem*|12><label|bib-arrows>J.<nbsp>Hughes. <newblock>Generalising
+        <bibitem*|13><label|bib-arrows>J.<nbsp>Hughes. <newblock>Generalising
         monads to arrows. <newblock><with|font-shape|italic|Science of
         computer programming>, 37(1-3):67--111, 2000.
 
-        <bibitem*|13><label|bib-imperativefunc>S.L.P. Jones and
+        <bibitem*|14><label|bib-imperativefunc>S.L.P. Jones and
         P.<nbsp>Wadler. <newblock>Imperative functional programming.
         <newblock>1993.
 
-        <bibitem*|14><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
+        <bibitem*|15><label|bib-ranknhaskell>S.P. Jones, D.<nbsp>Vytiniotis,
         S.<nbsp>Weirich, and M.<nbsp>Shields. <newblock>Practical type
         inference for arbitrary-rank types.
         <newblock><with|font-shape|italic|Journal of Functional Programming>,
         17(01):1--82, 2007.
 
-        <bibitem*|15><label|bib-kaesinference>Stefan Kaes. <newblock>Type
+        <bibitem*|16><label|bib-kaesinference>Stefan Kaes. <newblock>Type
         inference in the presence of overloading, subtyping and recursive
         types. <newblock>In <with|font-shape|italic|LFP '92: Proceedings of
         the 1992 ACM conference on LISP and functional programming>, pages
         193--204, New York, NY, USA, 1992. ACM.
 
-        <bibitem*|16><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
+        <bibitem*|17><label|bib-subrecfast>Dexter Kozen, Jens Palsberg, and
         Michael<nbsp>I. Schwartzbach. <newblock>Efficient recursive
         subtyping. <newblock>In <with|font-shape|italic|POPL '93: Proceedings
         of the 20th ACM SIGPLAN-SIGACT symposium on Principles of programming
         languages>, pages 419--428, New York, NY, USA, 1993. ACM.
 
-        <bibitem*|17><label|bib-llvm>Chris Lattner and Vikram Adve.
+        <bibitem*|18><label|bib-llvm>Chris Lattner and Vikram Adve.
         <newblock>LLVM: A Compilation Framework for Lifelong Program Analysis
         & Transformation. <newblock>In <with|font-shape|italic|Proceedings of
         the 2004 International Symposium on Code Generation and Optimization
         (CGO'04)>, Palo Alto, California, Mar 2004.
 
-        <bibitem*|18><label|bib-leroypoly>X.<nbsp>Leroy.
+        <bibitem*|19><label|bib-leroypoly>X.<nbsp>Leroy.
         <newblock>Polymorphism by name for references and continuations.
         <newblock>In <with|font-shape|italic|Proceedings of the 20th ACM
         SIGPLAN-SIGACT Symposium on Principles of Programming Languages>,
         pages 220--231. ACM, 1993.
 
-        <bibitem*|19><label|bib-unitynomstruct>D.<nbsp>Malayeri and
+        <bibitem*|20><label|bib-unitynomstruct>D.<nbsp>Malayeri and
         J.<nbsp>Aldrich. <newblock>Integrating nominal and structural
         subtyping. <newblock><with|font-shape|italic|ECOOP
         2008--Object-Oriented Programming>, pages 260--284, 2008.
 
-        <bibitem*|20><label|bib-moggimonads>E.<nbsp>Moggi and University
+        <bibitem*|21><label|bib-moggimonads>E.<nbsp>Moggi and University
         of<nbsp>Edinburgh. Laboratory for Foundation<nbsp>of
         Computer<nbsp>Science. <newblock><with|font-shape|italic|An abstract
         view of programming languages>. <newblock>University of Edinburgh,
         Laboratory for Foundation of Computer Science, 1990.
 
-        <bibitem*|21><label|bib-regulartypes>P.<nbsp>Morris,
+        <bibitem*|22><label|bib-regulartypes>P.<nbsp>Morris,
         T.<nbsp>Altenkirch, and C.<nbsp>McBride. <newblock>Exploring the
         regular tree types. <newblock><with|font-shape|italic|Types for
         Proofs and Programs>, pages 252--267, 2006.
 
-        <bibitem*|22><label|bib-constrainedtypes>J.<nbsp>Palsberg and
+        <bibitem*|23><label|bib-constrainedtypes>J.<nbsp>Palsberg and
         S.<nbsp>Smith. <newblock>Constrained types and their expressiveness.
         <newblock><with|font-shape|italic|ACM Transactions on Programming
         Languages and Systems (TOPLAS)>, 18(5):519--527, 1996.
 
-        <bibitem*|23><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
+        <bibitem*|24><label|bib-flowtypes>Jens Palsberg and Patrick O'Keefe.
         <newblock>A type system equivalent to flow analysis.
         <newblock><with|font-shape|italic|ACM Trans. Program. Lang. Syst.>,
         17(4):576--599, 1995.
 
-        <bibitem*|24><label|bib-arrowcomp>R.<nbsp>Paterson. <newblock>Arrows
+        <bibitem*|25><label|bib-arrowcomp>R.<nbsp>Paterson. <newblock>Arrows
         and computation. <newblock><with|font-shape|italic|The Fun of
         Programming>, pages 201--222, 2003.
 
-        <bibitem*|25><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
+        <bibitem*|26><label|bib-haskellweak>S.<nbsp>Peyton<nbsp>Jones,
         S.<nbsp>Marlow, and C.<nbsp>Elliott. <newblock>Stretching the storage
         manager: weak pointers and stable names in Haskell.
         <newblock><with|font-shape|italic|Implementation of Functional
         Languages>, pages 37--58, 2000.
 
-        <bibitem*|26><label|bib-pottiersimplifying>F.<nbsp>Pottier.
+        <bibitem*|27><label|bib-pottiersimplifying>F.<nbsp>Pottier.
         <newblock>Simplifying subtyping constraints. <newblock>In
         <with|font-shape|italic|Proceedings of the first ACM SIGPLAN
         international conference on Functional programming>, pages 122--133.
         ACM, 1996.
 
-        <bibitem*|27><label|bib-pottierphd>François Pottier. <newblock>Type
+        <bibitem*|28><label|bib-pottierphd>François Pottier. <newblock>Type
         inference in the presence of subtyping: from theory to practice.
         <newblock>PhD Thesis, INRIA, 1998.
 
-        <bibitem*|28><label|bib-pottierframework>François Pottier.
+        <bibitem*|29><label|bib-pottierframework>François Pottier.
         <newblock>A framework for type inference with subtyping.
         <newblock><with|font-shape|italic|SIGPLAN Not.>, 34(1):228--238,
         1999.
 
-        <bibitem*|29><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
+        <bibitem*|30><label|bib-ranknml>C.V. Russo and D.<nbsp>Vytiniotis.
         <newblock>QML: explicit first-class polymorphism for ML. <newblock>In
         <with|font-shape|italic|Proceedings of the 2009 ACM SIGPLAN workshop
         on ML>, pages 3--14. ACM, 2009.
 
-        <bibitem*|30><label|bib-sparsetables>R.E. Tarjan and A.C.C. Yao.
+        <bibitem*|31><label|bib-sparsetables>R.E. Tarjan and A.C.C. Yao.
         <newblock>Storing a sparse table.
         <newblock><with|font-shape|italic|Communications of the ACM>,
         22(11):606--611, 1979.
 
-        <bibitem*|31><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
+        <bibitem*|32><label|bib-toftepoly>M.<nbsp>Tofte. <newblock>Type
         inference for polymorphic references.
         <newblock><with|font-shape|italic|Information and computation>,
         89(1):1--34, 1990.
 
-        <bibitem*|32><label|bib-subconst>Valery Trifonov and Scott Smith.
+        <bibitem*|33><label|bib-subconst>Valery Trifonov and Scott Smith.
         <newblock>Subtyping constrained types.
         <newblock><with|font-shape|italic|Static Analysis>, 1145:349--365,
         1996.
 
-        <bibitem*|33><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
+        <bibitem*|34><label|bib-wadlermonads>P.<nbsp>Wadler. <newblock>Monads
         for functional programming. <newblock><with|font-shape|italic|Advanced
         Functional Programming>, pages 24--52, 1995.
 
-        <bibitem*|34><label|bib-valuerestriction>A.K. Wright.
+        <bibitem*|35><label|bib-valuerestriction>A.K. Wright.
         <newblock>Polymorphism for imperative languages without imperative
         types. <newblock>Technical report, Rice University Dept. of Computer
         Science, 1993.
 
-        <bibitem*|35><label|bib-valuerestriction2>A.K. Wright.
+        <bibitem*|36><label|bib-valuerestriction2>A.K. Wright.
         <newblock>Simple imperative polymorphism.
         <newblock><with|font-shape|italic|Lisp and symbolic computation>,
         8(4):343--355, 1995.
@@ -4028,137 +4085,138 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|?|3>>
-    <associate|auto-10|<tuple|1.3.1|10>>
-    <associate|auto-11|<tuple|1.3.2|10>>
-    <associate|auto-12|<tuple|1.3.3|10>>
-    <associate|auto-13|<tuple|1.3.4|11>>
-    <associate|auto-14|<tuple|1.4|11>>
-    <associate|auto-15|<tuple|1.4|13>>
-    <associate|auto-16|<tuple|2|15>>
-    <associate|auto-17|<tuple|2.1|15>>
-    <associate|auto-18|<tuple|2.1.1|16>>
-    <associate|auto-19|<tuple|2.2|16>>
-    <associate|auto-2|<tuple|1|7>>
-    <associate|auto-20|<tuple|2.2.1|17>>
-    <associate|auto-21|<tuple|2.2.2|18>>
-    <associate|auto-22|<tuple|2.3|18>>
-    <associate|auto-23|<tuple|2.3.1|19>>
-    <associate|auto-24|<tuple|2.3.2|19>>
-    <associate|auto-25|<tuple|2.4|19>>
-    <associate|auto-26|<tuple|2.5|20>>
-    <associate|auto-27|<tuple|2.5.1|20>>
-    <associate|auto-28|<tuple|2.6|21>>
-    <associate|auto-29|<tuple|3|23>>
-    <associate|auto-3|<tuple|1.1|7>>
-    <associate|auto-30|<tuple|3.1|23>>
-    <associate|auto-31|<tuple|3.2|24>>
-    <associate|auto-32|<tuple|3.3|24>>
-    <associate|auto-33|<tuple|3.3.1|25>>
-    <associate|auto-34|<tuple|3.3.2|25>>
-    <associate|auto-35|<tuple|3.4|25>>
-    <associate|auto-36|<tuple|3.4.1|26>>
-    <associate|auto-37|<tuple|3.5|26>>
-    <associate|auto-38|<tuple|3.6|26>>
-    <associate|auto-39|<tuple|3.6.1|27>>
-    <associate|auto-4|<tuple|1.1.1|7>>
-    <associate|auto-40|<tuple|3.6.2|28>>
-    <associate|auto-41|<tuple|3.7|29>>
-    <associate|auto-42|<tuple|3.7.1|29>>
-    <associate|auto-43|<tuple|3.7.2|30>>
-    <associate|auto-44|<tuple|3.8|30>>
-    <associate|auto-45|<tuple|4|33>>
-    <associate|auto-46|<tuple|4.1|33>>
-    <associate|auto-47|<tuple|4.1.1|33>>
-    <associate|auto-48|<tuple|4.2|34>>
-    <associate|auto-49|<tuple|4.2.1|35>>
-    <associate|auto-5|<tuple|1.1.2|8>>
-    <associate|auto-50|<tuple|4.3|35>>
-    <associate|auto-51|<tuple|4.3.1|35>>
-    <associate|auto-52|<tuple|4.3.2|35>>
-    <associate|auto-53|<tuple|4.3.3|36>>
-    <associate|auto-54|<tuple|4.4|36>>
-    <associate|auto-55|<tuple|4.4.1|36>>
-    <associate|auto-56|<tuple|4.5|37>>
-    <associate|auto-57|<tuple|4.5.1|37>>
-    <associate|auto-58|<tuple|4.5.2|38>>
-    <associate|auto-59|<tuple|4.5.3|39>>
-    <associate|auto-6|<tuple|1.1.3|8>>
-    <associate|auto-60|<tuple|4.5.4|40>>
-    <associate|auto-61|<tuple|4.5|41>>
-    <associate|auto-62|<tuple|5|43>>
-    <associate|auto-63|<tuple|5.1|43>>
-    <associate|auto-64|<tuple|5.1.1|43>>
-    <associate|auto-65|<tuple|5.1.2|44>>
-    <associate|auto-66|<tuple|5.2|45>>
-    <associate|auto-67|<tuple|5.3|45>>
-    <associate|auto-68|<tuple|5.3.1|46>>
-    <associate|auto-69|<tuple|6|47>>
-    <associate|auto-7|<tuple|1.1.4|9>>
-    <associate|auto-70|<tuple|6.1|47>>
-    <associate|auto-71|<tuple|6.2|48>>
-    <associate|auto-72|<tuple|6.3|48>>
-    <associate|auto-73|<tuple|6.4|48>>
-    <associate|auto-74|<tuple|7|51>>
-    <associate|auto-75|<tuple|7.1|51>>
-    <associate|auto-76|<tuple|7.2|52>>
-    <associate|auto-77|<tuple|7.2.1|52>>
-    <associate|auto-78|<tuple|7.2.2|53>>
-    <associate|auto-79|<tuple|7.2.3|54>>
-    <associate|auto-8|<tuple|1.2|9>>
-    <associate|auto-80|<tuple|7.3|54>>
-    <associate|auto-81|<tuple|7.4|55>>
-    <associate|auto-82|<tuple|7.5|55>>
-    <associate|auto-83|<tuple|7.6|56>>
-    <associate|auto-84|<tuple|8|59>>
-    <associate|auto-85|<tuple|8.1|59>>
-    <associate|auto-86|<tuple|8.2|59>>
-    <associate|auto-87|<tuple|A|61>>
-    <associate|auto-88|<tuple|B|63>>
-    <associate|auto-89|<tuple|B|67>>
-    <associate|auto-9|<tuple|1.3|10>>
-    <associate|bib-abstracttypes|<tuple|4|67>>
-    <associate|bib-alex|<tuple|5|67>>
-    <associate|bib-arrowcomp|<tuple|24|68>>
-    <associate|bib-arrows|<tuple|12|67>>
-    <associate|bib-c3dylan|<tuple|3|67>>
-    <associate|bib-constrainedtypes|<tuple|22|67>>
-    <associate|bib-decidablesub|<tuple|9|67>>
-    <associate|bib-flowtypes|<tuple|23|68>>
-    <associate|bib-happy|<tuple|11|67>>
-    <associate|bib-haskellweak|<tuple|25|68>>
-    <associate|bib-hopcroftmin|<tuple|1|67>>
-    <associate|bib-imperativefunc|<tuple|13|67>>
-    <associate|bib-isoopinference|<tuple|7|67>>
-    <associate|bib-kaesinference|<tuple|15|67>>
-    <associate|bib-leroypoly|<tuple|18|67>>
-    <associate|bib-llvm|<tuple|17|67>>
-    <associate|bib-moggimonads|<tuple|20|67>>
+    <associate|auto-10|<tuple|1.3.1|12>>
+    <associate|auto-11|<tuple|1.3.2|12>>
+    <associate|auto-12|<tuple|1.3.3|12>>
+    <associate|auto-13|<tuple|1.3.4|13>>
+    <associate|auto-14|<tuple|1.4|13>>
+    <associate|auto-15|<tuple|1.4|15>>
+    <associate|auto-16|<tuple|2|17>>
+    <associate|auto-17|<tuple|2.1|17>>
+    <associate|auto-18|<tuple|2.1.1|18>>
+    <associate|auto-19|<tuple|2.2|18>>
+    <associate|auto-2|<tuple|1|9>>
+    <associate|auto-20|<tuple|2.2.1|19>>
+    <associate|auto-21|<tuple|2.2.2|20>>
+    <associate|auto-22|<tuple|2.3|20>>
+    <associate|auto-23|<tuple|2.3.1|21>>
+    <associate|auto-24|<tuple|2.3.2|21>>
+    <associate|auto-25|<tuple|2.4|21>>
+    <associate|auto-26|<tuple|2.5|22>>
+    <associate|auto-27|<tuple|2.5.1|22>>
+    <associate|auto-28|<tuple|2.6|23>>
+    <associate|auto-29|<tuple|3|25>>
+    <associate|auto-3|<tuple|1.1|9>>
+    <associate|auto-30|<tuple|3.1|25>>
+    <associate|auto-31|<tuple|3.2|26>>
+    <associate|auto-32|<tuple|3.3|26>>
+    <associate|auto-33|<tuple|3.3.1|27>>
+    <associate|auto-34|<tuple|3.3.2|27>>
+    <associate|auto-35|<tuple|3.4|27>>
+    <associate|auto-36|<tuple|3.4.1|28>>
+    <associate|auto-37|<tuple|3.5|28>>
+    <associate|auto-38|<tuple|3.6|28>>
+    <associate|auto-39|<tuple|3.6.1|29>>
+    <associate|auto-4|<tuple|1.1.1|9>>
+    <associate|auto-40|<tuple|3.6.2|30>>
+    <associate|auto-41|<tuple|3.7|31>>
+    <associate|auto-42|<tuple|3.7.1|31>>
+    <associate|auto-43|<tuple|3.7.2|32>>
+    <associate|auto-44|<tuple|3.8|32>>
+    <associate|auto-45|<tuple|4|35>>
+    <associate|auto-46|<tuple|4.1|35>>
+    <associate|auto-47|<tuple|4.1.1|35>>
+    <associate|auto-48|<tuple|4.2|36>>
+    <associate|auto-49|<tuple|4.2.1|37>>
+    <associate|auto-5|<tuple|1.1.2|10>>
+    <associate|auto-50|<tuple|4.3|37>>
+    <associate|auto-51|<tuple|4.3.1|37>>
+    <associate|auto-52|<tuple|4.3.2|37>>
+    <associate|auto-53|<tuple|4.3.3|38>>
+    <associate|auto-54|<tuple|4.4|38>>
+    <associate|auto-55|<tuple|4.4.1|38>>
+    <associate|auto-56|<tuple|4.5|39>>
+    <associate|auto-57|<tuple|4.5.1|39>>
+    <associate|auto-58|<tuple|4.5.2|40>>
+    <associate|auto-59|<tuple|4.5.3|41>>
+    <associate|auto-6|<tuple|1.1.3|10>>
+    <associate|auto-60|<tuple|4.5.4|42>>
+    <associate|auto-61|<tuple|4.5|43>>
+    <associate|auto-62|<tuple|5|45>>
+    <associate|auto-63|<tuple|5.1|45>>
+    <associate|auto-64|<tuple|5.1.1|45>>
+    <associate|auto-65|<tuple|5.1.2|46>>
+    <associate|auto-66|<tuple|5.2|47>>
+    <associate|auto-67|<tuple|5.3|47>>
+    <associate|auto-68|<tuple|5.3.1|48>>
+    <associate|auto-69|<tuple|6|49>>
+    <associate|auto-7|<tuple|1.1.4|11>>
+    <associate|auto-70|<tuple|6.1|49>>
+    <associate|auto-71|<tuple|6.2|50>>
+    <associate|auto-72|<tuple|6.3|50>>
+    <associate|auto-73|<tuple|6.4|50>>
+    <associate|auto-74|<tuple|7|53>>
+    <associate|auto-75|<tuple|7.1|53>>
+    <associate|auto-76|<tuple|7.2|54>>
+    <associate|auto-77|<tuple|7.2.1|54>>
+    <associate|auto-78|<tuple|7.2.2|55>>
+    <associate|auto-79|<tuple|7.2.3|56>>
+    <associate|auto-8|<tuple|1.2|11>>
+    <associate|auto-80|<tuple|7.3|56>>
+    <associate|auto-81|<tuple|7.4|57>>
+    <associate|auto-82|<tuple|7.5|57>>
+    <associate|auto-83|<tuple|7.6|58>>
+    <associate|auto-84|<tuple|8|61>>
+    <associate|auto-85|<tuple|8.1|61>>
+    <associate|auto-86|<tuple|8.2|61>>
+    <associate|auto-87|<tuple|A|63>>
+    <associate|auto-88|<tuple|B|65>>
+    <associate|auto-89|<tuple|B.1|69>>
+    <associate|auto-9|<tuple|1.3|12>>
+    <associate|bib-abstracttypes|<tuple|4|69>>
+    <associate|bib-alex|<tuple|6|69>>
+    <associate|bib-arrowcomp|<tuple|25|70>>
+    <associate|bib-arrows|<tuple|13|69>>
+    <associate|bib-c3dylan|<tuple|3|69>>
+    <associate|bib-constrainedtypes|<tuple|23|69>>
+    <associate|bib-decidablesub|<tuple|10|69>>
+    <associate|bib-flowtypes|<tuple|24|70>>
+    <associate|bib-getwellsoon|<tuple|5|69>>
+    <associate|bib-happy|<tuple|12|69>>
+    <associate|bib-haskellweak|<tuple|26|70>>
+    <associate|bib-hopcroftmin|<tuple|1|69>>
+    <associate|bib-imperativefunc|<tuple|14|69>>
+    <associate|bib-isoopinference|<tuple|8|69>>
+    <associate|bib-kaesinference|<tuple|16|69>>
+    <associate|bib-leroypoly|<tuple|19|69>>
+    <associate|bib-llvm|<tuple|18|69>>
+    <associate|bib-moggimonads|<tuple|21|69>>
     <associate|bib-objectcalculus|<tuple|1|?>>
-    <associate|bib-ooprectypes|<tuple|8|67>>
-    <associate|bib-pottierframework|<tuple|28|68>>
-    <associate|bib-pottierphd|<tuple|27|68>>
-    <associate|bib-pottiersimplifying|<tuple|26|68>>
-    <associate|bib-ranknhaskell|<tuple|14|67>>
-    <associate|bib-ranknml|<tuple|29|68>>
-    <associate|bib-regulartypes|<tuple|21|67>>
-    <associate|bib-scalastructural|<tuple|6|67>>
-    <associate|bib-sparsetables|<tuple|30|68>>
-    <associate|bib-subconst|<tuple|32|68>>
-    <associate|bib-subrec|<tuple|2|67>>
-    <associate|bib-subrecfast|<tuple|16|67>>
-    <associate|bib-toftepoly|<tuple|31|68>>
-    <associate|bib-unitynomstruct|<tuple|19|67>>
-    <associate|bib-valuerestriction|<tuple|34|68>>
-    <associate|bib-valuerestriction2|<tuple|35|68>>
-    <associate|bib-wadlermonads|<tuple|33|68>>
-    <associate|bib-whiteoak|<tuple|10|67>>
-    <associate|chapsemantics|<tuple|4|33>>
-    <associate|classes|<tuple|4.3|35>>
-    <associate|closure|<tuple|2.6|21>>
-    <associate|constructorlattice|<tuple|2.5.1|20>>
-    <associate|display|<tuple|3.8|30>>
+    <associate|bib-ooprectypes|<tuple|9|69>>
+    <associate|bib-pottierframework|<tuple|29|70>>
+    <associate|bib-pottierphd|<tuple|28|70>>
+    <associate|bib-pottiersimplifying|<tuple|27|70>>
+    <associate|bib-ranknhaskell|<tuple|15|69>>
+    <associate|bib-ranknml|<tuple|30|70>>
+    <associate|bib-regulartypes|<tuple|22|69>>
+    <associate|bib-scalastructural|<tuple|7|69>>
+    <associate|bib-sparsetables|<tuple|31|70>>
+    <associate|bib-subconst|<tuple|33|70>>
+    <associate|bib-subrec|<tuple|2|69>>
+    <associate|bib-subrecfast|<tuple|17|69>>
+    <associate|bib-toftepoly|<tuple|32|70>>
+    <associate|bib-unitynomstruct|<tuple|20|69>>
+    <associate|bib-valuerestriction|<tuple|35|70>>
+    <associate|bib-valuerestriction2|<tuple|36|70>>
+    <associate|bib-wadlermonads|<tuple|34|70>>
+    <associate|bib-whiteoak|<tuple|11|69>>
+    <associate|chapsemantics|<tuple|4|35>>
+    <associate|classes|<tuple|4.3|37>>
+    <associate|closure|<tuple|2.6|23>>
+    <associate|constructorlattice|<tuple|2.5.1|22>>
+    <associate|display|<tuple|3.8|32>>
     <associate|footnote-1|<tuple|1|2>>
-    <associate|footnote-1.1|<tuple|1.1|8>>
+    <associate|footnote-1.1|<tuple|1.1|10>>
     <associate|footnote-1.2|<tuple|1.2|?>>
     <associate|footnote-1.3|<tuple|1.3|?>>
     <associate|footnote-1.4|<tuple|1.4|?>>
@@ -4175,25 +4233,25 @@
     <associate|footnote-15|<tuple|15|23>>
     <associate|footnote-16|<tuple|16|24>>
     <associate|footnote-2|<tuple|2|5>>
-    <associate|footnote-2.1|<tuple|2.1|17>>
-    <associate|footnote-2.2|<tuple|2.2|20>>
+    <associate|footnote-2.1|<tuple|2.1|19>>
+    <associate|footnote-2.2|<tuple|2.2|22>>
     <associate|footnote-2.3|<tuple|2.3|?>>
     <associate|footnote-2.4|<tuple|2.4|?>>
     <associate|footnote-3|<tuple|3|7>>
-    <associate|footnote-3.1|<tuple|3.1|23>>
-    <associate|footnote-3.2|<tuple|3.2|24>>
-    <associate|footnote-3.3|<tuple|3.3|25>>
-    <associate|footnote-3.4|<tuple|3.4|29>>
+    <associate|footnote-3.1|<tuple|3.1|25>>
+    <associate|footnote-3.2|<tuple|3.2|26>>
+    <associate|footnote-3.3|<tuple|3.3|27>>
+    <associate|footnote-3.4|<tuple|3.4|31>>
     <associate|footnote-4|<tuple|4|8>>
-    <associate|footnote-4.1|<tuple|4.1|34>>
-    <associate|footnote-4.2|<tuple|4.2|36>>
-    <associate|footnote-4.3|<tuple|4.3|36>>
-    <associate|footnote-4.4|<tuple|4.4|38>>
-    <associate|footnote-4.5|<tuple|4.5|40>>
+    <associate|footnote-4.1|<tuple|4.1|36>>
+    <associate|footnote-4.2|<tuple|4.2|38>>
+    <associate|footnote-4.3|<tuple|4.3|38>>
+    <associate|footnote-4.4|<tuple|4.4|40>>
+    <associate|footnote-4.5|<tuple|4.5|42>>
     <associate|footnote-4.6|<tuple|4.6|37>>
     <associate|footnote-5|<tuple|5|9>>
-    <associate|footnote-5.1|<tuple|5.1|43>>
-    <associate|footnote-5.2|<tuple|5.2|43>>
+    <associate|footnote-5.1|<tuple|5.1|45>>
+    <associate|footnote-5.2|<tuple|5.2|45>>
     <associate|footnote-5.3|<tuple|5.3|28>>
     <associate|footnote-5.4|<tuple|5.4|31>>
     <associate|footnote-5.5|<tuple|5.5|32>>
@@ -4202,16 +4260,18 @@
     <associate|footnote-6.1|<tuple|6.1|35>>
     <associate|footnote-6.2|<tuple|6.2|35>>
     <associate|footnote-7|<tuple|7|14>>
-    <associate|footnote-7.1|<tuple|7.1|52>>
-    <associate|footnote-7.2|<tuple|7.2|54>>
-    <associate|footnote-7.3|<tuple|7.3|55>>
+    <associate|footnote-7.1|<tuple|7.1|54>>
+    <associate|footnote-7.2|<tuple|7.2|56>>
+    <associate|footnote-7.3|<tuple|7.3|57>>
     <associate|footnote-8|<tuple|8|15>>
     <associate|footnote-8.1|<tuple|8.1|44>>
     <associate|footnote-8.2|<tuple|8.2|46>>
     <associate|footnote-8.3|<tuple|8.3|46>>
     <associate|footnote-9|<tuple|9|16>>
+    <associate|footnote-A.1|<tuple|A.1|63>>
+    <associate|footnote-B.1|<tuple|B.1|65>>
     <associate|footnr-1|<tuple|1|2>>
-    <associate|footnr-1.1|<tuple|1.1|8>>
+    <associate|footnr-1.1|<tuple|1.1|10>>
     <associate|footnr-1.2|<tuple|1.2|?>>
     <associate|footnr-1.3|<tuple|1.3|?>>
     <associate|footnr-1.4|<tuple|1.4|?>>
@@ -4228,25 +4288,25 @@
     <associate|footnr-15|<tuple|15|23>>
     <associate|footnr-16|<tuple|16|24>>
     <associate|footnr-2|<tuple|2|5>>
-    <associate|footnr-2.1|<tuple|2.1|17>>
-    <associate|footnr-2.2|<tuple|2.2|20>>
+    <associate|footnr-2.1|<tuple|2.1|19>>
+    <associate|footnr-2.2|<tuple|2.2|22>>
     <associate|footnr-2.3|<tuple|2.3|?>>
     <associate|footnr-2.4|<tuple|2.4|?>>
     <associate|footnr-3|<tuple|3|7>>
-    <associate|footnr-3.1|<tuple|3.1|23>>
-    <associate|footnr-3.2|<tuple|3.2|24>>
-    <associate|footnr-3.3|<tuple|3.3|25>>
-    <associate|footnr-3.4|<tuple|3.4|29>>
+    <associate|footnr-3.1|<tuple|3.1|25>>
+    <associate|footnr-3.2|<tuple|3.2|26>>
+    <associate|footnr-3.3|<tuple|3.3|27>>
+    <associate|footnr-3.4|<tuple|3.4|31>>
     <associate|footnr-4|<tuple|4|8>>
-    <associate|footnr-4.1|<tuple|4.1|34>>
-    <associate|footnr-4.2|<tuple|4.2|36>>
-    <associate|footnr-4.3|<tuple|4.3|36>>
-    <associate|footnr-4.4|<tuple|4.4|38>>
-    <associate|footnr-4.5|<tuple|4.5|40>>
+    <associate|footnr-4.1|<tuple|4.1|36>>
+    <associate|footnr-4.2|<tuple|4.2|38>>
+    <associate|footnr-4.3|<tuple|4.3|38>>
+    <associate|footnr-4.4|<tuple|4.4|40>>
+    <associate|footnr-4.5|<tuple|4.5|42>>
     <associate|footnr-4.6|<tuple|4.6|37>>
     <associate|footnr-5|<tuple|5|9>>
-    <associate|footnr-5.1|<tuple|5.1|43>>
-    <associate|footnr-5.2|<tuple|5.2|43>>
+    <associate|footnr-5.1|<tuple|5.1|45>>
+    <associate|footnr-5.2|<tuple|5.2|45>>
     <associate|footnr-5.3|<tuple|5.3|28>>
     <associate|footnr-5.4|<tuple|5.4|31>>
     <associate|footnr-5.5|<tuple|5.5|32>>
@@ -4255,20 +4315,23 @@
     <associate|footnr-6.1|<tuple|6.1|35>>
     <associate|footnr-6.2|<tuple|6.2|35>>
     <associate|footnr-7|<tuple|7|14>>
-    <associate|footnr-7.1|<tuple|7.1|52>>
-    <associate|footnr-7.2|<tuple|7.2|54>>
-    <associate|footnr-7.3|<tuple|7.3|55>>
+    <associate|footnr-7.1|<tuple|7.1|54>>
+    <associate|footnr-7.2|<tuple|7.2|56>>
+    <associate|footnr-7.3|<tuple|7.3|57>>
     <associate|footnr-8|<tuple|8|15>>
     <associate|footnr-8.1|<tuple|8.1|44>>
     <associate|footnr-8.2|<tuple|8.2|46>>
     <associate|footnr-8.3|<tuple|8.3|46>>
     <associate|footnr-9|<tuple|9|16>>
-    <associate|generalised|<tuple|4.4|36>>
-    <associate|grammar|<tuple|A|61>>
-    <associate|minimisation|<tuple|3.6.2|28>>
-    <associate|mutability|<tuple|4.1.1|33>>
-    <associate|nomstruct|<tuple|4.5|37>>
-    <associate|objectlattice|<tuple|4.5.3|39>>
+    <associate|footnr-A.1|<tuple|A.1|63>>
+    <associate|footnr-B.1|<tuple|B.1|65>>
+    <associate|generalised|<tuple|4.4|38>>
+    <associate|grammar|<tuple|A.1|63>>
+    <associate|minimisation|<tuple|3.6.2|30>>
+    <associate|mutability|<tuple|4.1.1|35>>
+    <associate|nomstruct|<tuple|4.5|39>>
+    <associate|objectlattice|<tuple|4.5.3|41>>
+    <associate|subc|<tuple|2.5|?>>
   </collection>
 </references>
 
@@ -4426,6 +4489,10 @@
       sparsetables
 
       abstracttypes
+
+      getwellsoon
+
+      getwellsoon
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Abstract>
