@@ -543,7 +543,7 @@
     annotations.
 
     <item*|Strong versus Weak>These terms have fuzzy definitions, largely
-    because ``weak'' is considered perjorative and every language designer
+    because ``weak'' is considered pejorative and every language designer
     wants to call their system ``strongly typed''. To a first approximation,
     these terms indicate how the system responds to seemingly ill-typed
     expressions: will an attempt to add a string to an integer be an error
@@ -647,7 +647,7 @@
   <tt|Shape>s. Subtype polymorphism essentially amounts to transparently
   strengthening preconditions or weakening postconditions.
 
-  Parameteric polymorphism allows the use of an object whose type is only
+  Parametric polymorphism allows the use of an object whose type is only
   partially specified. For instance, a function returning the first element
   of a list will work for all possible types of list. It can be considered a
   function from lists of integers to integers, or equally a function from
@@ -803,7 +803,7 @@
   nominatively-typed Java virtual machine. Since Java requires full type
   annotations, this is done by detecting all points in the program where a
   nominative type is converted to a structural type and generating code for
-  wrapper objects at rutime.
+  wrapper objects at runtime.
 
   A similar effort was undertaken to add structural subtyping to the language
   Scala<cite|scalastructural> which also runs on the Java virtual machine.
@@ -1129,7 +1129,7 @@
   This means that data operating on <tt|BinTree> must include a form of type
   annotation whenever it wants to construct items of the recursive type (a
   call to <tt|MkBinTree>), and operations on recursive data-types can only be
-  perfomed once a data declaration is made for that type.
+  performed once a data declaration is made for that type.
 
   In a language with equirecursive types, types like <tt|BinTree> can be
   declared as type aliases, stating that <tt|BinTree> is an alias for the
@@ -1257,7 +1257,7 @@
   The free variables in an rc type means that it denotes not one but a set of
   ground types.
 
-  There need not be (and in the prescence of variables, often isn't) a single
+  There need not be (and in the presence of variables, often isn't) a single
   ground type which is a supertype of all of the set of ground types denoted
   by an rc type. For instance, consider the rc type
   <math|a\<rightarrow\>b\\a\<leqslant\>b>. This denotes the type of functions
@@ -1287,7 +1287,7 @@
   necessary to ensure that the term has a valid meaning (is type-correct).
 
   Hence, our criterion for whether a program fragment is well-typed is to
-  consider whether its constraint set is <with|font-shape|italic|satisifiable>
+  consider whether its constraint set is <with|font-shape|italic|satisfiable>
   (or equivalently, whether its denotation as defined above is non-empty).
   Each solution of the constraint set corresponds to a valid run of the
   program, and typechecking simply seeks to ensure that at least one exists.
@@ -1633,7 +1633,7 @@
     variance<around*|(|l<rsub|1>|)>\<cdot\>v\<nocomma\>\<nocomma\>,q=variance<around*|(|l<rsub|2>|)>\<cdot\>v
   </equation*>
 
-  That is, a postive small constructed term is one where the parameters to
+  That is, a positive small constructed term is one where the parameters to
   the constructor are given by a set of variables combined with
   <math|\<sqcup\>> in covariant positions and <math|\<sqcap\>> in
   contravariant positions, while a negative small constructed term uses
@@ -1902,7 +1902,7 @@
   variable substitutions which simplify the constraint graph while preserving
   its semantics.
 
-  These algorithms sought to find a substitution which mapped mutiple
+  These algorithms sought to find a substitution which mapped multiple
   variables to the same variable, and so reduced the number of variables in
   the constraint graph. Instead of using <with|font-shape|italic|ad-hoc>
   heuristics to find this substitution, the minimisation algorithm seeks
@@ -2006,7 +2006,7 @@
   multiple specialised implementations of the interface (such as Haskell's
   typeclasses or Java's interfaces) will need to be able to check whether a
   given implementation of an interface in fact conforms to the type
-  requirements of that inferface.
+  requirements of that interface.
 
   The closure algorithm will not suffice in this case: attempting to check
   whether an implementation conforms to a previously-declared interface by
@@ -2017,7 +2017,7 @@
 
   <subsection|Subsumption>
 
-  In order to check user type annotations for polymorphic defitions such as
+  In order to check user type annotations for polymorphic definitions such as
   functions, we need to be able to calculate whether one type with free
   variables (the inferred type) is a subtype of another type with free
   variables (the declared type).
@@ -2061,7 +2061,7 @@
   <math|C> the type assigned to <math|x<rsup|->> is a subtype of that
   assigned to <math|y<rsup|+>>. This is a more subtle notion than the
   constraint <math|x<rsup|->\<leqslant\>y<rsup|+>> simply being present in
-  the constraint set: it is possible for the constraint not to be explicity
+  the constraint set: it is possible for the constraint not to be explicitly
   stated but still necessarily hold in any solution. For instance, if we have
   the constraint set <math|<around*|{|a\<leqslant\>\<bot\>\<rightarrow\>a\<nocomma\>,\<bot\>\<rightarrow\>b\<leqslant\>b|}>>,
   then in any solution <math|a\<leqslant\>b>, even though this constraint is
@@ -2257,14 +2257,14 @@
 
   This is a little problematic for us: Firstly, <with|font-family|tt|f1> was
   an entirely sensible piece of code and it would be better to allow it, and
-  secondly adding invariant type construtors would violate the assumption in
+  secondly adding invariant type constructors would violate the assumption in
   the type system that all type constructors are co- or contra-variant.
 
   The problem arises from the type parameter being used as covariant during
   ``read'' operations (as in <with|font-family|tt|f1>), and contravariant
   during ``write'' operations (as in <with|font-family|tt|f2>). To solve this
   problem, we use an elegant trick described in <cite|pottierphd>, attributed
-  to Luca Cardelli, and Smith and Trifonov (independantly): we introduce
+  to Luca Cardelli, and Smith and Trifonov (independently): we introduce
   <with|font-shape|italic|two> type parameters, one contravariant and one
   covariant.
 
@@ -2447,7 +2447,7 @@
   Typing ungeneralised bindings is simpler as all of the information about
   the binding can be merged into a single set of constraints. Generalised
   bindings offer more flexibility since they allow terms to be used in
-  different ways at different points in the program. Unfortuneatly, we can't
+  different ways at different points in the program. Unfortunately, we can't
   generalise everything: type inference with first-class generalised bindings
   is undecidable<\footnote>
     Although, by requiring type annotations in situations requiring
@@ -2569,7 +2569,7 @@
   inheritance (the ability to inherit code and data definitions from multiple
   extended classes) is a good thing or not, it is clear from its presence in
   almost every that multiple <with|font-shape|italic|subtyping> (the ability
-  to implement interfaces from multiple exteded classes, such as Java or C#
+  to implement interfaces from multiple extended classes, such as Java or C#
   interfaces) is vital to a nominatively-typed object-oriented language. It
   is this feature which allows, say, a <tt|List> class to be iterated over
   (via a <tt|Iterable> interface), checked for equality with other lists (via
@@ -2852,7 +2852,7 @@
 
   The requirement that our types form a lattice led to the inclusion of a few
   extra types (to ``fill in the blanks'' by giving every pair of types a glb
-  and lub), some of which turn out to be independantly useful. In particular,
+  and lub), some of which turn out to be independently useful. In particular,
   we gain interface intersection types: for any two classes or interfaces
   <math|C<rsub|1>> and <math|C<rsub|2>>, it is possible to define a function
   which takes arguments of type <math|C<rsub|1>\<sqcap\>C<rsub|2>>, demanding
@@ -2999,10 +2999,10 @@
     within a functional language. Each statement has an extra hidden input
     and output, and the sequential composition threads them together so that
     each statement can ``see'' the effect the previous one had on this hidden
-    parametr.
+    parameter.
 
     <item*|List>This one is difficult to express in an imperative language:
-    its notion of sequential composition is to perfom the second statement
+    its notion of sequential composition is to perform the second statement
     for each value that the left produces, thus modelling non-determinism or
     multiple-valued returns.
 
@@ -3035,10 +3035,10 @@
   of the grammar is annotated with an action, which gives a means of
   computing a value for that node in the derivation tree from the values of
   the sub-nodes. There are no restrictions on what form the values may take;
-  any Haskell value is permissable. Common examples would be simple
+  any Haskell value is permissible. Common examples would be simple
   calculator-style grammars, where the value is simply the result of the
-  computation, and grammars constructing abstract sytax trees where the value
-  is a list (or other structure) of its children.
+  computation, and grammars constructing abstract syntax trees where the
+  value is a list (or other structure) of its children.
 
   These essentially amount to an attributed translation grammar with support
   for synthesised attributes. Inherited attributes, where a node higher in
@@ -3071,7 +3071,7 @@
   number of standard analysis and optimisation passes defined in terms of the
   LLVM IR, and so can be used to perform all of the mid- and low-level
   optimisations that are necessary for efficient code. These include dead
-  code elimination, partial redudancy elimination, invariant hoisting and
+  code elimination, partial redundancy elimination, invariant hoisting and
   inlining. So, the task for a compiler-writer becomes simply to generate
   <with|font-shape|italic|valid> LLVM IR and let LLVM worry about generating
   fast code.
@@ -3129,7 +3129,7 @@
   <chapquote|All things are subject to interpretation ...|Friedrich
   Nietzsche>
 
-  Most compilers have quite a lot of seemingly redudant code. For instance,
+  Most compilers have quite a lot of seemingly redundant code. For instance,
   each phase of the compiler (e.g. code generation, type checking,
   optimisation) must ``know'' about the symbol table data structures. They
   must all understand whatever IR is being used to represent the program
@@ -3312,7 +3312,7 @@
   concrete details of the type <math|\<cal-E\>> used to represent values. By
   abstracting this away, we allow different implementations of the runtime
   data structures without having to change any code in <tt|eval> to
-  accomodate them. <tt|eval> no longer depends on a specific data structure
+  accommodate them. <tt|eval> no longer depends on a specific data structure
   used to represent values, and will now work with any type
   <math|<with|math-font|cal|\<cal-E\>>> as long as certain operations
   (<tt|varGet>, <tt|varSet> and so on) are defined on it.
@@ -3327,7 +3327,7 @@
   names for efficiency and simply uses pointers to mutable storage as
   variables.
 
-  As the language grows bigger, the <tt|eval> function grows to accomodate
+  As the language grows bigger, the <tt|eval> function grows to accommodate
   every part of the syntax and define the semantics for the entire language.
   The set of primitive operations remains relatively small. So, by
   generalising <tt|eval> over <math|<with|math-font|cal|V>> and
@@ -3573,7 +3573,7 @@
   iteration of the loop will be exactly the same as the previous.
 
   So, we introduce one more primitive operation: <tt|fixiter>. This operation
-  perfoms something akin to a fixpoint iteration. <tt|fixiter> converts a
+  performs something akin to a fixpoint iteration. <tt|fixiter> converts a
   monad action taking an input of type <math|a> and returning an output of
   type <math|a> or type <math|b> into one that takes an input of type
   <math|a> and returns one of type <math|b>. In Haskell syntax:
@@ -3678,7 +3678,7 @@
   keys to offsets within the structure efficiently.
 
   The trivial (and initially implemented) solution is simply to do a linear
-  scan of the type table on each lookp, but more efficient solutions are
+  scan of the type table on each lookup, but more efficient solutions are
   possible. We propose a simple hashing scheme. This problem is related to
   the problems of storing sparse tables<cite|sparsetables>.
 
@@ -3797,7 +3797,7 @@
   a list of instructions, we have it generate a set of constraints. Also, we
   can ignore the state parameter used in the compiler's
   <math|<with|math-font|cal|M>>, since the types of terms are required to be
-  independant of the point in the execution of the program. Since there is no
+  independent of the point in the execution of the program. Since there is no
   state parameter, coalescing is easy to implement, and since we allow
   recursive constraints, <tt|fixiter> is relatively easy.
 
@@ -3821,11 +3821,11 @@
 
   As a final description of the architecture of the implementation, this
   section contains a list of the operations available to <tt|eval>. The
-  various components simply implement these primtives, and the common
+  various components simply implement these primitives, and the common
   language description in <tt|eval> hooks them together.
 
   Before describing the operations themselves, it is worth pointing out a few
-  features conspicious by their absence:
+  features conspicuous by their absence:
 
   <\description>
     <item*|Control flow>There are no intraprocedure control flow operations
@@ -3886,12 +3886,12 @@
   and instantiating classes.
 
   Any function which can be implemented in terms of the above primitives can
-  be executed using the interpreter's definiton of those primitives, compiled
-  using the compiler's, or typechecked using the typechecker's. <brick>'s
-  parser, rather than produce a syntax tree, simply ``executes'' the program
-  in an arbitrary monad <math|\<cal-M\>> in terms of these primitives. The
-  result of this ``execution'' can then be evaluated in any or all of the
-  compiler components.
+  be executed using the interpreter's definition of those primitives,
+  compiled using the compiler's, or typechecked using the typechecker's.
+  <brick>'s parser, rather than produce a syntax tree, simply ``executes''
+  the program in an arbitrary monad <math|\<cal-M\>> in terms of these
+  primitives. The result of this ``execution'' can then be evaluated in any
+  or all of the compiler components.
 
   <chapter|Conclusions and future work>
 
@@ -4238,7 +4238,7 @@
 
   \;
 
-  Bound names will be divided into two syntatically distinct classes:
+  Bound names will be divided into two syntactically distinct classes:
   <math|<text|x>>, <text|y>, <text|z>, bound by <math|\<lambda\>>, and
   <math|<wide|\<b-x\>|^>,<wide|\<b-y\>|^>,<wide|\<b-z\>|^>>, bound by let
   (for a discussion of the distinction, including restrictions on what can be
@@ -4246,7 +4246,7 @@
   variables are omitted entirely, their effect is the same as that of a
   structure containing only one field.
 
-  Typing judgements will be of the form <math|\<Gamma\>\<vdash\>\<mathe\>:\<tau\>\\C>,
+  Typing judgments will be of the form <math|\<Gamma\>\<vdash\>\<mathe\>:\<tau\>\\C>,
   where <math|\<mathe\>> is the program being typed, <math|C> is the
   resulting constraint graph, <math|\<tau\>> is the constructed type or
   variable within the constraint graph representing the type, and
@@ -4321,8 +4321,8 @@
   allowed to have more than one field by virtue of <name|Sub>), to allow
   renaming of variables in generalised terms (<name|Sub> allows the
   constraints generated by a use of <name|Let-Var> to be
-  <math|\<alpha\>>-renamed, provinding generalisation) and to allow
-  simplfication of inferred type (any valid simplification can be justified
+  <math|\<alpha\>>-renamed, providing generalisation) and to allow
+  simplification of inferred type (any valid simplification can be justified
   by a use of <name|Sub>).
 
   The first situation is avoided by removing all constructed terms from
@@ -4332,7 +4332,7 @@
   construct a valid derivation.
 
   The second situation is resolved by handling renaming of generalised
-  variables explicitly, whiile the third is resolved by introducing an
+  variables explicitly, while the third is resolved by introducing an
   explicit rule <name|Simplify><math|> for performing simplifications which
   don't change the semantics of the graph. Its hypothesis demands that the
   two rc types be exactly equivalent (<math|\<equiv\><rsub|\<Gamma\>><rsup|\<forall\>>>
